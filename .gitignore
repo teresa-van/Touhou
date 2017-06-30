@@ -1,0 +1,51 @@
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# User-specific files (MonoDevelop/Xamarin Studio)
+*.userprefs
+
+
+# Visual Studio
+Visual Studio/packages/
+
+Visual Studio/WcfServiceApp/[Dd]ebug/
+Visual Studio/WcfServiceApp/x64/
+Visual Studio/WcfServiceApp/x86/
+Visual Studio/WcfServiceApp/build/
+Visual Studio/WcfServiceApp/bld/
+Visual Studio/WcfServiceApp/[Bb]in/
+Visual Studio/WcfServiceApp/[Oo]bj/
+
+Visual Studio/WebApp/[Dd]ebug/
+Visual Studio/WebApp/x64/
+Visual Studio/WebApp/x86/
+Visual Studio/WebApp/build/
+Visual Studio/WebApp/bld/
+Visual Studio/WebApp/[Bb]in/
+Visual Studio/WebApp/[Oo]bj/
+
+# Unity
+Unity/Library/
+Unity/Temp/
+Unity/Obj/
+Unity/Build/
+Unity/Assets/AssetStoreTools*
+Unity/App
+Unity/ExportedObj/
+Unity/.consulo/
+Unity/*.csproj
+Unity/*.unityproj
+Unity/*.sln
+Unity/*.suo
+Unity/*.tmp
+Unity/*.user
+Unity/*.userprefs
+Unity/*.pidb
+Unity/*.booproj
+Unity/*.svd
+Unity/*.pidb.meta
+Unity/sysinfo.txt
+!*.*.meta
