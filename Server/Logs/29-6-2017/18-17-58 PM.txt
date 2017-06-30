@@ -1,0 +1,4 @@
+29-6-2017 18:17:58 PM	[Trace]	#### Server boot ####
+29-6-2017 18:17:58 PM	[Trace]	#### Server boot ####
+29-6-2017 18:17:58 PM	[Log]	Server mounted, listening on port 4296
+29-6-2017 18:17:58 PM	[Trace]	Found a total of 0 plugins.

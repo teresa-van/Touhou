@@ -1,0 +1,6 @@
+29-6-2017 18:06:32 PM	[Trace]	#### Server boot ####
+29-6-2017 18:06:32 PM	[Fatal]	settings.cnf did not load corectly, could not continue.
+29-6-2017 18:06:32 PM	[Trace]	System.IO.FileNotFoundException: Could not find file 'C:\Users\xSmil\Documents\GitHub\Touhou\Unity\settings.cnf'.
+File name: 'C:\Users\xSmil\Documents\GitHub\Touhou\Unity\settings.cnf'
+   at DarkRift.ConfigTools.ConfigReader.Load(String filename)
+   at DarkRift.DarkRiftServer.Bootstrap(Mode mode, Action`1 onLog, Action`1 onWarning, Action`1 onError, Action`1 onFatal, IManualDataProcessor manualDataProcessor, Type[] forceLoadPlugins, Int32 port)
