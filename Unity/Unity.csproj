@@ -79,14 +79,14 @@
     <Reference Include="Mono.Cecil">
       <HintPath>Library\UnityAssemblies\Mono.Cecil.dll</HintPath>
     </Reference>
-    <Reference Include="DarkRift">
-      <HintPath>Assets\DarkRift\EmbeddedServer\DarkRift.dll</HintPath>
-    </Reference>
     <Reference Include="DarkRiftAPI">
       <HintPath>Assets\DarkRift\DarkRift\Plugins\DarkRiftAPI.dll</HintPath>
     </Reference>
     <Reference Include="Transmission">
       <HintPath>Assets\DarkRift\DarkRift\Plugins\Transmission.dll</HintPath>
+    </Reference>
+    <Reference Include="DarkRift">
+      <HintPath>Assets\DarkRift\EmbeddedServer\DarkRift.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -106,6 +106,7 @@
     <Compile Include="Assets\DarkRift\PlayerDemo\NetworkPlayer.cs" />
     <Compile Include="Assets\DarkRift\PlayerDemo\Player.cs" />
     <Compile Include="Assets\DarkRift\PlayerDemo\TagIndex.cs" />
+    <Compile Include="Assets\Scenes\Login\FullScreenBackground.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\DarkRift\ChangeLog.txt" />

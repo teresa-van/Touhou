@@ -32,16 +32,17 @@ public class FullScreenBackground : MonoBehaviour {
     public void ScaleBackground()
     {
         Vector2 scale = transform.localScale;
-        if (cameraSize.x >= cameraSize.y)
-        {   // Landscape (or equal)
-            scale *= cameraSize.x / spriteSize.x;
-        }
-        else
-        {   // Portrait
-            scale *= cameraSize.y / spriteSize.y;
-        }
+        //if (cameraSize.x >= cameraSize.y)
+        //{   // Landscape (or equal)
+        //    scale *= cameraSize.x / spriteSize.x;
+        //}
+        //else
+        //{   // Portrait
+        //    scale *= cameraSize.y / spriteSize.y;
+        //}
+        scale *= cameraSize.y / spriteSize.y;
 
-        transform.position = Vector2.zero; // Optional
+        //transform.position = Vector2.zero; // Optional
         transform.localScale = scale;
     }
 
