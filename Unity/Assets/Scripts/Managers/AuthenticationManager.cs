@@ -5,7 +5,9 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
+using Scripts.Models.Auth;
 using Scripts.Models;
+using UnityEngine.SceneManagement;
 
 public class AuthenticationManager : MonoBehaviour {
 
@@ -29,8 +31,6 @@ public class AuthenticationManager : MonoBehaviour {
     {
         get { return this.User != null; }
     }
-
-
 
     /// <summary>
     /// Username input field
@@ -95,14 +95,14 @@ public class AuthenticationManager : MonoBehaviour {
     /// </summary>
     private void AuthenticateUser(string username, string password)
     {
-        //HTTPRequest request = UserHelper.GetRequest_AuthenticateUser(username, password);
-       // StartCoroutine(ProceesAuthenticateUser(request));
+        HTTPRequest request = UserHelper.GetRequest_AuthenticateUser(username, password);
+        StartCoroutine(ProcessAuthenticateUser(request));
     }
 
     /// <summary>
     /// Execute the request and process the resposnse
     /// </summary>
-    private IEnumerator ProceesAuthenticateUser(HTTPRequest request)
+    private IEnumerator ProcessAuthenticateUser(HTTPRequest request)
     {
 
         //Execute the request
@@ -112,12 +112,12 @@ public class AuthenticationManager : MonoBehaviour {
         yield return StartCoroutine(request);
 
         //Parse the response
-        //ServiceResponseModel<string> response = UserHelper.ParseResponse_AuthenticateUser(request.Response.DataAsText);
+        ServiceResponseModel<string> response = UserHelper.ParseResponse_AuthenticateUser(request.Response.DataAsText);
 
         //If authenticated, get user information
-        //if (response.Success)
+        if (response.Success)
         {
-           // request = UserHelper.GetRequest_GetUserInformation(response.Data);
+            request = UserHelper.GetRequest_GetUserInformation(response.Data);
 
             //Execute the request
             request.Send();
@@ -126,29 +126,25 @@ public class AuthenticationManager : MonoBehaviour {
             yield return StartCoroutine(request);
 
             //Parse the response
-            //ServiceResponseModel<UserModel> userInformationResponse = UserHelper.ParseResponse_GetUserInformation(request.Response.DataAsText);
+            ServiceResponseModel<UserModel> userInformationResponse = UserHelper.ParseResponse_GetUserInformation(request.Response.DataAsText);
 
             //Information retrieved successfully
-            //if (userInformationResponse.Success)
+            if (userInformationResponse.Success)
             {
-
-                //Execute the request
-                request.Send();
-
-                //Wait for reply
-                yield return StartCoroutine(request);
+                SceneManager.LoadScene("Scenes/Main/Main");
+                Debug.Log("User information retrieved successfully");
             }
             //Error while getting user information
-           // else
-           // {
-
-           // }
+            else
+            {
+                Debug.Log("Failed to retrieve user information");
+            }
         }
-        ////Not authenticated
-        //else
-        //{
-
-        //}
+        //Not authenticated
+        else
+        {
+            Debug.Log("Authentication failed.");
+        }
     }
 
     #endregion
@@ -173,8 +169,8 @@ public class AuthenticationManager : MonoBehaviour {
                 File.Create(userInfoPath).Dispose();
 
             //Then save it
-            //string userJson = JsonConvert.SerializeObject(user);
-           // File.WriteAllText(userInfoPath, userJson);
+            string userJson = JsonConvert.SerializeObject(user);
+            File.WriteAllText(userInfoPath, userJson);
 
             //Reference it
             this.User = user;
@@ -197,8 +193,8 @@ public class AuthenticationManager : MonoBehaviour {
         string userJson = File.ReadAllText(userInfoPath);
 
         //Decode and reference
-       // UserModel user = JsonConvert.DeserializeObject<UserModel>(userJson);
-        //this.User = user;
+        UserModel user = JsonConvert.DeserializeObject<UserModel>(userJson);
+        this.User = user;
         return true;
     }
 

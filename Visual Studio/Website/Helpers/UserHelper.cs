@@ -31,18 +31,18 @@ namespace Website.Helpers
                 if (!dbHelper.OpenConnection(out message))
                     return false;
 
-                string commandName = @"CheckIfUserExists";
-                SqlParameter[] parameters = new SqlParameter[1];
-                parameters[0] = new SqlParameter("@username", username);
+                //string commandName = @"CheckIfUserExists";
+                //SqlParameter[] parameters = new SqlParameter[1];
+                //parameters[0] = new SqlParameter("@username", username);
 
-                //Execute
-                DataTable valid1 = dbHelper.ExecuteDataQueryStoredProcedure(commandName, parameters, out message);
-                if (valid1.Rows.Count != 0)
-                    throw new Exception(message);
+                ////Execute
+                //DataTable valid1 = dbHelper.ExecuteDataQueryStoredProcedure(commandName, parameters, out message);
+                //if (valid1.Rows.Count != 0)
+                //    throw new Exception(message);
 
                 //Prepare command variables
-                commandName = @"AddUser";
-                parameters = new SqlParameter[4];
+                string commandName = @"AddUser";
+                SqlParameter[] parameters = new SqlParameter[4];
                 parameters[0] = new SqlParameter("@id", id);
                 parameters[1] = new SqlParameter("@username", username);
                 parameters[2] = new SqlParameter("@password", password);
@@ -181,7 +181,7 @@ namespace Website.Helpers
         }
 
         /// <summary>
-        /// Get information about all alpaca
+        /// Get information about all user
         /// </summary>
         public static List<UserModel> GetAllUsers(out string message)
         {
@@ -334,6 +334,60 @@ namespace Website.Helpers
             {
                 message = exception.Message;
                 return false;
+            }
+        }
+
+        #endregion
+
+        #region Authenticate Methods
+
+        /// <summary>
+        /// Delete user from the system
+        /// </summary>
+        public static string AuthenticateUser(string username, string password, out string message)
+        {
+            try
+            {
+
+                //Initialize database connection
+                DatabaseHelper dbHelper = new DatabaseHelper();
+
+                //Open database connection
+                if (!dbHelper.OpenConnection(out message))
+                    return null;
+
+                //Prepare command variables
+                string commandName = @"GetAllUsers";
+                SqlParameter[] parameters = new SqlParameter[0];
+
+                //Execute
+                DataTable table = dbHelper.ExecuteDataQueryStoredProcedure(commandName, parameters, out message);
+                if (table == null)
+                    throw new Exception(message);
+
+                //Close database connection
+                dbHelper.CloseConnection(out message);
+
+                //Parse data received
+                foreach (DataRow row in table.Rows)
+                {
+                    if (username.Equals(row["username"] as string) && password.Equals(row["password"] as string))
+                    {
+                        string id = row["id"] as string;
+
+                        //Return
+                        message = "Authentication success.";
+                        return id;
+                    }
+                }
+                //Return
+                message = "Incorrect username or password.";
+                return null;
+            }
+            catch (Exception exception)
+            {
+                message = exception.Message;
+                return null;
             }
         }
 

@@ -57,7 +57,7 @@ namespace Website.Webservices
         }
 
         /// <summary>
-        /// Delete an alpaca from the system
+        /// Delete an user from the system
         /// </summary>
         [WebMethod(EnableSession = true)]
         [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
@@ -104,16 +104,24 @@ namespace Website.Webservices
             StringBuilder JSON = new StringBuilder();
             string message;
 
-            UserModel alpaca = UserHelper.GetUser(id, out message);
-            if (alpaca != null)
+            UserModel user = UserHelper.GetUser(id, out message);
+            if (user != null)
             {
                 JSON.Append("{");
-                JSON.Append("\"alpaca\":" + JsonConvert.SerializeObject(alpaca));
+                JSON.Append("\"success\":true,");
+                JSON.Append("\"data\":");
+                JSON.Append("{");
+                JSON.Append("\"user\":" + JsonConvert.SerializeObject(user));
+                JSON.Append("},");
+                JSON.Append("\"message\"");
+                JSON.Append(":");
+                JSON.Append(JsonConvert.SerializeObject(message));
                 JSON.Append("}");
             }
             else
             {
                 JSON.Append("{");
+                JSON.Append("\"success\":false,");
                 JSON.Append("\"message\"");
                 JSON.Append(":");
                 JSON.Append(JsonConvert.SerializeObject(message));
@@ -138,6 +146,7 @@ namespace Website.Webservices
             if (users != null)
             {
                 JSON.Append("{");
+                JSON.Append("\"success\":true,");
                 JSON.Append("\"data\":");
                 JSON.Append("[");
                 foreach (UserModel user in users)
@@ -160,12 +169,16 @@ namespace Website.Webservices
                     if (users.Last() != user)
                         JSON.Append(",");
                 }
-                JSON.Append("]");
+                JSON.Append("],");
+                JSON.Append("\"message\"");
+                JSON.Append(":");
+                JSON.Append(JsonConvert.SerializeObject(message));
                 JSON.Append("}");
             }
             else
             {
                 JSON.Append("{");
+                JSON.Append("\"success\":false,");
                 JSON.Append("\"message\"");
                 JSON.Append(":");
                 JSON.Append(JsonConvert.SerializeObject(message));
@@ -246,6 +259,47 @@ namespace Website.Webservices
             }
 
             return JSON.ToString();
+        }
+
+        #endregion
+
+        #region Authenticate
+
+        /// <summary>
+        /// Get the information about a specific user
+        /// </summary>
+        [WebMethod(EnableSession = true)]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json, UseHttpGet = true)]
+        public void AuthenticateUser(string username, string password)
+        {
+            StringBuilder JSON = new StringBuilder();
+            string message;
+
+            string id = UserHelper.AuthenticateUser(username, password, out message);
+            if (id != null)
+            {
+                JSON.Append("{");
+                JSON.Append("\"success\":true,");
+                JSON.Append("\"data\":");
+                JSON.Append(JsonConvert.SerializeObject(id));
+                JSON.Append(",");
+                JSON.Append("\"message\"");
+                JSON.Append(":");
+                JSON.Append(JsonConvert.SerializeObject(message));
+                JSON.Append("}");
+            }
+            else
+            {
+                JSON.Append("{");
+                JSON.Append("\"success\":false,");
+                JSON.Append("\"message\"");
+                JSON.Append(":");
+                JSON.Append(JsonConvert.SerializeObject(message));
+                JSON.Append("}");
+            }
+
+            this.Context.Response.ContentType = "application/json; charset=utf-8";
+            this.Context.Response.Write(JSON.ToString());
         }
 
         #endregion
