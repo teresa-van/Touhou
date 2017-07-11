@@ -1,0 +1,14 @@
+﻿@font-face {
+    font-family: Josefin Sans Light;
+    src: url("../../Assets/fonts/JosefinSans-Light.ttf");
+}
+
+* {
+    font-family: Josefin Sans Light;
+    src: url("../../Assets/fonts/JosefinSans-Light.ttf");
+}
+
+@font-face {
+    font-family: Josefin Sans;
+    src: url("../../Assets/fonts/JosefinSans-Regular.ttf");
+}

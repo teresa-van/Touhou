@@ -19,13 +19,13 @@ Visual Studio/WcfServiceApp/bld/
 Visual Studio/WcfServiceApp/[Bb]in/
 Visual Studio/WcfServiceApp/[Oo]bj/
 
-Visual Studio/WebApp/[Dd]ebug/
-Visual Studio/WebApp/x64/
-Visual Studio/WebApp/x86/
-Visual Studio/WebApp/build/
-Visual Studio/WebApp/bld/
-Visual Studio/WebApp/[Bb]in/
-Visual Studio/WebApp/[Oo]bj/
+Visual Studio/Website/[Dd]ebug/
+Visual Studio/Website/x64/
+Visual Studio/Website/x86/
+Visual Studio/Website/build/
+Visual Studio/Website/bld/
+Visual Studio/Website/[Bb]in/
+Visual Studio/Website/[Oo]bj/
 
 # Unity
 Unity/Library/

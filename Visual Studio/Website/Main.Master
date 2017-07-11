@@ -1,0 +1,135 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Main.master.cs" Inherits="Website.Main" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<!-- BEGIN HEAD -->
+<head runat="server">
+
+    <!-- BEGIN META-DATA SECTION -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <link rel="shortcut icon" href="../Assets/img/favicon.png" type="image/png" />
+    <title>Danmaku!!</title>
+    <!-- END META-DATA SECTION -->
+
+    <!-- BEGIN STYLE SECTION -->
+    <link rel="stylesheet" type="text/css" href="../../Assets/css/FontStyleSheet.css" />
+    <link href="../Assets/css/style.css" rel="stylesheet" />
+    <link href="../Assets/css/ui.css" rel="stylesheet" />
+    <link href="../Assets/css/libraries/bootstrap-tagsinput.css" rel="stylesheet" />
+    <script src="<%= ResolveUrl("~/Assets/js/libraries/modernizr-2.6.2-respond-1.1.0.min.js") %>"></script>
+    <!-- END STYLE SECTION -->
+
+    <!-- BEGIN HEAD CONTENT SECTION -->
+    <asp:ContentPlaceHolder ID="HeadContentPlaceHolder" runat="server"></asp:ContentPlaceHolder>
+    <!-- END HEAD CONTENT SECTION -->
+
+</head>
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+<body class="sidebar-top fixed-topbar fixed-sidebar theme-sdtl color-default dashboard">
+
+    <!-- BEGIN MAIN FORM -->
+    <form id="mainForm" runat="server">
+        <section>
+
+            <!-- BEGIN NAV BAR -->
+            <div class="Home">
+                <nav class="navbar navbar-inverse navbar-static-top">
+                    <div class="container">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar3">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <a class="navbar-brand" href="./Home.aspx">
+                                <img src="http://www.icons101.com/icon_ico/id_83362/TH_Reimu.ico" width="50%" alt="Danmaku!!"><br>
+                                <img src="http://www.icons101.com/icon_ico/id_83363/TH_Youmu.ico" width="50%" alt="Danmaku!!"><br>
+                                <img src="http://www.icons101.com/icon_ico/id_83358/TH_125_daburu_supoira.ico" width="50%" alt="Danmaku!!"><br>
+                                <img src="../../Assets/img/icons/icon1.png" width="50%" alt="Danmaku!!"><br>
+                                <img src="../../Assets/img/icons/icon2.png" width="50%" alt="Danmaku!!"><br>
+                                <img src="../../Assets/img/icons/icon3.png" width="50%" alt="Danmaku!!">        
+                            </a>
+                        </div>
+                        <div id="navbar3" class="navbar-collapse collapse">
+                            <ul class="nav navbar-nav navbar-right">
+                                <li class="<%= PageName == "Register" ? "active" : "" %>"><a href="./Home.aspx"><i class="icon-star"></i><span>Register</span></a></li>
+	                            <li class="<%= PageName == "ViewUsers" ? "active" : "" %>"><a href="./Users.aspx"><i class="icon-user"></i>View Users</a></li>
+                            </ul>
+                        </div>
+                        <!--/.nav-collapse -->
+                    </div>
+                    <!--/.container-fluid -->
+                </nav>
+            </div>
+
+            <!-- END NAV BAR -->
+
+            <!-- BEGIN MAIN CONTENT -->
+            <div class="main-content">
+
+                <!-- BEGIN PAGE CONTENT -->
+                <div class="page-content page-thin">
+                    <asp:ContentPlaceHolder ID="ContentPlaceHolder" runat="server"></asp:ContentPlaceHolder>
+                </div>
+                <!-- END PAGE CONTENT -->
+
+            </div>
+            <!-- END MAIN CONTENT -->
+
+        </section>
+    </form>
+    <!-- END MAIN FORM -->
+
+    <!-- BEGIN PRELOADER -->
+    <div class="loader-overlay">
+        <div class="spinner">
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+        </div>
+    </div>
+    <!-- END PRELOADER -->
+
+    <!-- BEGIN PRELOADER -->
+    <div class="modal">
+        <!-- Place at bottom of page -->
+    </div>
+    <!-- END PRELOADER -->
+
+    <!-- START JAVASCRIPT SECTION -->
+    <script>
+        var WEBSERVICE_URL = "../../Webservices/";
+        function showLoadingOverlay() {
+            $(".loader-overlay").removeClass("loaded");
+        }
+        function hideLoadingOverlay() {
+            $(".loader-overlay").addClass("loaded");
+        }
+    </script>
+    <a href="#" class="scrollup"><i class="fa fa-angle-up"></i></a>
+    <script src="<%= ResolveUrl("~/Assets/js/libraries/jquery-1.11.1.min.js") %>"></script>
+    <script src="<%= ResolveUrl("~/Assets/js/libraries/jquery-migrate-1.2.1.min.js") %>"></script>
+    <script src="<%= ResolveUrl("~/Assets/js/libraries/jquery-ui-1.11.2.min.js") %>"></script>
+    <script src="<%= ResolveUrl("~/Assets/js/libraries/main-gsap.min.js") %>"></script>
+    <script src="<%= ResolveUrl("~/Assets/js/libraries/bootstrap.min.js") %>"></script>
+    <script src="<%= ResolveUrl("~/Assets/js/libraries/date.js") %>"></script>
+    <script src="<%= ResolveUrl("~/Assets/js/libraries/bootstrap-tagsinput.min.js") %>"></script>
+    <script src="<%= ResolveUrl("~/Assets/js/application.js") %>"></script>
+    <!-- Main Application Script -->
+    <script src="<%= ResolveUrl("~/Assets/js/libraries/jquery.signalR-2.2.0.min.js") %>"></script>
+    <!-- END JAVASCRIPT SECTION -->
+
+    <!-- START JAVASCRIPT CONTENT SECTION -->
+    <asp:ContentPlaceHolder ID="JavascriptContentPlaceHolder" runat="server"></asp:ContentPlaceHolder>
+    <!-- END JAVASCRIPT CONTENT SECTION -->
+
+</body>
+<!-- END BODY -->
+
+</html>

@@ -107,6 +107,7 @@
     <Compile Include="Assets\DarkRift\PlayerDemo\Player.cs" />
     <Compile Include="Assets\DarkRift\PlayerDemo\TagIndex.cs" />
     <Compile Include="Assets\Scenes\Login\FullScreenBackground.cs" />
+    <Compile Include="Assets\Scripts\GeneralGameManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\DarkRift\ChangeLog.txt" />

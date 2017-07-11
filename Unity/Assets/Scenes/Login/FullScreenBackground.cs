@@ -29,6 +29,9 @@ public class FullScreenBackground : MonoBehaviour {
 
     #region Method
 
+    /// <summary>
+    /// Scale the background with respect to the camera size and resolution.
+    /// </summary>
     public void ScaleBackground()
     {
         Vector2 scale = transform.localScale;

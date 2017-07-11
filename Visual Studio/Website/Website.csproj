@@ -1,0 +1,396 @@
+﻿<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{6A1C5F83-1D37-4AB1-A5C7-E5EB152BCF9B}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Website</RootNamespace>
+    <AssemblyName>Website</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+    <Content Include="Main.Master" />
+    <Content Include="Assets\css\icons\font-awesome\fontawesome-webfont.woff" />
+    <Content Include="Assets\css\icons\font-awesome\fontawesome-webfont.woff2" />
+    <Content Include="Assets\css\icons\glyphicons\glyphicons-halflings-regular.eot" />
+    <Content Include="Assets\css\icons\glyphicons\glyphicons-halflings-regular.ttf" />
+    <Content Include="Assets\css\icons\glyphicons\glyphicons-halflings-regular.woff" />
+    <Content Include="Assets\css\icons\line-icons\fonts\line-icons.eot" />
+    <Content Include="Assets\css\icons\line-icons\fonts\line-icons.ttf" />
+    <Content Include="Assets\css\icons\line-icons\fonts\line-icons.woff" />
+    <Content Include="Assets\css\icons\line-icons\fonts\Simple-Line-Icons.eot" />
+    <Content Include="Assets\css\icons\line-icons\fonts\Simple-Line-Icons.ttf" />
+    <Content Include="Assets\css\icons\line-icons\fonts\Simple-Line-Icons.woff" />
+    <Content Include="Assets\css\icons\octicons\octicons-local.ttf" />
+    <Content Include="Assets\css\icons\octicons\octicons.eot" />
+    <Content Include="Assets\css\icons\octicons\octicons.less" />
+    <Content Include="Assets\css\icons\octicons\octicons.ttf" />
+    <Content Include="Assets\css\icons\octicons\octicons.woff" />
+    <Content Include="Assets\css\icons\octicons\README.md" />
+    <Content Include="Assets\css\icons\octicons\sprockets-octicons.scss" />
+    <Content Include="Assets\css\icons\rounded\fonts\Metrize-Icons.eot" />
+    <Content Include="Assets\css\icons\rounded\fonts\Metrize-Icons.ttf" />
+    <Content Include="Assets\css\icons\rounded\fonts\Metrize-Icons.woff" />
+    <Content Include="Assets\css\icons\weather\artill_clean_icons-webfont.eot" />
+    <Content Include="Assets\css\icons\weather\artill_clean_icons-webfont.ttf" />
+    <Content Include="Assets\css\icons\weather\artill_clean_icons-webfont.woff" />
+    <Content Include="Assets\css\icons\weather\font\weathericons-regular-webfont.eot" />
+    <Content Include="Assets\css\icons\weather\font\weathericons-regular-webfont.ttf" />
+    <Content Include="Assets\css\icons\weather\font\weathericons-regular-webfont.woff" />
+    <Content Include="Assets\css\icons\weather\font\WeatherIcons-Regular.otf" />
+    <Content Include="Assets\css\icons\weather\weather-icons\icon-classes.less" />
+    <Content Include="Assets\css\icons\weather\weather-icons\variables.less" />
+    <Content Include="Assets\css\icons\weather\weather-icons\weather-icons.less" />
+    <Content Include="Assets\css\icons\weather\weather-icons\weather-icons.min.less" />
+    <Content Include="Assets\fonts\.vs\VSWorkspaceState.json" />
+    <Content Include="Assets\fonts\JosefinSans-Light.ttf" />
+    <Content Include="Assets\fonts\JosefinSans-Regular.ttf" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\css\icons\font-awesome\font-awesome.css" />
+    <Content Include="Assets\css\icons\glyphicons\glyphicons-halflings-regular.svg" />
+    <Content Include="Assets\css\icons\line-icons\fonts\line-icons.svg" />
+    <Content Include="Assets\css\icons\line-icons\fonts\Simple-Line-Icons.dev.svg" />
+    <Content Include="Assets\css\icons\line-icons\fonts\Simple-Line-Icons.svg" />
+    <Content Include="Assets\css\icons\line-icons\icons-lte-ie7.js" />
+    <Content Include="Assets\css\icons\line-icons\icons-reference.html" />
+    <Content Include="Assets\css\icons\line-icons\index.html" />
+    <Content Include="Assets\css\icons\line-icons\line-icons.css" />
+    <Content Include="Assets\css\icons\line-icons\simple-line-icons.css" />
+    <Content Include="Assets\css\icons\line-icons\style.css" />
+    <Content Include="Assets\css\icons\octicons\LICENSE.txt" />
+    <Content Include="Assets\css\icons\octicons\octicons.css" />
+    <Content Include="Assets\css\icons\octicons\octicons.svg" />
+    <Content Include="Assets\css\icons\rounded\Font-Face\style.css" />
+    <Content Include="Assets\css\icons\rounded\fonts\Metrize-Icons.dev.svg" />
+    <Content Include="Assets\css\icons\rounded\fonts\Metrize-Icons.svg" />
+    <Content Include="Assets\css\icons\rounded\index.html" />
+    <Content Include="Assets\css\icons\rounded\lte-ie7.js" />
+    <Content Include="Assets\css\icons\rounded\preview.jpg" />
+    <Content Include="Assets\css\icons\rounded\style.css" />
+    <Content Include="Assets\css\icons\weather\artill_clean_icons-webfont.svg" />
+    <Content Include="Assets\css\icons\weather\css\weather-icons.css" />
+    <Content Include="Assets\css\icons\weather\css\weather-icons.min.css" />
+    <Content Include="Assets\css\icons\weather\font\weathericons-regular-webfont.svg" />
+    <Content Include="Assets\css\img\t2-arr-left.png" />
+    <Content Include="Assets\css\img\t2-arr-right.png" />
+    <Content Include="Assets\css\libraries\bootstrap-rtl.min.css" />
+    <Content Include="Assets\css\libraries\bootstrap-tagsinput.css" />
+    <Content Include="Assets\css\libraries\bootstrap.min.css" />
+    <Content Include="Assets\css\libraries\icheck\all.css" />
+    <Content Include="Assets\css\libraries\icheck\flat\aero%402x.png" />
+    <Content Include="Assets\css\libraries\icheck\flat\aero.css" />
+    <Content Include="Assets\css\libraries\icheck\flat\aero.png" />
+    <Content Include="Assets\css\libraries\icheck\flat\blue%402x.png" />
+    <Content Include="Assets\css\libraries\icheck\flat\blue.css" />
+    <Content Include="Assets\css\libraries\icheck\flat\blue.png" />
+    <Content Include="Assets\css\libraries\icheck\flat\flat%402x.png" />
+    <Content Include="Assets\css\libraries\icheck\flat\flat.css" />
+    <Content Include="Assets\css\libraries\icheck\flat\flat.png" />
+    <Content Include="Assets\css\libraries\icheck\flat\green%402x.png" />
+    <Content Include="Assets\css\libraries\icheck\flat\green.css" />
+    <Content Include="Assets\css\libraries\icheck\flat\green.png" />
+    <Content Include="Assets\css\libraries\icheck\flat\grey%402x.png" />
+    <Content Include="Assets\css\libraries\icheck\flat\grey.css" />
+    <Content Include="Assets\css\libraries\icheck\flat\grey.png" />
+    <Content Include="Assets\css\libraries\icheck\flat\orange%402x.png" />
+    <Content Include="Assets\css\libraries\icheck\flat\orange.css" />
+    <Content Include="Assets\css\libraries\icheck\flat\orange.png" />
+    <Content Include="Assets\css\libraries\icheck\flat\pink%402x.png" />
+    <Content Include="Assets\css\libraries\icheck\flat\pink.css" />
+    <Content Include="Assets\css\libraries\icheck\flat\pink.png" />
+    <Content Include="Assets\css\libraries\icheck\flat\purple%402x.png" />
+    <Content Include="Assets\css\libraries\icheck\flat\purple.css" />
+    <Content Include="Assets\css\libraries\icheck\flat\purple.png" />
+    <Content Include="Assets\css\libraries\icheck\flat\red%402x.png" />
+    <Content Include="Assets\css\libraries\icheck\flat\red.css" />
+    <Content Include="Assets\css\libraries\icheck\flat\red.png" />
+    <Content Include="Assets\css\libraries\icheck\flat\yellow%402x.png" />
+    <Content Include="Assets\css\libraries\icheck\flat\yellow.css" />
+    <Content Include="Assets\css\libraries\icheck\flat\yellow.png" />
+    <Content Include="Assets\css\libraries\icheck\flat\_all.css" />
+    <Content Include="Assets\css\libraries\icheck\futurico\futurico%402x.png" />
+    <Content Include="Assets\css\libraries\icheck\futurico\futurico.css" />
+    <Content Include="Assets\css\libraries\icheck\futurico\futurico.png" />
+    <Content Include="Assets\css\libraries\icheck\line\aero.css" />
+    <Content Include="Assets\css\libraries\icheck\line\blue.css" />
+    <Content Include="Assets\css\libraries\icheck\line\green.css" />
+    <Content Include="Assets\css\libraries\icheck\line\grey.css" />
+    <Content Include="Assets\css\libraries\icheck\line\line%402x.png" />
+    <Content Include="Assets\css\libraries\icheck\line\line.css" />
+    <Content Include="Assets\css\libraries\icheck\line\line.png" />
+    <Content Include="Assets\css\libraries\icheck\line\orange.css" />
+    <Content Include="Assets\css\libraries\icheck\line\pink.css" />
+    <Content Include="Assets\css\libraries\icheck\line\purple.css" />
+    <Content Include="Assets\css\libraries\icheck\line\red.css" />
+    <Content Include="Assets\css\libraries\icheck\line\yellow.css" />
+    <Content Include="Assets\css\libraries\icheck\line\_all.css" />
+    <Content Include="Assets\css\libraries\icheck\minimal\aero%402x.png" />
+    <Content Include="Assets\css\libraries\icheck\minimal\aero.css" />
+    <Content Include="Assets\css\libraries\icheck\minimal\aero.png" />
+    <Content Include="Assets\css\libraries\icheck\minimal\blue%402x.png" />
+    <Content Include="Assets\css\libraries\icheck\minimal\blue.css" />
+    <Content Include="Assets\css\libraries\icheck\minimal\blue.png" />
+    <Content Include="Assets\css\libraries\icheck\minimal\green%402x.png" />
+    <Content Include="Assets\css\libraries\icheck\minimal\green.css" />
+    <Content Include="Assets\css\libraries\icheck\minimal\green.png" />
+    <Content Include="Assets\css\libraries\icheck\minimal\grey%402x.png" />
+    <Content Include="Assets\css\libraries\icheck\minimal\grey.css" />
+    <Content Include="Assets\css\libraries\icheck\minimal\grey.png" />
+    <Content Include="Assets\css\libraries\icheck\minimal\minimal%402x.png" />
+    <Content Include="Assets\css\libraries\icheck\minimal\minimal.css" />
+    <Content Include="Assets\css\libraries\icheck\minimal\minimal.png" />
+    <Content Include="Assets\css\libraries\icheck\minimal\orange%402x.png" />
+    <Content Include="Assets\css\libraries\icheck\minimal\orange.css" />
+    <Content Include="Assets\css\libraries\icheck\minimal\orange.png" />
+    <Content Include="Assets\css\libraries\icheck\minimal\pink%402x.png" />
+    <Content Include="Assets\css\libraries\icheck\minimal\pink.css" />
+    <Content Include="Assets\css\libraries\icheck\minimal\pink.png" />
+    <Content Include="Assets\css\libraries\icheck\minimal\purple%402x.png" />
+    <Content Include="Assets\css\libraries\icheck\minimal\purple.css" />
+    <Content Include="Assets\css\libraries\icheck\minimal\purple.png" />
+    <Content Include="Assets\css\libraries\icheck\minimal\red%402x.png" />
+    <Content Include="Assets\css\libraries\icheck\minimal\red.css" />
+    <Content Include="Assets\css\libraries\icheck\minimal\red.png" />
+    <Content Include="Assets\css\libraries\icheck\minimal\yellow%402x.png" />
+    <Content Include="Assets\css\libraries\icheck\minimal\yellow.css" />
+    <Content Include="Assets\css\libraries\icheck\minimal\yellow.png" />
+    <Content Include="Assets\css\libraries\icheck\minimal\_all.css" />
+    <Content Include="Assets\css\libraries\icheck\polaris\polaris%402x.png" />
+    <Content Include="Assets\css\libraries\icheck\polaris\polaris.css" />
+    <Content Include="Assets\css\libraries\icheck\polaris\polaris.png" />
+    <Content Include="Assets\css\libraries\icheck\square\aero%402x.png" />
+    <Content Include="Assets\css\libraries\icheck\square\aero.css" />
+    <Content Include="Assets\css\libraries\icheck\square\aero.png" />
+    <Content Include="Assets\css\libraries\icheck\square\blue%402x.png" />
+    <Content Include="Assets\css\libraries\icheck\square\blue.css" />
+    <Content Include="Assets\css\libraries\icheck\square\blue.png" />
+    <Content Include="Assets\css\libraries\icheck\square\green%402x.png" />
+    <Content Include="Assets\css\libraries\icheck\square\green.css" />
+    <Content Include="Assets\css\libraries\icheck\square\green.png" />
+    <Content Include="Assets\css\libraries\icheck\square\grey%402x.png" />
+    <Content Include="Assets\css\libraries\icheck\square\grey.css" />
+    <Content Include="Assets\css\libraries\icheck\square\grey.png" />
+    <Content Include="Assets\css\libraries\icheck\square\orange%402x.png" />
+    <Content Include="Assets\css\libraries\icheck\square\orange.css" />
+    <Content Include="Assets\css\libraries\icheck\square\orange.png" />
+    <Content Include="Assets\css\libraries\icheck\square\pink%402x.png" />
+    <Content Include="Assets\css\libraries\icheck\square\pink.css" />
+    <Content Include="Assets\css\libraries\icheck\square\pink.png" />
+    <Content Include="Assets\css\libraries\icheck\square\purple%402x.png" />
+    <Content Include="Assets\css\libraries\icheck\square\purple.css" />
+    <Content Include="Assets\css\libraries\icheck\square\purple.png" />
+    <Content Include="Assets\css\libraries\icheck\square\red%402x.png" />
+    <Content Include="Assets\css\libraries\icheck\square\red.css" />
+    <Content Include="Assets\css\libraries\icheck\square\red.png" />
+    <Content Include="Assets\css\libraries\icheck\square\square%402x.png" />
+    <Content Include="Assets\css\libraries\icheck\square\square.css" />
+    <Content Include="Assets\css\libraries\icheck\square\square.png" />
+    <Content Include="Assets\css\libraries\icheck\square\yellow%402x.png" />
+    <Content Include="Assets\css\libraries\icheck\square\yellow.css" />
+    <Content Include="Assets\css\libraries\icheck\square\yellow.png" />
+    <Content Include="Assets\css\libraries\icheck\square\_all.css" />
+    <Content Include="Assets\css\libraries\lada.min.css" />
+    <Content Include="Assets\css\libraries\prettify.css" />
+    <Content Include="Assets\css\libraries\step-form-wizard.min.css" />
+    <Content Include="Assets\css\libraries\vis.css" />
+    <Content Include="Assets\css\FontStyleSheet.css" />
+    <Content Include="Assets\css\style.css" />
+    <Content Include="Assets\css\ui.css" />
+    <Content Include="Assets\img\avatar.png" />
+    <Content Include="Assets\img\favicon.png" />
+    <Content Include="Assets\img\gradient-big.png" />
+    <Content Include="Assets\img\icons\icon1.png" />
+    <Content Include="Assets\img\icons\icon2.png" />
+    <Content Include="Assets\img\icons\icon3.png" />
+    <Content Include="Assets\img\layouts\boxed.jpg" />
+    <Content Include="Assets\img\layouts\rtl-disable.jpg" />
+    <Content Include="Assets\img\layouts\rtl-enable.jpg" />
+    <Content Include="Assets\img\layouts\sidebar-collapsed.jpg" />
+    <Content Include="Assets\img\layouts\sidebar-fixed.jpg" />
+    <Content Include="Assets\img\layouts\sidebar-fluid.jpg" />
+    <Content Include="Assets\img\layouts\sidebar-hover.jpg" />
+    <Content Include="Assets\img\layouts\sidebar-large.jpg" />
+    <Content Include="Assets\img\layouts\sidebar-left.jpg" />
+    <Content Include="Assets\img\layouts\sidebar-right.jpg" />
+    <Content Include="Assets\img\layouts\sidebar-side.jpg" />
+    <Content Include="Assets\img\layouts\sidebar-top.jpg" />
+    <Content Include="Assets\img\layouts\submenu-click.jpg" />
+    <Content Include="Assets\img\layouts\submenu-hover.jpg" />
+    <Content Include="Assets\img\layouts\topbar-fixed.jpg" />
+    <Content Include="Assets\img\layouts\topbar-fluid.jpg" />
+    <Content Include="Assets\img\preloader\1.gif" />
+    <Content Include="Assets\img\preloader\10.gif" />
+    <Content Include="Assets\img\preloader\11.gif" />
+    <Content Include="Assets\img\preloader\12.gif" />
+    <Content Include="Assets\img\preloader\13.gif" />
+    <Content Include="Assets\img\preloader\14.gif" />
+    <Content Include="Assets\img\preloader\2.gif" />
+    <Content Include="Assets\img\preloader\3.gif" />
+    <Content Include="Assets\img\preloader\4.gif" />
+    <Content Include="Assets\img\preloader\5.gif" />
+    <Content Include="Assets\img\preloader\6.gif" />
+    <Content Include="Assets\img\preloader\7.gif" />
+    <Content Include="Assets\img\preloader\8.gif" />
+    <Content Include="Assets\img\preloader\9.gif" />
+    <Content Include="Assets\img\preloader\puff.svg" />
+    <Content Include="Assets\js\application.js" />
+    <Content Include="Assets\js\libraries\bootstrap-tagsinput.min.js" />
+    <Content Include="Assets\js\libraries\bootstrap.min.js" />
+    <Content Include="Assets\js\libraries\date.js" />
+    <Content Include="Assets\js\libraries\icheck.min.js" />
+    <Content Include="Assets\js\libraries\jquery-1.11.1.min.js" />
+    <Content Include="Assets\js\libraries\jquery-migrate-1.2.1.min.js" />
+    <Content Include="Assets\js\libraries\jquery-ui-1.11.2.min.js" />
+    <Content Include="Assets\js\libraries\jquery.signalR-2.2.0.min.js" />
+    <Content Include="Assets\js\libraries\main-gsap.min.js" />
+    <Content Include="Assets\js\libraries\modernizr-2.6.2-respond-1.1.0.min.js" />
+    <Content Include="Assets\js\libraries\step-form-wizard.js" />
+    <Content Include="Assets\js\libraries\typed.min.js" />
+    <Content Include="Assets\js\libraries\vis.js" />
+    <Content Include="Home.aspx" />
+    <Content Include="Users.aspx" />
+    <Content Include="Web.config" />
+    <Content Include="Webservices\UserWebservices.asmx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Helpers\UserHelper.cs" />
+    <Compile Include="Helpers\DatabaseHelper.cs" />
+    <Compile Include="Helpers\SystemConfigurationHelper.cs" />
+    <Compile Include="Home.aspx.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Home.aspx.designer.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Main.Master.cs">
+      <DependentUpon>Main.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Main.Master.designer.cs">
+      <DependentUpon>Main.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Users.aspx.cs">
+      <DependentUpon>Users.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Users.aspx.designer.cs">
+      <DependentUpon>Users.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Webservices\UserWebservices.asmx.cs">
+      <DependentUpon>UserWebservices.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assets\fonts\.vs\fonts\v15\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>50478</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:50478/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
