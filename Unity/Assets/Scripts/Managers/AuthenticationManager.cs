@@ -88,8 +88,6 @@ public class AuthenticationManager : MonoBehaviour {
         SaveUserInfoFile(null);
     }
 
-
-
     /// <summary>
     /// Authenticate user through webservice
     /// </summary>
@@ -131,8 +129,9 @@ public class AuthenticationManager : MonoBehaviour {
             //Information retrieved successfully
             if (userInformationResponse.Success)
             {
-                SceneManager.LoadScene("Scenes/Main/Main");
+                GeneralGameManager.Instance.LoadScene("Scenes/Main/Main");
                 Debug.Log("User information retrieved successfully");
+                Debug.Log(userInformationResponse.Data.NickName);
             }
             //Error while getting user information
             else

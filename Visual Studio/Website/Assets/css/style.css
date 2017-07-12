@@ -57,7 +57,7 @@ html {
 }
 body {
   /* height: 100%; */
-  background: #F5F5F5;
+  background: #b7d2ff;
   color: #5B5B5B;
   font-family: 'Lato', 'Open Sans', Helvetica, sans-serif !important;
   line-height: 1.42857143;
@@ -4652,12 +4652,12 @@ body:not(.fixed-sidebar):not(.fixed-topbar):not(.sidebar-top) .sidebar .logopane
   }
 }
 .main-content {
-  background: #F5F5F5;
+  background: #d3e4ff;
   margin-left: 240px;
   min-height: 750px;
 }
 .main-content .page-content {
-  background: #F5F5F5;
+  background: #d3e4ff;
   margin-top: 0px;
   overflow: hidden;
   padding: 20px 50px 0;
@@ -4666,7 +4666,7 @@ body:not(.fixed-sidebar):not(.fixed-topbar):not(.sidebar-top) .sidebar .logopane
 }
 .main-content .page-content h3 {
   font-family: 'Open Sans', sans-serif;
-  font-size: 15px;
+  font-size: 18px;
   margin-bottom: 15px;
   margin-top: 25px;
   text-transform: uppercase;
@@ -4829,7 +4829,7 @@ body:not(.fixed-sidebar):not(.fixed-topbar):not(.sidebar-top) .sidebar .logopane
 .main-content .page-content .panel .panel-header h3 {
   display: block;
   font-family: 'Lato', 'Open Sans', sans-serif;
-  font-size: 15px;
+  font-size: 18px;
   font-weight: 400;
   line-height: normal;
   margin-bottom: 10px;
@@ -4890,7 +4890,7 @@ body:not(.fixed-sidebar):not(.fixed-topbar):not(.sidebar-top) .sidebar .logopane
   z-index: 1;
 }
 .main-content .page-content .panel .panel-close {
-  font-size: 15px;
+  font-size: 18px;
 }
 .main-content .page-content .panel .panel-close:hover {
   color: #EB5055 !important;
@@ -5001,7 +5001,7 @@ body:not(.fixed-sidebar):not(.fixed-topbar):not(.sidebar-top) .sidebar .logopane
 }
 .main-content .page-content .panel-content h3 {
   font-family: 'Open Sans', sans-serif;
-  font-size: 15px;
+  font-size: 18px;
   margin-bottom: 15px;
   margin-top: 25px;
   text-transform: uppercase;
@@ -5142,7 +5142,7 @@ body:not(.fixed-sidebar):not(.fixed-topbar):not(.sidebar-top) .sidebar .logopane
 .main-content .page-content .breadcrumb li {
   font-family: 'Lato', arial, sans-serif;
   font-weight: 700;
-  font-size: 12px;
+  font-size: 15px;
   text-transform: uppercase;
 }
 .main-content .page-content .breadcrumb li a {
@@ -5174,7 +5174,7 @@ body:not(.fixed-sidebar):not(.fixed-topbar):not(.sidebar-top) .sidebar .logopane
 .main-content .page-content > .header h2 span,
 .main-content .page-content > div > .header h2 span {
   color: #999999;
-  font-size: 13px;
+  font-size: 16px;
   font-style: italic;
   letter-spacing: 0;
   text-transform: none;
@@ -5308,7 +5308,7 @@ body:not(.fixed-sidebar):not(.fixed-topbar):not(.sidebar-top) .sidebar .logopane
   display: none !important;
 }
 .panel .panel-toggle {
-  font-size: 15px;
+  font-size: 18px;
 }
 .main-content .page-content .panel-header h3,
 .main-content .page-content .panel-footer h2,

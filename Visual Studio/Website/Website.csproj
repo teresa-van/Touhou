@@ -104,8 +104,8 @@
     <Content Include="Assets\css\icons\weather\weather-icons\weather-icons.less" />
     <Content Include="Assets\css\icons\weather\weather-icons\weather-icons.min.less" />
     <Content Include="Assets\fonts\.vs\VSWorkspaceState.json" />
-    <Content Include="Assets\fonts\JosefinSans-Light.ttf" />
-    <Content Include="Assets\fonts\JosefinSans-Regular.ttf" />
+    <Content Include="Assets\fonts\PT_Sans-Caption-Web-Bold.ttf" />
+    <Content Include="Assets\fonts\PT_Sans-Caption-Web-Regular.ttf" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

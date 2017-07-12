@@ -110,9 +110,8 @@ namespace Website.Webservices
                 JSON.Append("{");
                 JSON.Append("\"success\":true,");
                 JSON.Append("\"data\":");
-                JSON.Append("{");
-                JSON.Append("\"user\":" + JsonConvert.SerializeObject(user));
-                JSON.Append("},");
+                JSON.Append(JsonConvert.SerializeObject(user));
+                JSON.Append(",");
                 JSON.Append("\"message\"");
                 JSON.Append(":");
                 JSON.Append(JsonConvert.SerializeObject(message));
@@ -153,9 +152,7 @@ namespace Website.Webservices
                 {
                     if (user != null)
                     {
-                        JSON.Append("{");
-                        JSON.Append("\"user\":" + JsonConvert.SerializeObject(user));
-                        JSON.Append("}");
+                        JSON.Append(JsonConvert.SerializeObject(user));
                     }
                     else
                     {

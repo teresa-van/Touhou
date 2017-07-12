@@ -10,6 +10,7 @@
 
 # Visual Studio
 Visual Studio/packages/
+Visual Studio/.vs/
 
 Visual Studio/WcfServiceApp/[Dd]ebug/
 Visual Studio/WcfServiceApp/x64/
@@ -28,6 +29,7 @@ Visual Studio/Website/[Bb]in/
 Visual Studio/Website/[Oo]bj/
 
 # Unity
+Unity/.vs/
 Unity/Library/
 Unity/Temp/
 Unity/Obj/

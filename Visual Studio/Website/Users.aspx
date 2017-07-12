@@ -1,8 +1,11 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Users.aspx.cs" Inherits="Website.Users" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContentPlaceHolder" runat="server">
+
+    <!--<link rel="stylesheet" type="text/css" href="../../Assets/css/FontStyleSheet.css" />-->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css" />
     <center><img src="https://static.tumblr.com/4d95c6dd7b14fd2242e95f6c4f319d21/oorg7z2/AFjn0s7gl/tumblr_static_tumblr_header.jpg" width=100%/></center>
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder" runat="server">
 
@@ -40,7 +43,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <h4 class="modal-title id="editTitle">Edit Nickname</h4>
+                    <h4 class="modal-title" id="editTitle">Edit Nickname</h4>
                 </div>
                 <div class="modal-body body">
                     <div class="input-group">
@@ -65,7 +68,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
-                    <h4 class="modal-title id="deleteTitle">Delete User</h4>
+                    <h4 class="modal-title" id="deleteTitle">Delete User</h4>
                 </div>
                 <div class="modal-body body" id="deleteBodyModal">
                     <div class="input-group">

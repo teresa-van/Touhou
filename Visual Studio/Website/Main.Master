@@ -15,7 +15,6 @@
     <!-- END META-DATA SECTION -->
 
     <!-- BEGIN STYLE SECTION -->
-    <link rel="stylesheet" type="text/css" href="../../Assets/css/FontStyleSheet.css" />
     <link href="../Assets/css/style.css" rel="stylesheet" />
     <link href="../Assets/css/ui.css" rel="stylesheet" />
     <link href="../Assets/css/libraries/bootstrap-tagsinput.css" rel="stylesheet" />
@@ -31,7 +30,7 @@
 
 <!-- BEGIN BODY -->
 <body class="sidebar-top fixed-topbar fixed-sidebar theme-sdtl color-default dashboard">
-
+<body style="background-color:#75aaff;"></body>
     <!-- BEGIN MAIN FORM -->
     <form id="mainForm" runat="server">
         <section>
