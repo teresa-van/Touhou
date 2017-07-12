@@ -150,27 +150,27 @@
                 "bDestroy": true,
                 "columns": [
                     {
-                        "data": "user.Username"
+                        "data": "Username"
                     },
                     {
-                        "data": "user.Nickname"
+                        "data": "Nickname"
                     },
                     {
-                        "data": "user.ID",
+                        "data": "ID",
                         "width": "1px",
                         "render": function (data, type, row) {
                             return '<a href="#" class="btn btn-primary btn-sm modify">Edit Nickname</a>';
                         }
                     },
                     {
-                        "data": "user.ID",
+                        "data": "ID",
                         "width": "1px",
                         "render": function (data, type, row) {
                             return '<a href="#" class="btn btn-primary btn-sm change_password">Change Password</a>';
                         }
                     },
                     {
-                        "data": "user.ID",
+                        "data": "ID",
                         "width": "1px",
                         "render": function (data, type, row) {
                             return '<a href="#" class="btn btn-primary btn-sm delete_user">Delete User</a>';
@@ -204,9 +204,9 @@
 
         //Display the modal that displays the user and allows information updating
         function showEditModal() {
-            $("#editTitle").html("Edit Nickname (" + selectedUser.user.Username + ")");
+            $("#editTitle").html("Edit Nickname (" + selectedUser.Username + ")");
 
-            $("#EditName").val(selectedUser.user.Nickname);
+            $("#EditName").val(selectedUser.Nickname);
 
             $("#editModal").modal('show');
 
@@ -221,7 +221,7 @@
 
         //Display the modal that allows deleting a user
         function showDeleteModal() {
-            $("#deleteTitle").html("Delete User (" + selectedUser.user.Username + ")");
+            $("#deleteTitle").html("Delete User (" + selectedUser.Username + ")");
 
             $("#deleteModal").modal('show');
 
@@ -236,7 +236,7 @@
 
         //Display the password modal
         function showPasswordModal() {
-            $("#editPasswordTitle").html("Change Password (" + selectedUser.user.Username + ")");
+            $("#editPasswordTitle").html("Change Password (" + selectedUser.Username + ")");
             $("#CurrentPassword").val('');
             $("#ChangePassword").val('');
             $("#passwordModal").modal('show');
@@ -257,7 +257,7 @@
         //Edit nickname
         function editNickname() {
             var parameters = {};
-            parameters.id = selectedUser.user.ID;
+            parameters.id = selectedUser.ID;
             parameters.nickname = $("#EditName").val();
 
             showLoadingOverlay();
@@ -313,7 +313,7 @@
                 return;
 
             var parameters = {};
-            parameters.id = selectedUser.user.ID;
+            parameters.id = selectedUser.ID;
             parameters.password = $("#DeletePassword").val();
 
             showLoadingOverlay();
@@ -354,7 +354,7 @@
         //Update password
         function updatePassword() {
             var parameters = {};
-            parameters.id = selectedUser.user.ID;
+            parameters.id = selectedUser.ID;
             parameters.currentPassword = $("#CurrentPassword").val();
             parameters.newPassword = $("#ChangePassword").val();
 
