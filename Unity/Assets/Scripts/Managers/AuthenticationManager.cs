@@ -42,12 +42,15 @@ public class AuthenticationManager : MonoBehaviour {
     /// </summary>
     public InputField passwordField;
 
-
-
     /// <summary>
     /// Path of file for saving user information 
     /// </summary>
     public string userInfoPath;
+
+    public GameObject IncorrectPassword;
+    public GameObject IncPCanvas;
+
+    public GameObject LoginMenu;
 
     #endregion
 
@@ -63,6 +66,10 @@ public class AuthenticationManager : MonoBehaviour {
 
         //Setting the full path to the file where we will save and load user information
         userInfoPath = Path.Combine(Application.persistentDataPath, "UserInformation.txt");
+
+        IncorrectPassword = GameObject.Find("IncorrectPassword").gameObject;
+        IncPCanvas = IncorrectPassword.transform.Find("Canvas").gameObject;
+        LoginMenu = GameObject.Find("LoginMenu").gameObject;
     }
 
     #endregion
@@ -130,6 +137,7 @@ public class AuthenticationManager : MonoBehaviour {
             if (userInformationResponse.Success)
             {
                 GeneralGameManager.Instance.LoadScene("Scenes/Main/Main");
+                MusicManager.Instance.OnLevelWasLoaded(1);
                 Debug.Log("User information retrieved successfully");
                 Debug.Log(userInformationResponse.Data.NickName);
             }
@@ -142,8 +150,17 @@ public class AuthenticationManager : MonoBehaviour {
         //Not authenticated
         else
         {
+            IncPCanvas.SetActive(true);
+            LoginMenu.SetActive(false);
+
             Debug.Log("Authentication failed.");
         }
+    }
+
+    public void CloseIncorrectPassword()
+    {
+        IncPCanvas.SetActive(false);
+        LoginMenu.SetActive(true);
     }
 
     #endregion
