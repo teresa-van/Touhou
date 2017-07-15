@@ -137,7 +137,6 @@ public class AuthenticationManager : MonoBehaviour {
             if (userInformationResponse.Success)
             {
                 GeneralGameManager.Instance.LoadScene("Scenes/Main/Main");
-                MusicManager.Instance.OnLevelWasLoaded(1);
                 Debug.Log("User information retrieved successfully");
                 Debug.Log(userInformationResponse.Data.NickName);
             }

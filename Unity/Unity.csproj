@@ -13,13 +13,11 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.6.2f1</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -81,15 +79,6 @@
     <Reference Include="Mono.Cecil">
       <HintPath>Library\UnityAssemblies\Mono.Cecil.dll</HintPath>
     </Reference>
-    <Reference Include="DarkRiftAPI">
-      <HintPath>Assets\DarkRift\DarkRift\Plugins\DarkRiftAPI.dll</HintPath>
-    </Reference>
-    <Reference Include="Transmission">
-      <HintPath>Assets\DarkRift\DarkRift\Plugins\Transmission.dll</HintPath>
-    </Reference>
-    <Reference Include="DarkRift">
-      <HintPath>Assets\DarkRift\EmbeddedServer\DarkRift.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>Assets\Plugins\JsonNet-UwpWorkaround.8.0.3\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -101,44 +90,21 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\DarkRift\CubeDemo\CubeMove.cs" />
-    <Compile Include="Assets\DarkRift\CubeDemo\CubeNetworkManager.cs" />
-    <Compile Include="Assets\DarkRift\CustomSerialisationDemo\CSCubeMove.cs" />
-    <Compile Include="Assets\DarkRift\CustomSerialisationDemo\CSCubeNetworkManager.cs" />
-    <Compile Include="Assets\DarkRift\DarkRift\Plugins\DarkRiftReceiver.cs" />
-    <Compile Include="Assets\DarkRift\EmbeddedServer\EmbeddedCubeManager.cs" />
-    <Compile Include="Assets\DarkRift\EmbeddedServer\EmbeddedCubeMove.cs" />
-    <Compile Include="Assets\DarkRift\EmbeddedServer\Server.cs" />
-    <Compile Include="Assets\DarkRift\HeavySyncDemo\CharacterMovement.cs" />
-    <Compile Include="Assets\DarkRift\HeavySyncDemo\HSNetworkManager.cs" />
-    <Compile Include="Assets\DarkRift\HeavySyncDemo\ObjectSpawner.cs" />
-    <Compile Include="Assets\DarkRift\HeavySyncDemo\SyncCharacter.cs" />
-    <Compile Include="Assets\DarkRift\PlayerDemo\NetworkManager.cs" />
-    <Compile Include="Assets\DarkRift\PlayerDemo\NetworkPlayer.cs" />
-    <Compile Include="Assets\DarkRift\PlayerDemo\Player.cs" />
-    <Compile Include="Assets\DarkRift\PlayerDemo\TagIndex.cs" />
-    <Compile Include="Assets\Scenes\Login\FullScreenBackground.cs" />
+    <Compile Include="Assets\Scripts\FullScreenBackground.cs" />
     <Compile Include="Assets\Scripts\Helpers\UserHelper.cs" />
     <Compile Include="Assets\Scripts\Managers\AuthenticationManager.cs" />
     <Compile Include="Assets\Scripts\Managers\GeneralGameManager.cs" />
-    <Compile Include="Assets\Scripts\Models\UserModel.cs" />
+    <Compile Include="Assets\Scripts\Models\Auth\UserModel.cs" />
+    <Compile Include="Assets\Scripts\Models\CommonHelper.cs" />
+    <Compile Include="Assets\Scripts\Models\ServiceResponseModel.cs" />
+    <Compile Include="Assets\Scripts\MusicManager.cs" />
+    <Compile Include="Assets\Sound Effects\ButtonHoverScript.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\DarkRift\ChangeLog.txt" />
-    <None Include="Assets\DarkRift\CubeDemo\Readme.txt" />
-    <None Include="Assets\DarkRift\CustomSerialisationDemo\Readme.txt" />
-    <None Include="Assets\DarkRift\DarkRift\Plugins\DarkRiftAPI.xml" />
-    <None Include="Assets\DarkRift\DarkRift\Plugins\Readme.txt" />
-    <None Include="Assets\DarkRift\EmbeddedServer\DarkRift.xml" />
-    <None Include="Assets\DarkRift\EmbeddedServer\ReadMe.txt" />
-    <None Include="Assets\DarkRift\HeavySyncDemo\Readme.txt" />
-    <None Include="Assets\DarkRift\PlayerDemo\Readme.txt" />
-    <None Include="Assets\DarkRift\Readme.txt" />
     <None Include="Assets\Plugins\Best HTTP (Pro)\ReleaseNotes.txt" />
     <None Include="Assets\Plugins\Best HTTP (Pro)\link.xml" />
     <None Include="Assets\Plugins\Best HTTP (Pro)\link_android_subset.xml" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
 </Project>

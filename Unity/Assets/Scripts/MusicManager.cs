@@ -18,25 +18,19 @@ public class MusicManager : MonoBehaviour {
     void Start ()
     {
         DontDestroyOnLoad(this.gameObject);
-        OnLevelWasLoaded(0);
+        SceneManager.sceneLoaded += SceneLoadComplete;
     }
 	
-    public void OnLevelWasLoaded(int level)
+    public void SceneLoadComplete(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log(SceneManager.GetActiveScene().buildIndex);
-        if (SceneManager.GetActiveScene().buildIndex == 1)
+        AudioListener.volume = GeneralGameManager.Instance.defaultVolume;
+        if (scene.name.Equals("Main"))
         {
             AudioSource audio = GetComponent<AudioSource>();
             audio.clip = main;
             audio.Play();
         }
 
-        if (SceneManager.GetActiveScene().buildIndex == 0)
-        {
-            AudioSource audio = GetComponent<AudioSource>();
-            audio.clip = login;
-            audio.Play();
-        }
         else
         {
             print("nulling audio clip");

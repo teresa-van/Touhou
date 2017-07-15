@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ButtonHoverScript : MonoBehaviour {
 
@@ -17,7 +18,7 @@ public class ButtonHoverScript : MonoBehaviour {
 		
 	}
 
-    public void ButtonHoverSound()
+    public void ButtonHoverEnter(GameObject button)
     {
         AudioSource.PlayOneShot(ClickSound);
     }
