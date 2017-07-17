@@ -49,7 +49,6 @@ public class AuthenticationManager : MonoBehaviour {
 
     public GameObject IncorrectPassword;
     public GameObject IncPCanvas;
-
     public GameObject LoginMenu;
 
     #endregion
@@ -69,7 +68,7 @@ public class AuthenticationManager : MonoBehaviour {
 
         IncorrectPassword = GameObject.Find("IncorrectPassword").gameObject;
         IncPCanvas = IncorrectPassword.transform.Find("Canvas").gameObject;
-        LoginMenu = GameObject.Find("LoginMenu").gameObject;
+        LoginMenu = GameObject.Find("LoginMenu/Panel").gameObject;
     }
 
     #endregion
@@ -136,9 +135,9 @@ public class AuthenticationManager : MonoBehaviour {
             //Information retrieved successfully
             if (userInformationResponse.Success)
             {
-                GeneralGameManager.Instance.LoadScene("Scenes/Main/Main");
+                GeneralGameManager.Instance.LoadScene("Scenes/Main");
                 Debug.Log("User information retrieved successfully");
-                Debug.Log(userInformationResponse.Data.NickName);
+                this.User = userInformationResponse.Data;
             }
             //Error while getting user information
             else

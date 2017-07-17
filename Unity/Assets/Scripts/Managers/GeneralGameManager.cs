@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GeneralGameManager : MonoBehaviour {
 
@@ -13,7 +14,9 @@ public class GeneralGameManager : MonoBehaviour {
     #region Variables
     public SpriteRenderer BlackScreen;
     public bool music = true;
-    public float defaultVolume;
+    public float defaultVolume = 1;
+
+    public Text nickname;
     #endregion
 
     #region Initialization
@@ -21,19 +24,31 @@ public class GeneralGameManager : MonoBehaviour {
     void Start () {
         //Reference this instance as singleton instance
         GeneralGameManager.Instance = this;
-        defaultVolume = AudioListener.volume;
+        if (SceneManager.GetActiveScene().name.Equals("Main"))
+        {
+            nickname = GameObject.Find("Menu/UserUI/Text").GetComponent<Text>();
+            nickname.text = AuthenticationManager.Instance.User.NickName;
+        }
     }
 
     #endregion
 
-    #region Exit Game
+    #region Main Menu
 
-    /// <summary>
-    /// Exit the game.
-    /// </summary>
-    public void ExitGame()
+    public void ToggleRulesOn(GameObject menu)
     {
-        Application.Quit();
+        GameObject rules = menu.transform.Find("Canvas/Scroll View").gameObject;
+        GameObject buttons = menu.transform.Find("Buttons").gameObject;
+        rules.SetActive(true);
+        buttons.SetActive(false);
+    }
+
+    public void ToggleRulesOff(GameObject menu)
+    {
+        GameObject rules = menu.transform.Find("Canvas/Scroll View").gameObject;
+        GameObject buttons = menu.transform.Find("Buttons").gameObject;
+        rules.SetActive(false);
+        buttons.SetActive(true);
     }
 
     #endregion
@@ -78,7 +93,7 @@ public class GeneralGameManager : MonoBehaviour {
 
     #endregion
 
-    #region Volume Control
+    #region Music/Volume Control
 
     public void ToggleMusic()
     {
@@ -96,4 +111,22 @@ public class GeneralGameManager : MonoBehaviour {
 
     #endregion
 
+    #region Exit Game/Logout
+
+    /// <summary>
+    /// Exit the game.
+    /// </summary>
+    public void ExitGame()
+    {
+        Application.Quit();
+    }
+
+    public void Logout()
+    {
+        PhotonNetwork.Disconnect();
+        AuthenticationManager.Instance.User = null;
+        LoadScene("Scenes/Login");
+    }
+
+    #endregion
 }
