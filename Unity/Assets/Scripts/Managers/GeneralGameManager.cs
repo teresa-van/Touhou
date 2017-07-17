@@ -23,7 +23,7 @@ public class GeneralGameManager : MonoBehaviour {
 
     void Start () {
         //Reference this instance as singleton instance
-        GeneralGameManager.Instance = this;
+        Instance = this;
         if (SceneManager.GetActiveScene().name.Equals("Main"))
         {
             nickname = GameObject.Find("Menu/UserUI/Text").GetComponent<Text>();
@@ -37,7 +37,7 @@ public class GeneralGameManager : MonoBehaviour {
 
     public void ToggleRulesOn(GameObject menu)
     {
-        GameObject rules = menu.transform.Find("Canvas/Scroll View").gameObject;
+        GameObject rules = menu.transform.Find("RulesMenu/Scroll View").gameObject;
         GameObject buttons = menu.transform.Find("Buttons").gameObject;
         rules.SetActive(true);
         buttons.SetActive(false);
@@ -45,7 +45,7 @@ public class GeneralGameManager : MonoBehaviour {
 
     public void ToggleRulesOff(GameObject menu)
     {
-        GameObject rules = menu.transform.Find("Canvas/Scroll View").gameObject;
+        GameObject rules = menu.transform.Find("RulesMenu/Scroll View").gameObject;
         GameObject buttons = menu.transform.Find("Buttons").gameObject;
         rules.SetActive(false);
         buttons.SetActive(true);
@@ -111,7 +111,7 @@ public class GeneralGameManager : MonoBehaviour {
 
     #endregion
 
-    #region Exit Game/Logout
+    #region Exit Game/Logout/Register
 
     /// <summary>
     /// Exit the game.
@@ -126,6 +126,11 @@ public class GeneralGameManager : MonoBehaviour {
         PhotonNetwork.Disconnect();
         AuthenticationManager.Instance.User = null;
         LoadScene("Scenes/Login");
+    }
+
+    public void Register()
+    {
+        Application.OpenURL("http://localhost:50478/Home.aspx");
     }
 
     #endregion

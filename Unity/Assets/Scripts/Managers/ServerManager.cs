@@ -1,17 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class ServerManager : Photon.PunBehaviour
-{
+public class ServerManager : Photon.PunBehaviour {
+
+    #region Singleton instance
+
+    public static ServerManager Instance { private set; get; }
+
+    #endregion
 
     #region Variables
 
     /// <summary>
     /// This client's version number. Users are separated from each other by gameversion (which allows you to make breaking changes).
     /// </summary>
-    private string _gameVersion = "1";
+    private string GameVersion = "1";
+    ClientState ClientStateCache;
 
+    public Text ConnectionStatusText;
+    public GameObject StatusMenu;
+    public GameObject LobbyMenu;
+    public GameObject Buttons;
     #endregion
 
     #region CallBacks
@@ -35,7 +46,21 @@ public class ServerManager : Photon.PunBehaviour
     /// </summary>
     void Start()
     {
-        Connect();
+        Instance = this;
+    }
+
+    void Update()
+    {
+        if (ClientStateCache != PhotonNetwork.connectionStateDetailed)
+        {
+            ClientStateCache = PhotonNetwork.connectionStateDetailed;
+            ConnectionStatusText.text = ClientStateCache.ToString();
+            if (ConnectionStatusText.text.Equals("ConnectedToMaster"))
+            {
+                StatusMenu.SetActive(false);
+                LobbyMenu.SetActive(true);
+            }
+        }
     }
 
     public override void OnConnectedToMaster()
@@ -48,6 +73,7 @@ public class ServerManager : Photon.PunBehaviour
     {
         Debug.LogWarning("DemoAnimator/Launcher: OnDisconnectedFromPhoton() was called by PUN");
     }
+
     #endregion
 
     #region Public Methods
@@ -68,8 +94,22 @@ public class ServerManager : Photon.PunBehaviour
         else
         {
             // #Critical, we must first and foremost connect to Photon Online Server.
-            PhotonNetwork.ConnectUsingSettings(_gameVersion);
+            PhotonNetwork.ConnectUsingSettings(GameVersion);
         }
+    }
+
+    public void JoinLobby()
+    {
+        PhotonNetwork.ConnectUsingSettings("1.0");
+        StatusMenu.SetActive(true);
+        Buttons.SetActive(false);
+    }
+
+    public void LeaveLobby()
+    {
+        PhotonNetwork.Disconnect();
+        Buttons.SetActive(true);
+        LobbyMenu.SetActive(false);
     }
     #endregion
 }
