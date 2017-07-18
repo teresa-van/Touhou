@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ServerManager : Photon.PunBehaviour {
+public class ServerManager : MonoBehaviour { 
 
     #region Singleton instance
 
@@ -16,7 +16,7 @@ public class ServerManager : Photon.PunBehaviour {
     /// <summary>
     /// This client's version number. Users are separated from each other by gameversion (which allows you to make breaking changes).
     /// </summary>
-    private string GameVersion = "1";
+    private string GameVersion = "1.0";
     ClientState ClientStateCache;
 
     public Text ConnectionStatusText;
@@ -32,10 +32,7 @@ public class ServerManager : Photon.PunBehaviour {
     /// </summary>
     void Awake()
     {
-        // #Critical
-        // we don't join the lobby. There is no need to join a lobby to get the list of rooms.
-        PhotonNetwork.autoJoinLobby = false;
-
+        PhotonNetwork.autoJoinLobby = true;
         // #Critical
         // this makes sure we can use PhotonNetwork.LoadLevel() on the master client and all clients in the same room sync their level automatically
         PhotonNetwork.automaticallySyncScene = true;
@@ -55,60 +52,67 @@ public class ServerManager : Photon.PunBehaviour {
         {
             ClientStateCache = PhotonNetwork.connectionStateDetailed;
             ConnectionStatusText.text = ClientStateCache.ToString();
-            if (ConnectionStatusText.text.Equals("ConnectedToMaster"))
-            {
-                StatusMenu.SetActive(false);
-                LobbyMenu.SetActive(true);
-            }
         }
     }
 
-    public override void OnConnectedToMaster()
-    {
-        Debug.Log("DemoAnimator/Launcher: OnConnectedToMaster() was called by PUN");
-    }
+    //public virtual void OnConnectedToMaster()
+    //{
+    //    Debug.Log("DemoAnimator/Launcher: OnConnectedToMaster() was called by PUN");
+    //}
 
 
-    public override void OnDisconnectedFromPhoton()
-    {
-        Debug.LogWarning("DemoAnimator/Launcher: OnDisconnectedFromPhoton() was called by PUN");
-    }
+    //public virtual void OnDisconnectedFromPhoton()
+    //{
+    //    Debug.LogWarning("DemoAnimator/Launcher: OnDisconnectedFromPhoton() was called by PUN");
+    //}
 
     #endregion
 
     #region Public Methods
 
-    /// <summary>
-    /// Start the connection process. 
-    /// - If already connected, we attempt joining a random room
-    /// - if not yet connected, Connect this application instance to Photon Cloud Network
-    /// </summary>
-    public void Connect()
-    {
-        // we check if we are connected or not, we join if we are , else we initiate the connection to the server.
-        if (PhotonNetwork.connected)
-        {
-            // #Critical we need at this point to attempt joining a Random Room. If it fails, we'll get notified in OnPhotonRandomJoinFailed() and we'll create one.
-            PhotonNetwork.JoinRandomRoom();
-        }
-        else
-        {
-            // #Critical, we must first and foremost connect to Photon Online Server.
-            PhotonNetwork.ConnectUsingSettings(GameVersion);
-        }
-    }
+    ///// <summary>
+    ///// Start the connection process. 
+    ///// - If already connected, we attempt joining a random room
+    ///// - if not yet connected, Connect this application instance to Photon Cloud Network
+    ///// </summary>
+    //public void Connect()
+    //{
+    //    // we check if we are connected or not, we join if we are , else we initiate the connection to the server.
+    //    if (PhotonNetwork.connected)
+    //    {
+    //        // #Critical we need at this point to attempt joining a Random Room. If it fails, we'll get notified in OnPhotonRandomJoinFailed() and we'll create one.
+    //        PhotonNetwork.JoinRandomRoom();
+    //    }
+    //    else
+    //    {
+    //        // #Critical, we must first and foremost connect to Photon Online Server.
+    //        PhotonNetwork.ConnectUsingSettings(GameVersion);
+    //    }
+    //}
 
     public void JoinLobby()
     {
-        PhotonNetwork.ConnectUsingSettings("1.0");
+        PhotonNetwork.ConnectUsingSettings(GameVersion);
         StatusMenu.SetActive(true);
         Buttons.SetActive(false);
     }
 
+    public virtual void OnJoinedLobby()
+    {
+        StatusMenu.SetActive(false);
+        LobbyMenu.SetActive(true);
+    }
+
     public void LeaveLobby()
     {
+        StatusMenu.SetActive(true);
         PhotonNetwork.Disconnect();
+    }
+
+    public virtual void OnLeftLobby()
+    {
         Buttons.SetActive(true);
+        StatusMenu.SetActive(false);
         LobbyMenu.SetActive(false);
     }
     #endregion
