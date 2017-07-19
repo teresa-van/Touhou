@@ -23,6 +23,19 @@ public class ServerManager : MonoBehaviour {
     public GameObject StatusMenu;
     public GameObject LobbyMenu;
     public GameObject Buttons;
+
+    public string PlayerName
+    {
+        get
+        {
+            return PhotonNetwork.playerName;
+        }
+        set
+        {
+            PhotonNetwork.playerName = value;
+        }
+    }
+
     #endregion
 
     #region CallBacks
@@ -55,40 +68,20 @@ public class ServerManager : MonoBehaviour {
         }
     }
 
-    //public virtual void OnConnectedToMaster()
-    //{
-    //    Debug.Log("DemoAnimator/Launcher: OnConnectedToMaster() was called by PUN");
-    //}
+    public virtual void OnConnectedToMaster()
+    {
+        Debug.Log("DemoAnimator/Launcher: OnConnectedToMaster() was called by PUN");
+    }
 
 
-    //public virtual void OnDisconnectedFromPhoton()
-    //{
-    //    Debug.LogWarning("DemoAnimator/Launcher: OnDisconnectedFromPhoton() was called by PUN");
-    //}
+    public virtual void OnDisconnectedFromPhoton()
+    {
+        Debug.LogWarning("DemoAnimator/Launcher: OnDisconnectedFromPhoton() was called by PUN");
+    }
 
     #endregion
 
-    #region Public Methods
-
-    ///// <summary>
-    ///// Start the connection process. 
-    ///// - If already connected, we attempt joining a random room
-    ///// - if not yet connected, Connect this application instance to Photon Cloud Network
-    ///// </summary>
-    //public void Connect()
-    //{
-    //    // we check if we are connected or not, we join if we are , else we initiate the connection to the server.
-    //    if (PhotonNetwork.connected)
-    //    {
-    //        // #Critical we need at this point to attempt joining a Random Room. If it fails, we'll get notified in OnPhotonRandomJoinFailed() and we'll create one.
-    //        PhotonNetwork.JoinRandomRoom();
-    //    }
-    //    else
-    //    {
-    //        // #Critical, we must first and foremost connect to Photon Online Server.
-    //        PhotonNetwork.ConnectUsingSettings(GameVersion);
-    //    }
-    //}
+    #region Lobby Methods
 
     public void JoinLobby()
     {
@@ -114,6 +107,40 @@ public class ServerManager : MonoBehaviour {
         Buttons.SetActive(true);
         StatusMenu.SetActive(false);
         LobbyMenu.SetActive(false);
+    }
+    #endregion
+
+    #region Room Methods
+
+    public void JoinRoom(RoomInfo room)
+    {
+        PhotonNetwork.JoinRoom(room.Name);
+    }
+
+    public void JoinRandomRoom()
+    {
+        PhotonNetwork.JoinRandomRoom();
+    }
+
+    public void CreateRoom()
+    {
+        PhotonNetwork.CreateRoom(PhotonNetwork.playerName + "'s Room", new RoomOptions() { MaxPlayers = 8 }, null);
+        Debug.Log(PhotonNetwork.playerName);
+    }
+
+    public void LeaveRoom()
+    {
+        PhotonNetwork.LeaveRoom();
+    }
+
+    public virtual void OnLeftRoom()
+    {
+        Debug.Log("Left Room.");
+    }
+
+    public virtual void OnJoinedRoom()
+    {
+        Debug.Log("Joined Room.");
     }
     #endregion
 }
