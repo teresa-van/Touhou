@@ -16,7 +16,6 @@ using ExitGames.Client.Photon;
 public class PlayerListUIManager: Photon.PunBehaviour {
 
 	public GameObject PlayerPanel;
-
 	public GameObject PlayerItemPrefab;
 
 	Dictionary<int, PlayerItem> items = new Dictionary<int, PlayerItem>();
@@ -40,11 +39,10 @@ public class PlayerListUIManager: Photon.PunBehaviour {
             else
             {   // create new
 				GameObject item =  (GameObject)Instantiate(PlayerItemPrefab);
+                Debug.Log(PlayerPanel.transform);
 				item.transform.SetParent(PlayerPanel.transform);
 
 				PlayerItem playerItem = item.GetComponent<PlayerItem>();
-
-                Debug.Log(playerItem);
 
                 items.Add(player.ID, playerItem);
                 playerItem.RefreshData(player);
@@ -63,7 +61,6 @@ public class PlayerListUIManager: Photon.PunBehaviour {
 				items.Remove(item.Key);
 			}
 		}
-
 	}
 
 	/// <summary>
@@ -82,7 +79,7 @@ public class PlayerListUIManager: Photon.PunBehaviour {
 	public override void OnJoinedRoom()
 	{
 		CleanUpList();
-		UpdateUI();
+        UpdateUI();       
 	}
 		
 	public override void OnLeftRoom()

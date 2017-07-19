@@ -22,19 +22,8 @@ public class ServerManager : MonoBehaviour {
     public Text ConnectionStatusText;
     public GameObject StatusMenu;
     public GameObject LobbyMenu;
+    public GameObject RoomMenu;
     public GameObject Buttons;
-
-    public string PlayerName
-    {
-        get
-        {
-            return PhotonNetwork.playerName;
-        }
-        set
-        {
-            PhotonNetwork.playerName = value;
-        }
-    }
 
     #endregion
 
@@ -49,6 +38,7 @@ public class ServerManager : MonoBehaviour {
         // #Critical
         // this makes sure we can use PhotonNetwork.LoadLevel() on the master client and all clients in the same room sync their level automatically
         PhotonNetwork.automaticallySyncScene = true;
+        PhotonNetwork.playerName = AuthenticationManager.Instance.User.NickName;
     }
 
     /// <summary>
@@ -99,12 +89,12 @@ public class ServerManager : MonoBehaviour {
     public void LeaveLobby()
     {
         StatusMenu.SetActive(true);
+        Buttons.SetActive(true);
         PhotonNetwork.Disconnect();
     }
 
     public virtual void OnLeftLobby()
-    {
-        Buttons.SetActive(true);
+    {     
         StatusMenu.SetActive(false);
         LobbyMenu.SetActive(false);
     }
@@ -125,7 +115,7 @@ public class ServerManager : MonoBehaviour {
     public void CreateRoom()
     {
         PhotonNetwork.CreateRoom(PhotonNetwork.playerName + "'s Room", new RoomOptions() { MaxPlayers = 8 }, null);
-        Debug.Log(PhotonNetwork.playerName);
+        Debug.Log(PhotonNetwork.playerName + " playername");
     }
 
     public void LeaveRoom()
@@ -135,12 +125,12 @@ public class ServerManager : MonoBehaviour {
 
     public virtual void OnLeftRoom()
     {
-        Debug.Log("Left Room.");
+        RoomMenu.SetActive(false);
     }
 
     public virtual void OnJoinedRoom()
     {
-        Debug.Log("Joined Room.");
+        RoomMenu.SetActive(true);
     }
     #endregion
 }
