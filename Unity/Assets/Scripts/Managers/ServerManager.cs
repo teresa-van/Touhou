@@ -26,6 +26,7 @@ public class ServerManager : MonoBehaviour {
     public GameObject CreateRoomMenu;
     public GameObject RoomMenu;
     public GameObject Buttons;
+    public GameObject ErrorMenu;
 
     public InputField RoomName;
     #endregion
@@ -39,6 +40,13 @@ public class ServerManager : MonoBehaviour {
         CreateRoomMenu.SetActive(false);
         RoomMenu.SetActive(false);
         Buttons.SetActive(false);
+        ErrorMenu.SetActive(false);
+    }
+
+    public void OKErrorButtonClicked()
+    {
+        HideAllMenus();
+        RoomMenu.SetActive(true);
     }
 
     #endregion
@@ -112,7 +120,7 @@ public class ServerManager : MonoBehaviour {
 
     public virtual void OnLeftLobby()
     {
-        HideAllMenus();
+        StatusMenu.SetActive(false);
     }
     #endregion
 
@@ -157,5 +165,22 @@ public class ServerManager : MonoBehaviour {
         RoomMenu.SetActive(true);
         RoomTitle.text = RoomName.text;
     }
+    #endregion
+
+    #region Start Game Methods
+
+    public void StartGameClicked()
+    {
+        if (PhotonNetwork.playerList.Length < 4)
+        {
+            HideAllMenus();
+            ErrorMenu.SetActive(true);
+        }
+        else
+        {
+            Debug.Log("START GAME CLICKED. INSERT FUNCTIONALITY HERE.");
+        }
+    }
+
     #endregion
 }
