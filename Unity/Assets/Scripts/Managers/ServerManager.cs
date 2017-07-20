@@ -19,11 +19,27 @@ public class ServerManager : MonoBehaviour {
     private string GameVersion = "1.0";
     ClientState ClientStateCache;
 
+    public Text RoomTitle;
     public Text ConnectionStatusText;
     public GameObject StatusMenu;
     public GameObject LobbyMenu;
+    public GameObject CreateRoomMenu;
     public GameObject RoomMenu;
     public GameObject Buttons;
+
+    public InputField RoomName;
+    #endregion
+
+    #region Etc
+
+    public void HideAllMenus()
+    {
+        StatusMenu.SetActive(false);
+        LobbyMenu.SetActive(false);
+        CreateRoomMenu.SetActive(false);
+        RoomMenu.SetActive(false);
+        Buttons.SetActive(false);
+    }
 
     #endregion
 
@@ -76,27 +92,27 @@ public class ServerManager : MonoBehaviour {
     public void JoinLobby()
     {
         PhotonNetwork.ConnectUsingSettings(GameVersion);
+        HideAllMenus();
         StatusMenu.SetActive(true);
-        Buttons.SetActive(false);
     }
 
     public virtual void OnJoinedLobby()
     {
-        StatusMenu.SetActive(false);
+        HideAllMenus();
         LobbyMenu.SetActive(true);
     }
 
     public void LeaveLobby()
     {
+        HideAllMenus();
         StatusMenu.SetActive(true);
         Buttons.SetActive(true);
         PhotonNetwork.Disconnect();
     }
 
     public virtual void OnLeftLobby()
-    {     
-        StatusMenu.SetActive(false);
-        LobbyMenu.SetActive(false);
+    {
+        HideAllMenus();
     }
     #endregion
 
@@ -112,10 +128,17 @@ public class ServerManager : MonoBehaviour {
         PhotonNetwork.JoinRandomRoom();
     }
 
+    public void OpenCreateRoomMenu()
+    {
+        HideAllMenus();
+        CreateRoomMenu.SetActive(true);
+    }
+
     public void CreateRoom()
     {
-        PhotonNetwork.CreateRoom(PhotonNetwork.playerName + "'s Room", new RoomOptions() { MaxPlayers = 8 }, null);
-        Debug.Log(PhotonNetwork.playerName + " playername");
+        HideAllMenus();
+        StatusMenu.SetActive(true);
+        PhotonNetwork.CreateRoom(RoomName.text, new RoomOptions() { MaxPlayers = 8 }, null);
     }
 
     public void LeaveRoom()
@@ -125,12 +148,14 @@ public class ServerManager : MonoBehaviour {
 
     public virtual void OnLeftRoom()
     {
-        RoomMenu.SetActive(false);
+        HideAllMenus();
     }
 
     public virtual void OnJoinedRoom()
     {
+        HideAllMenus();
         RoomMenu.SetActive(true);
+        RoomTitle.text = RoomName.text;
     }
     #endregion
 }

@@ -27,6 +27,7 @@ Visual Studio/Website/build/
 Visual Studio/Website/bld/
 Visual Studio/Website/[Bb]in/
 Visual Studio/Website/[Oo]bj/
+Visual Studio/Website/Web.config
 
 # Unity
 Unity/.vs/

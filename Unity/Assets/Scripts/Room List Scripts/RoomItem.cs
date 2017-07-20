@@ -25,7 +25,8 @@ public class RoomItem : MonoBehaviour {
 	float animatedTargetHeight;
 	float animatedTargetAlpha;
 
-	RoomInfo RoomCache;
+	private RoomInfo RoomCache;
+
     RoomListUIManager Controller;
 
 	void Awake()
