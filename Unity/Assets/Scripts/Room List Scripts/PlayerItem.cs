@@ -44,6 +44,7 @@ public class PlayerItem : MonoBehaviour {
 
 		YouText.enabled = player.IsLocal;
 		MasterText.enabled = player.IsMasterClient;
+        ServerManager.Instance.StartGameButton.interactable = player.IsMasterClient;
 	}
 
 	/// <summary>

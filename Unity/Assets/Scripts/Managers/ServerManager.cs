@@ -28,6 +28,7 @@ public class ServerManager : MonoBehaviour {
     public GameObject Buttons;
     public GameObject ErrorMenu;
 
+    public Button StartGameButton;
     public InputField RoomName;
     #endregion
 
@@ -128,6 +129,7 @@ public class ServerManager : MonoBehaviour {
 
     public void JoinRoom(RoomInfo room)
     {
+        RoomTitle.text = room.Name;
         PhotonNetwork.JoinRoom(room.Name);
     }
 
@@ -146,6 +148,7 @@ public class ServerManager : MonoBehaviour {
     {
         HideAllMenus();
         StatusMenu.SetActive(true);
+        RoomTitle.text = RoomName.text;
         PhotonNetwork.CreateRoom(RoomName.text, new RoomOptions() { MaxPlayers = 8 }, null);
     }
 
@@ -163,7 +166,6 @@ public class ServerManager : MonoBehaviour {
     {
         HideAllMenus();
         RoomMenu.SetActive(true);
-        RoomTitle.text = RoomName.text;
     }
     #endregion
 
@@ -171,7 +173,7 @@ public class ServerManager : MonoBehaviour {
 
     public void StartGameClicked()
     {
-        if (PhotonNetwork.playerList.Length < 4)
+        if (PhotonNetwork.playerList.Length <= 0)
         {
             HideAllMenus();
             ErrorMenu.SetActive(true);
@@ -179,6 +181,7 @@ public class ServerManager : MonoBehaviour {
         else
         {
             Debug.Log("START GAME CLICKED. INSERT FUNCTIONALITY HERE.");
+            PhotonNetwork.LoadLevel("Scenes/Selection");
         }
     }
 
