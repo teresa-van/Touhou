@@ -13,11 +13,23 @@ public class MusicManager : MonoBehaviour {
 
     public AudioClip login;
     public AudioClip main;
+    public AudioClip selection;
+
+    public bool music = true;
+
+    public void Awake()
+    {
+        DontDestroyOnLoad(this);
+
+        if (FindObjectsOfType(GetType()).Length > 1)
+        {
+            Destroy(gameObject);
+        }
+    }
 
     // Use this for initialization
     void Start ()
     {
-        DontDestroyOnLoad(this.gameObject);
         MusicManager.Instance = this;
         SceneManager.sceneLoaded += SceneLoadComplete;
     }
@@ -35,6 +47,14 @@ public class MusicManager : MonoBehaviour {
         {
             AudioSource audio = GetComponent<AudioSource>();
             audio.clip = login;
+            audio.Play();
+            if (AudioListener.volume == 0) music = false;
+            GeneralGameManager.Instance.SyncMusicVolume();
+        }
+        else if (scene.name.Equals("Selection"))
+        {
+            AudioSource audio = GetComponent<AudioSource>();
+            audio.clip = selection;
             audio.Play();
         }
 

@@ -13,8 +13,8 @@ public class GeneralGameManager : MonoBehaviour {
 
     #region Variables
     public SpriteRenderer BlackScreen;
-    public bool music = true;
     public float defaultVolume = 1;
+    public Toggle music;
 
     public Text nickname;
     #endregion
@@ -29,6 +29,7 @@ public class GeneralGameManager : MonoBehaviour {
             nickname = GameObject.Find("Menu/UserUI/Text").GetComponent<Text>();
             nickname.text = AuthenticationManager.Instance.User.NickName;
         }
+        SyncMusicVolume();
     }
 
     #endregion
@@ -55,23 +56,26 @@ public class GeneralGameManager : MonoBehaviour {
 
     #region Load Scenes
 
-    public void LoadScene(string level)
+    public void LoadScene(string level, bool sync)
     {
-        StartCoroutine(StartLoadScene(level));
+        StartCoroutine(StartLoadScene(level, sync));
     }
 
-    IEnumerator StartLoadScene(string level)
+    IEnumerator StartLoadScene(string level, bool sync)
     {
         float elapsedTime = 0;
 
-        while (elapsedTime < 0.5f)
+        while (elapsedTime < 0.75f)
         {
             elapsedTime += Time.deltaTime;
-            AudioListener.volume = Mathf.Lerp(defaultVolume, 0, elapsedTime / 0.5f);
+            AudioListener.volume = Mathf.Lerp(AudioListener.volume, 0, elapsedTime / 0.75f);
             //BlackScreen.color = new Color(1f, 1f, 1f, Mathf.SmoothStep(0.0f, 1f, elapsedTime/0.3f));
             yield return null;
         }
-        SceneManager.LoadScene(level);
+        if (sync)
+            PhotonNetwork.LoadLevel(level);
+        else
+            SceneManager.LoadScene(level);
     }
 
     public void EnterScene()
@@ -97,15 +101,25 @@ public class GeneralGameManager : MonoBehaviour {
 
     public void ToggleMusic()
     {
-        if (music)
+        if (MusicManager.Instance.music)
         {
             AudioListener.volume = 0;
-            music = false;
+            MusicManager.Instance.music = false;
         }
         else
         {
             AudioListener.volume = defaultVolume;
-            music = true;
+            MusicManager.Instance.music = true;
+        }
+    }
+
+    public void SyncMusicVolume()
+    {
+        if (!MusicManager.Instance.music)
+        {
+            music.isOn = true;
+            MusicManager.Instance.music = false;
+            AudioListener.volume = 0;
         }
     }
 
@@ -125,7 +139,7 @@ public class GeneralGameManager : MonoBehaviour {
     {
         PhotonNetwork.Disconnect();
         AuthenticationManager.Instance.User = null;
-        LoadScene("Scenes/Login");
+        LoadScene("Scenes/Login", false);
     }
 
     public void Register()

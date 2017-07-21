@@ -146,6 +146,7 @@ public class ServerManager : MonoBehaviour {
         {
             HideAllMenus();
             MainUIManager.Instance.CreateRoomMenu.SetActive(true);
+            MainUIManager.Instance.RoomName.text = "Touhou Game";
         }
     }
 
@@ -193,7 +194,7 @@ public class ServerManager : MonoBehaviour {
         else
         {
             Debug.Log("START GAME CLICKED. INSERT FUNCTIONALITY HERE.");
-            PhotonNetwork.LoadLevel("Scenes/Selection");
+            GeneralGameManager.Instance.LoadScene("Scenes/Selection", true);
         }
     }
 
