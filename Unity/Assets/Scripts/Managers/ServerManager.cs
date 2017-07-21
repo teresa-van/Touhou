@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class ServerManager : MonoBehaviour { 
@@ -19,35 +20,24 @@ public class ServerManager : MonoBehaviour {
     private string GameVersion = "1.0";
     ClientState ClientStateCache;
 
-    public Text RoomTitle;
-    public Text ConnectionStatusText;
-    public GameObject StatusMenu;
-    public GameObject LobbyMenu;
-    public GameObject CreateRoomMenu;
-    public GameObject RoomMenu;
-    public GameObject Buttons;
-    public GameObject ErrorMenu;
-
-    public Button StartGameButton;
-    public InputField RoomName;
     #endregion
 
     #region Etc
 
     public void HideAllMenus()
     {
-        StatusMenu.SetActive(false);
-        LobbyMenu.SetActive(false);
-        CreateRoomMenu.SetActive(false);
-        RoomMenu.SetActive(false);
-        Buttons.SetActive(false);
-        ErrorMenu.SetActive(false);
+        MainUIManager.Instance.StatusMenu.SetActive(false);
+        MainUIManager.Instance.LobbyMenu.SetActive(false);
+        MainUIManager.Instance.CreateRoomMenu.SetActive(false);
+        MainUIManager.Instance.RoomMenu.SetActive(false);
+        MainUIManager.Instance.Buttons.SetActive(false);
+        MainUIManager.Instance.ErrorMenu.SetActive(false);
     }
 
     public void OKErrorButtonClicked()
     {
         HideAllMenus();
-        RoomMenu.SetActive(true);
+        MainUIManager.Instance.RoomMenu.SetActive(true);
     }
 
     #endregion
@@ -79,7 +69,8 @@ public class ServerManager : MonoBehaviour {
         if (ClientStateCache != PhotonNetwork.connectionStateDetailed)
         {
             ClientStateCache = PhotonNetwork.connectionStateDetailed;
-            ConnectionStatusText.text = ClientStateCache.ToString();
+            if (SceneManager.GetActiveScene().name.Equals("Main"))
+                MainUIManager.Instance.ConnectionStatusText.text = ClientStateCache.ToString();
         }
     }
 
@@ -101,27 +92,37 @@ public class ServerManager : MonoBehaviour {
     public void JoinLobby()
     {
         PhotonNetwork.ConnectUsingSettings(GameVersion);
-        HideAllMenus();
-        StatusMenu.SetActive(true);
+        if (SceneManager.GetActiveScene().name.Equals("Main"))
+        {
+            HideAllMenus();
+            MainUIManager.Instance.StatusMenu.SetActive(true);
+        }
     }
 
     public virtual void OnJoinedLobby()
     {
-        HideAllMenus();
-        LobbyMenu.SetActive(true);
+        if (SceneManager.GetActiveScene().name.Equals("Main"))
+        {
+            HideAllMenus();
+            MainUIManager.Instance.LobbyMenu.SetActive(true);
+        }
     }
 
     public void LeaveLobby()
     {
-        HideAllMenus();
-        StatusMenu.SetActive(true);
-        Buttons.SetActive(true);
+        if (SceneManager.GetActiveScene().name.Equals("Main"))
+        {
+            HideAllMenus();
+            MainUIManager.Instance.StatusMenu.SetActive(true);
+            MainUIManager.Instance.Buttons.SetActive(true);
+        }
         PhotonNetwork.Disconnect();
     }
 
     public virtual void OnLeftLobby()
     {
-        StatusMenu.SetActive(false);
+        if (SceneManager.GetActiveScene().name.Equals("Main"))
+            MainUIManager.Instance.StatusMenu.SetActive(false);
     }
     #endregion
 
@@ -129,7 +130,8 @@ public class ServerManager : MonoBehaviour {
 
     public void JoinRoom(RoomInfo room)
     {
-        RoomTitle.text = room.Name;
+        if (SceneManager.GetActiveScene().name.Equals("Main"))
+            MainUIManager.Instance.RoomTitle.text = room.Name;
         PhotonNetwork.JoinRoom(room.Name);
     }
 
@@ -140,16 +142,22 @@ public class ServerManager : MonoBehaviour {
 
     public void OpenCreateRoomMenu()
     {
-        HideAllMenus();
-        CreateRoomMenu.SetActive(true);
+        if (SceneManager.GetActiveScene().name.Equals("Main"))
+        {
+            HideAllMenus();
+            MainUIManager.Instance.CreateRoomMenu.SetActive(true);
+        }
     }
 
     public void CreateRoom()
     {
-        HideAllMenus();
-        StatusMenu.SetActive(true);
-        RoomTitle.text = RoomName.text;
-        PhotonNetwork.CreateRoom(RoomName.text, new RoomOptions() { MaxPlayers = 8 }, null);
+        if (SceneManager.GetActiveScene().name.Equals("Main"))
+        {
+            HideAllMenus();
+            MainUIManager.Instance.StatusMenu.SetActive(true);
+            MainUIManager.Instance.RoomTitle.text = MainUIManager.Instance.RoomName.text;
+            PhotonNetwork.CreateRoom(MainUIManager.Instance.RoomName.text, new RoomOptions() { MaxPlayers = 8 }, null);
+        }
     }
 
     public void LeaveRoom()
@@ -159,13 +167,17 @@ public class ServerManager : MonoBehaviour {
 
     public virtual void OnLeftRoom()
     {
-        HideAllMenus();
+        if (SceneManager.GetActiveScene().name.Equals("Main"))
+            HideAllMenus();
     }
 
     public virtual void OnJoinedRoom()
     {
-        HideAllMenus();
-        RoomMenu.SetActive(true);
+        if (SceneManager.GetActiveScene().name.Equals("Main"))
+        {
+            HideAllMenus();
+            MainUIManager.Instance.RoomMenu.SetActive(true);
+        }
     }
     #endregion
 
@@ -176,7 +188,7 @@ public class ServerManager : MonoBehaviour {
         if (PhotonNetwork.playerList.Length <= 0)
         {
             HideAllMenus();
-            ErrorMenu.SetActive(true);
+            MainUIManager.Instance.ErrorMenu.SetActive(true);
         }
         else
         {
