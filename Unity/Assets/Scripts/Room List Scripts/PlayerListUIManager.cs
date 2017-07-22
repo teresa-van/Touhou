@@ -38,7 +38,7 @@ public class PlayerListUIManager: Photon.PunBehaviour {
 			}
             else
             {   // create new
-				GameObject item =  (GameObject)Instantiate(PlayerItemPrefab);
+				GameObject item = (GameObject)Instantiate(PlayerItemPrefab);
                 Debug.Log(PlayerPanel.transform);
 				item.transform.SetParent(PlayerPanel.transform);
 
