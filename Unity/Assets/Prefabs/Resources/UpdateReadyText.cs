@@ -5,21 +5,51 @@ using UnityEngine.UI;
 
 public class UpdateReadyText : MonoBehaviour {
 
+    public GameObject ViewArea;
+    public GameObject playerReady;
     public Text readyText;
     public bool ready = false;
 
-    [PunRPC]
-    public void UpdateText()
+    void Awake()
     {
-        if (!PhotonNetwork.player.IsMasterClient)
+        ViewArea = GameObject.Find("Menu/ViewArea").gameObject;
+        playerReady = this.gameObject;
+    }
+
+    [PunRPC]
+    public void InstantiateText(PhotonPlayer player, int yPos)
+    {
+        playerReady.transform.SetParent(ViewArea.transform);
+        playerReady.transform.localPosition = Vector3.zero;
+        playerReady.transform.localScale = Vector3.one;
+        playerReady.transform.localPosition = new Vector3(-385, yPos, 0);
+        Text readyText = playerReady.transform.Find("Ready").GetComponent<Text>();
+        Text nicknameText = playerReady.transform.Find("Nickname").GetComponent<Text>();
+        nicknameText.text = player.NickName;
+        if (player.IsMasterClient) readyText.text = "MASTER";
+        else readyText.text = "";
+    }
+
+    [PunRPC]
+    public void ChangeToMaster(PhotonPlayer player)
+    {
+        if (player.IsMasterClient) readyText.text = "MASTER";
+    }
+
+    [PunRPC]
+    public void UpdateText(PhotonPlayer player)
+    {
+        if (!player.IsMasterClient)
         {
-            if (ready)
+            if (!ready)
             {
-                readyText.text = "READY"; SelectionManager.Instance.playersReady++;
+                readyText.text = "READY"; SelectionManager.Instance.playersReady++; 
+                ready = true;
             }
             else
             {
-                readyText.text = ""; SelectionManager.Instance.playersReady++;
+                readyText.text = ""; SelectionManager.Instance.playersReady--; 
+                ready = false;
             }
         }
     }

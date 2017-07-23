@@ -39,7 +39,6 @@ public class PlayerListUIManager: Photon.PunBehaviour {
             else
             {   // create new
 				GameObject item = (GameObject)Instantiate(PlayerItemPrefab);
-                Debug.Log(PlayerPanel.transform);
 				item.transform.SetParent(PlayerPanel.transform);
 
 				PlayerItem playerItem = item.GetComponent<PlayerItem>();
@@ -61,7 +60,9 @@ public class PlayerListUIManager: Photon.PunBehaviour {
 				items.Remove(item.Key);
 			}
 		}
-	}
+
+        MainUIManager.Instance.StartGameButton.interactable = PhotonNetwork.player.IsMasterClient;
+    }
 
 	/// <summary>
 	/// Cleans up list to prevent memory leak.

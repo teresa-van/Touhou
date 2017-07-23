@@ -195,6 +195,7 @@ public class ServerManager : MonoBehaviour {
         {
             Debug.Log("START GAME CLICKED. INSERT FUNCTIONALITY HERE.");
             GeneralGameManager.Instance.LoadScene("Scenes/Selection", true);
+            PhotonNetwork.isMessageQueueRunning = false;
         }
     }
 

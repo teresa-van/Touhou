@@ -15,54 +15,40 @@ public class SelectionManager : MonoBehaviour
 
     #region Variables
 
-    public GameObject PlayerSelectionPrefab;
-    public GameObject ViewArea;
-    public int playersReady = 1;
-    public bool ready = false;
-    //public Dictionary<int, GameObject> players = new Dictionary<int, GameObject>();
+    public int playersReady;
     public Button ReadyOrStart;
-
-    public GameObject playerReady;
+    public int yPos;
     private PhotonView myPhotonView;
+    public Dictionary<PhotonPlayer, int> positions = new Dictionary<PhotonPlayer, int>();
+    public bool ready;
+    public GameObject playerReady;
 
     #endregion
 
     #region Initialization
 
+    void Awake()
+    {
+        playersReady = 1;
+        PhotonNetwork.isMessageQueueRunning = true;
+    }
+
     void Start()
     {
         //Reference this instance as singleton instance
         Instance = this;
-        float spacing = (ViewArea.transform.localScale.y * 768) / PhotonNetwork.playerList.Length;
-        int count = 0;
-        //foreach(PhotonPlayer player in PhotonNetwork.playerList)
-        //{
-        //    GameObject playerReady = PhotonNetwork.Instantiate("Player(Selection)", Vector3.zero, Quaternion.identity, 0);
-        //    players.Add(player.ID, playerReady);
-        //    playerReady.transform.SetParent(ViewArea.transform);
-        //    playerReady.transform.localPosition = Vector3.zero; 
-        //    playerReady.transform.localScale = Vector3.one;
-        //    playerReady.transform.localPosition = new Vector3(-385, spacing * count, 0);
-        //    Text readyText = playerReady.transform.Find("Ready").GetComponent<Text>();
-        //    Text nicknameText = playerReady.transform.Find("Nickname").GetComponent<Text>();
-        //    nicknameText.text = player.NickName;
-        //    if (player.IsMasterClient) readyText.text = "MASTER";
-        //    else readyText.text = "";
-        //    count++;
-        //}
+
         playerReady = PhotonNetwork.Instantiate("Player(Selection)", Vector3.zero, Quaternion.identity, 0);
-        //players.Add(player.ID, playerReady);
-        playerReady.transform.SetParent(ViewArea.transform);
-        playerReady.transform.localPosition = Vector3.zero;
-        playerReady.transform.localScale = Vector3.one;
-        playerReady.transform.localPosition = new Vector3(-385, spacing * count, 0);
-        Text readyText = playerReady.transform.Find("Ready").GetComponent<Text>();
-        Text nicknameText = playerReady.transform.Find("Nickname").GetComponent<Text>();
-        nicknameText.text = PhotonNetwork.player.NickName;
-        if (PhotonNetwork.player.IsMasterClient) readyText.text = "MASTER";
-        else readyText.text = "";
         myPhotonView = playerReady.GetComponent<PhotonView>();
 
+        yPos = (320 - (80 * (PhotonNetwork.player.ID - 1)));
+        myPhotonView.RPC("InstantiateText", PhotonTargets.All, myPhotonView.owner, yPos);
+
+        SetButton();
+    }
+
+    void SetButton()
+    {
         if (PhotonNetwork.player.IsMasterClient)
         {
             ReadyOrStart.transform.Find("Text").GetComponent<Text>().text = "START";
@@ -78,18 +64,16 @@ public class SelectionManager : MonoBehaviour
 
     void Update()
     {
-        myPhotonView.RPC("UpdateReadyText", PhotonTargets.All);
-        if (playersReady == PhotonNetwork.playerList.Length && PhotonNetwork.player.IsMasterClient) ReadyOrStart.interactable = true; 
+        print(playersReady + "<- PLAYERS READY");
+        if (playersReady >= PhotonNetwork.playerList.Length && PhotonNetwork.player.IsMasterClient) ReadyOrStart.interactable = true;
+        else if (playersReady < PhotonNetwork.playerList.Length && PhotonNetwork.player.IsMasterClient) ReadyOrStart.interactable = false;
     }
 
     public void ReadyUp()
     {
         if (!PhotonNetwork.player.IsMasterClient)
         {
-            if (ready)
-                ready = false;
-            else
-                ready = true;
+            myPhotonView.RPC("UpdateText", PhotonTargets.All, myPhotonView.owner);
         }
         else
         {
@@ -97,4 +81,18 @@ public class SelectionManager : MonoBehaviour
         }
     }
 
+    public virtual void OnMasterClientSwitched(PhotonPlayer newMasterClient)
+    {
+        if (newMasterClient == PhotonNetwork.player)
+        {
+            SetButton();
+            myPhotonView.RPC("ChangeToMaster", PhotonTargets.All, myPhotonView.owner);
+        }
+    }
+
+    public virtual void OnPhotonPlayerDisconnected(PhotonPlayer otherPlayer)
+    {
+        if (playerReady.GetComponent<UpdateReadyText>().ready)
+            playersReady--;
+    }
 }
