@@ -42,7 +42,7 @@ public class RolesManager : MonoBehaviour
         {
             //4
             "Ex Boss",
-            "PhantomBoss",
+            "Phantom Boss",
         };
 
     #endregion

@@ -79,7 +79,6 @@ public class PlayerSelectMethods : MonoBehaviour {
             RolesManager.roles.Add(player.ID, tempRoles[count]);
             count++;
         }
-        SelectionManager.Instance.uh();
     }
      
     #endregion

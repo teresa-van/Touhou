@@ -49,12 +49,8 @@ public class SelectionManager : MonoBehaviour
             myPhotonView.RPC("SetRoles", PhotonTargets.All, roles);
         }
 
-        SetButton();
-    }
-
-    public void uh()
-    {
         myPhotonView.RPC("InstantiateText", PhotonTargets.All, myPhotonView.owner, yPos);
+        SetButton();
     }
 
     void SetButton()
