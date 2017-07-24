@@ -43,10 +43,14 @@ public class SelectionManager : MonoBehaviour
 
         if (PhotonNetwork.player.IsMasterClient)
         {
-            print("HFSJKLAFGHAJKSFGAFSUIABFASFBKA&*%%#$%^#w^*$%^#&@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-
             List<string> tempRoles = RolesManager.Instance.ShuffleRoles();
-            string roles = JsonConvert.SerializeObject(tempRoles);
+            //string roles = JsonConvert.SerializeObject(tempRoles);
+            string roles = "";
+            for (int i = 0; i < tempRoles.Count; i++)
+            {
+                if (i == tempRoles.Count - 1) roles += tempRoles[i];
+                else roles += tempRoles[i] + ",";
+            }
             myPhotonView.RPC("SetRoles", PhotonTargets.All, roles);
         }
 

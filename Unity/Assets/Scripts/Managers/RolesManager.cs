@@ -30,7 +30,7 @@ public class RolesManager : MonoBehaviour
 
     public List<string> Partners = new List<string>
         {
-            //4
+            //54
             "Partner",
             "Partner",
             "Ex Midboss",
