@@ -73,14 +73,10 @@ public class PlayerSelectMethods : MonoBehaviour {
     [PunRPC]
     public void SetRoles(string roles)
     {
-        //List<string> tempRoles = JsonConvert.DeserializeObject<List<string>>(roles);
-        int count = 0;
-        string[] tempRoles = roles.Split(',');
-        foreach (PhotonPlayer player in PhotonNetwork.playerList)
+        List<string> tempRoles = JsonConvert.DeserializeObject<List<string>>(roles);
+        for (int i = 0; i < PhotonNetwork.playerList.Length; i++)
         {
-            print(player.ID + " " + player.NickName);
-            RolesManager.roles.Add(player.ID, tempRoles[count]);
-            count++;
+            RolesManager.roles.Add(i+1, tempRoles[i]);
         }
         SelectionManager.Instance.uh();
     }
