@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Newtonsoft.Json;
 
 public class SelectionManager : MonoBehaviour
 {
@@ -19,7 +20,6 @@ public class SelectionManager : MonoBehaviour
     public Button ReadyOrStart;
     public int yPos;
     private PhotonView myPhotonView;
-    public Dictionary<PhotonPlayer, int> positions = new Dictionary<PhotonPlayer, int>();
     public bool ready;
     public GameObject playerReady;
 
@@ -40,11 +40,21 @@ public class SelectionManager : MonoBehaviour
 
         playerReady = PhotonNetwork.Instantiate("Player(Selection)", Vector3.zero, Quaternion.identity, 0);
         myPhotonView = playerReady.GetComponent<PhotonView>();
-
         yPos = (320 - (80 * (PhotonNetwork.player.ID - 1)));
-        myPhotonView.RPC("InstantiateText", PhotonTargets.All, myPhotonView.owner, yPos);
+
+        if (PhotonNetwork.player.IsMasterClient)
+        {
+            List<string> tempRoles = RolesManager.Instance.ShuffleRoles();
+            string roles = JsonConvert.SerializeObject(tempRoles);
+            myPhotonView.RPC("SetRoles", PhotonTargets.All, roles);
+        }
 
         SetButton();
+    }
+
+    public void uh()
+    {
+        myPhotonView.RPC("InstantiateText", PhotonTargets.All, myPhotonView.owner, yPos);
     }
 
     void SetButton()
@@ -92,7 +102,7 @@ public class SelectionManager : MonoBehaviour
 
     public virtual void OnPhotonPlayerDisconnected(PhotonPlayer otherPlayer)
     {
-        if (playerReady.GetComponent<UpdateReadyText>().ready)
+        if (playerReady.GetComponent<PlayerSelectMethods>().ready)
             playersReady--;
     }
 }
