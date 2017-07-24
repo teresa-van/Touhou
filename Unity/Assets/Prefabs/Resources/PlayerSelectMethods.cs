@@ -78,6 +78,7 @@ public class PlayerSelectMethods : MonoBehaviour {
         string[] tempRoles = roles.Split(',');
         foreach (PhotonPlayer player in PhotonNetwork.playerList)
         {
+            print(player.ID + " " + player.NickName);
             RolesManager.roles.Add(player.ID, tempRoles[count]);
             count++;
         }
