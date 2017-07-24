@@ -20,7 +20,6 @@ public class SelectionManager : MonoBehaviour
     public Button ReadyOrStart;
     public int yPos;
     private PhotonView myPhotonView;
-    public bool ready;
     public GameObject playerReady;
 
     #endregion
@@ -40,7 +39,6 @@ public class SelectionManager : MonoBehaviour
 
         playerReady = PhotonNetwork.Instantiate("Player(Selection)", Vector3.zero, Quaternion.identity, 0);
         myPhotonView = playerReady.GetComponent<PhotonView>();
-        yPos = (320 - (80 * (PhotonNetwork.player.ID - 1)));
 
         if (PhotonNetwork.player.IsMasterClient)
         {
@@ -49,6 +47,7 @@ public class SelectionManager : MonoBehaviour
             myPhotonView.RPC("SetRoles", PhotonTargets.All, roles);
         }
 
+        yPos = (320 - (80 * (PhotonNetwork.player.ID - 1)));
         myPhotonView.RPC("InstantiateText", PhotonTargets.All, myPhotonView.owner, yPos);
         SetButton();
     }

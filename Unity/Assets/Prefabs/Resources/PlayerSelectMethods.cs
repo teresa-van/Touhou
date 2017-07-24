@@ -22,8 +22,6 @@ public class PlayerSelectMethods : MonoBehaviour {
     [PunRPC]
     public void InstantiateText(PhotonPlayer player, int yPos)
     {
-        print(RolesManager.roles[1] + ", " + RolesManager.roles[2] + ", " + RolesManager.roles[3] + ", " + RolesManager.roles[4]);
-
         playerReady.transform.SetParent(ViewArea.transform);
         playerReady.transform.localPosition = Vector3.zero;
         playerReady.transform.localScale = Vector3.one;
@@ -32,6 +30,9 @@ public class PlayerSelectMethods : MonoBehaviour {
         Text nicknameText = playerReady.transform.Find("Nickname").GetComponent<Text>();
         Text roleText = playerReady.transform.Find("Role").GetComponent<Text>();
         nicknameText.text = player.NickName;
+
+        print(RolesManager.roles[1] + ", " + RolesManager.roles[2] + ", " + RolesManager.roles[3] + ", " + RolesManager.roles[4]);
+
         roleText.text = RolesManager.roles[player.ID];
         if (player.IsMasterClient) readyText.text = "MASTER";
         else readyText.text = "";
@@ -79,6 +80,7 @@ public class PlayerSelectMethods : MonoBehaviour {
             RolesManager.roles.Add(player.ID, tempRoles[count]);
             count++;
         }
+        print(RolesManager.roles[1] + ", " + RolesManager.roles[2] + ", " + RolesManager.roles[3] + ", " + RolesManager.roles[4]);
     }
      
     #endregion
