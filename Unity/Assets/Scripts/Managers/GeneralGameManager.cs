@@ -24,7 +24,7 @@ public class GeneralGameManager : MonoBehaviour {
     void Start () {
         //Reference this instance as singleton instance
         Instance = this;
-        if (SceneManager.GetActiveScene().name.Equals("Main"))
+        if (SceneManager.GetActiveScene().name.Equals("Main") || SceneManager.GetActiveScene().name.Equals("Selection"))
         {
             nickname = GameObject.Find("Menu/UserUI/Text").GetComponent<Text>();
             nickname.text = AuthenticationManager.Instance.User.NickName;
