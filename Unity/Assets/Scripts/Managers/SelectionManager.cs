@@ -51,7 +51,7 @@ public class SelectionManager : MonoBehaviour
         SetButton();
     }
 
-    public void uh()
+    public void Uh()
     {
         myPhotonView.RPC("InstantiateText", PhotonTargets.All, myPhotonView.owner, yPos);
     }
@@ -73,12 +73,11 @@ public class SelectionManager : MonoBehaviour
 
     void Update()
     {
-        print(playersReady + "<- PLAYERS READY");
         if (playersReady >= PhotonNetwork.playerList.Length && PhotonNetwork.player.IsMasterClient) ReadyOrStart.interactable = true;
         else if (playersReady < PhotonNetwork.playerList.Length && PhotonNetwork.player.IsMasterClient) ReadyOrStart.interactable = false;
     }
 
-    public void ReadyUp()
+    public void PlayerReady()
     {
         if (!PhotonNetwork.player.IsMasterClient)
         {

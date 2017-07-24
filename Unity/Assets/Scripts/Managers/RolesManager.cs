@@ -58,8 +58,8 @@ public class RolesManager : MonoBehaviour
     public List<string> ShuffleRoles()
     {
         List<string> tempRoles = new List<string>();
-        List<string> tempSB = RolesManager.Instance.Shuffle(RolesManager.Instance.StageBosses);
-        List<string> tempXB = RolesManager.Instance.Shuffle(RolesManager.Instance.ExBosses);
+        List<string> tempSB = Shuffle(StageBosses);
+        List<string> tempXB = Shuffle(ExBosses);
         if (PhotonNetwork.playerList.Length == 4)
         {
             tempRoles.Add("Heroine");
@@ -69,7 +69,7 @@ public class RolesManager : MonoBehaviour
         }
         else if (PhotonNetwork.playerList.Length == 5)
         {
-            List<string> tempP = RolesManager.Instance.Shuffle(RolesManager.Instance.Partners.GetRange(0, 3));
+            List<string> tempP = Shuffle(Partners.GetRange(0, 3));
             tempRoles.Add("Heroine");
             tempRoles.Add(tempSB[0]);
             tempRoles.Add(tempSB[1]);
@@ -78,7 +78,7 @@ public class RolesManager : MonoBehaviour
         }
         else if (PhotonNetwork.playerList.Length == 6)
         {
-            List<string> tempP = RolesManager.Instance.Shuffle(RolesManager.Instance.Partners.GetRange(0, 3));
+            List<string> tempP = Shuffle(Partners.GetRange(0, 3));
             tempRoles.Add("Heroine");
             tempRoles.Add(tempSB[0]);
             tempRoles.Add(tempSB[1]);
@@ -88,7 +88,7 @@ public class RolesManager : MonoBehaviour
         }
         else if (PhotonNetwork.playerList.Length == 7)
         {
-            List<string> tempP = RolesManager.Instance.Shuffle(RolesManager.Instance.Partners);
+            List<string> tempP = Shuffle(Partners);
             tempRoles.Add("Heroine");
             tempRoles.Add(tempSB[0]);
             tempRoles.Add(tempSB[1]);
@@ -99,7 +99,7 @@ public class RolesManager : MonoBehaviour
         }
         else if (PhotonNetwork.playerList.Length == 8)
         {
-            List<string> tempP = RolesManager.Instance.Shuffle(RolesManager.Instance.Partners);
+            List<string> tempP = Shuffle(Partners);
             tempRoles.Add("Heroine");
             tempRoles.Add(tempSB[0]);
             tempRoles.Add(tempSB[1]);
@@ -110,8 +110,7 @@ public class RolesManager : MonoBehaviour
             tempRoles.Add("Rival");
         }
 
-        tempRoles = RolesManager.Instance.Shuffle(tempRoles);
-        print(tempRoles + "<- temp roles in shuffle roles");
+        tempRoles = Shuffle(tempRoles);
         return tempRoles;
     }
 
@@ -124,7 +123,6 @@ public class RolesManager : MonoBehaviour
             list[i] = list[randomIndex];
             list[randomIndex] = temp;
         }
-
         return list;
     }
 }

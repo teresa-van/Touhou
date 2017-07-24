@@ -31,8 +31,6 @@ public class PlayerSelectMethods : MonoBehaviour {
         Text roleText = playerReady.transform.Find("Role").GetComponent<Text>();
         nicknameText.text = player.NickName;
 
-        print(RolesManager.roles[1] + ", " + RolesManager.roles[2] + ", " + RolesManager.roles[3] + ", " + RolesManager.roles[4]);
-
         roleText.text = RolesManager.roles[player.ID];
         if (player.IsMasterClient) readyText.text = "MASTER";
         else readyText.text = "";
@@ -78,7 +76,7 @@ public class PlayerSelectMethods : MonoBehaviour {
         {
             RolesManager.roles.Add(i+1, tempRoles[i]);
         }
-        SelectionManager.Instance.uh();
+        SelectionManager.Instance.Uh();
     }
      
     #endregion
