@@ -22,6 +22,8 @@ public class SelectionManager : MonoBehaviour
     private PhotonView myPhotonView;
     public GameObject playerReady;
 
+    public Image RoleCard;
+
     #endregion
 
     #region Initialization
@@ -49,6 +51,11 @@ public class SelectionManager : MonoBehaviour
         }
 
         SetButton();
+
+        Sprite role = (Sprite)Resources.Load("Role Cards/" + myPhotonView.GetComponent<PlayerSelectMethods>().playerReady.transform.Find("Role").GetComponent<Text>().text);
+        print(role.name);
+        RoleCard.sprite = role;
+        RoleCard.preserveAspect = true;
     }
 
     public void Uh()

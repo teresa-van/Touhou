@@ -25,7 +25,7 @@ public class PlayerSelectMethods : MonoBehaviour {
         playerReady.transform.SetParent(ViewArea.transform);
         playerReady.transform.localPosition = Vector3.zero;
         playerReady.transform.localScale = Vector3.one;
-        playerReady.transform.localPosition = new Vector3(-385, yPos, 0);
+        playerReady.transform.localPosition = new Vector3(-410, yPos, 0);
         Text readyText = playerReady.transform.Find("Ready").GetComponent<Text>();
         Text nicknameText = playerReady.transform.Find("Nickname").GetComponent<Text>();
         Text roleText = playerReady.transform.Find("Role").GetComponent<Text>();
