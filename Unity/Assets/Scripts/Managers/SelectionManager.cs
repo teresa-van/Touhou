@@ -39,17 +39,23 @@ public class SelectionManager : MonoBehaviour
 
         playerReady = PhotonNetwork.Instantiate("Player(Selection)", Vector3.zero, Quaternion.identity, 0);
         myPhotonView = playerReady.GetComponent<PhotonView>();
+        yPos = (320 - (80 * (PhotonNetwork.player.ID - 1)));
 
         if (PhotonNetwork.player.IsMasterClient)
         {
+            print("HFSJKLAFGHAJKSFGAFSUIABFASFBKA&*%%#$%^#w^*$%^#&@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+
             List<string> tempRoles = RolesManager.Instance.ShuffleRoles();
             string roles = JsonConvert.SerializeObject(tempRoles);
             myPhotonView.RPC("SetRoles", PhotonTargets.All, roles);
         }
 
-        yPos = (320 - (80 * (PhotonNetwork.player.ID - 1)));
-        myPhotonView.RPC("InstantiateText", PhotonTargets.All, myPhotonView.owner, yPos);
         SetButton();
+    }
+
+    public void uh()
+    {
+        myPhotonView.RPC("InstantiateText", PhotonTargets.All, myPhotonView.owner, yPos);
     }
 
     void SetButton()
