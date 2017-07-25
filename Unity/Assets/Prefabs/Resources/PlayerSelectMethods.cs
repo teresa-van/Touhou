@@ -11,6 +11,8 @@ public class PlayerSelectMethods : MonoBehaviour {
     public Text readyText;
     public bool ready = false;
     public string role;
+    public List<string> choices;
+    public string character;
 
     #region Initialization
 
@@ -32,6 +34,8 @@ public class PlayerSelectMethods : MonoBehaviour {
         nicknameText.text = player.NickName;
 
         role = RolesManager.roles[player.ID];
+        choices = CharacterManager.characters[player.ID];
+
         if (player.IsMasterClient) readyText.text = "MASTER";
         else readyText.text = "";
     }
@@ -66,7 +70,7 @@ public class PlayerSelectMethods : MonoBehaviour {
 
     #endregion
 
-    #region Roles Methods
+    #region Roles/Character Methods
 
     [PunRPC]
     public void SetRoles(string roles)
@@ -76,8 +80,17 @@ public class PlayerSelectMethods : MonoBehaviour {
         {
             RolesManager.roles.Add(i+1, tempRoles[i]);
         }
+    }
+
+    [PunRPC]
+    public void SetCharacters(string characters)
+    {
+        List<List<string>> tempCharacters = JsonConvert.DeserializeObject<List<List<string>>>(characters);
+        for (int i = 0; i < PhotonNetwork.playerList.Length; i++)
+        {
+            CharacterManager.characters.Add(i + 1, tempCharacters[i]);
+        }
         SelectionManager.Instance.Uh();
     }
-     
     #endregion
 }

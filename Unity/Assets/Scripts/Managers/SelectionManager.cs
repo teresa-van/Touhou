@@ -24,6 +24,15 @@ public class SelectionManager : MonoBehaviour
 
     public Image RoleCard;
 
+    public Image Choice1;
+    public Image Choice2;
+    public Text Choice1Name;
+    public Text Choice2Name;
+
+    public GameObject Details1View;
+    public GameObject Details2View;
+    public Image Details1;
+    public Image Details2;
     #endregion
 
     #region Initialization
@@ -46,8 +55,15 @@ public class SelectionManager : MonoBehaviour
         if (PhotonNetwork.player.IsMasterClient)
         {
             List<string> tempRoles = RolesManager.Instance.ShuffleRoles();
+            List<List<string>> tempCharacters = CharacterManager.Instance.ShuffleCharacters();
+
+            print(tempCharacters + "<- TEMP CHARACTERS");
+            print(tempCharacters.Count + "<- COUNT OF TEMP CHARACTERS");
+
             string roles = JsonConvert.SerializeObject(tempRoles);
             myPhotonView.RPC("SetRoles", PhotonTargets.All, roles);
+            string characters = JsonConvert.SerializeObject(tempCharacters);
+            myPhotonView.RPC("SetCharacters", PhotonTargets.All, characters);
         }
 
         SetButton();
@@ -60,7 +76,24 @@ public class SelectionManager : MonoBehaviour
         Sprite role = Resources.Load<Sprite>("Role Cards/" + myPhotonView.GetComponent<PlayerSelectMethods>().role);
         RoleCard.sprite = role;
         RoleCard.preserveAspect = true;
-        RoleCard.transform.localScale = new Vector3(3, 3, 3);
+
+        Sprite choice1 = Resources.Load<Sprite>("Characters(UI)/" + myPhotonView.GetComponent<PlayerSelectMethods>().choices[0]);
+        Sprite details1 = Resources.Load<Sprite>("Character Cards/" + myPhotonView.GetComponent<PlayerSelectMethods>().choices[0]);
+
+        Choice1.sprite = choice1;
+        Details1.sprite = details1;
+        Choice1.preserveAspect = true;
+        Details1.preserveAspect = true;
+        Choice1Name.text = myPhotonView.GetComponent<PlayerSelectMethods>().choices[0];
+
+        Sprite choice2 = Resources.Load<Sprite>("Characters(UI)/" + myPhotonView.GetComponent<PlayerSelectMethods>().choices[1]);
+        Sprite details2 = Resources.Load<Sprite>("Character Cards/" + myPhotonView.GetComponent<PlayerSelectMethods>().choices[1]);
+
+        Choice2.sprite = choice2;
+        Details2.sprite = details2;
+        Choice2.preserveAspect = true;
+        Details2.preserveAspect = true;
+        Choice2Name.text = myPhotonView.GetComponent<PlayerSelectMethods>().choices[0];
     }
 
     void SetButton()
@@ -84,6 +117,26 @@ public class SelectionManager : MonoBehaviour
         else if (playersReady < PhotonNetwork.playerList.Length && PhotonNetwork.player.IsMasterClient) ReadyOrStart.interactable = false;
     }
 
+    #region Character Details
+
+    public void DisplayDetails1()
+    {
+        Details1View.SetActive(true);
+    }
+
+    public void DisplayDetails2()
+    {
+        Details2View.SetActive(true);
+    }
+
+    public void CloseDetails()
+    {
+        Details1View.SetActive(false);
+        Details2View.SetActive(false);
+    }
+
+    #endregion
+
     public void PlayerReady()
     {
         if (!PhotonNetwork.player.IsMasterClient)
@@ -95,6 +148,8 @@ public class SelectionManager : MonoBehaviour
             print("START GAME BUTTON CLICKED. INSERT FUNCTIONALITY HERE..");
         }
     }
+
+    #region Photon Callbacks
 
     public virtual void OnMasterClientSwitched(PhotonPlayer newMasterClient)
     {
@@ -110,4 +165,6 @@ public class SelectionManager : MonoBehaviour
         if (playerReady.GetComponent<PlayerSelectMethods>().ready)
             playersReady--;
     }
+
+    #endregion
 }
