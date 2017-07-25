@@ -57,9 +57,6 @@ public class SelectionManager : MonoBehaviour
             List<string> tempRoles = RolesManager.Instance.ShuffleRoles();
             List<List<string>> tempCharacters = CharacterManager.Instance.ShuffleCharacters();
 
-            print(tempCharacters + "<- TEMP CHARACTERS");
-            print(tempCharacters.Count + "<- COUNT OF TEMP CHARACTERS");
-
             string roles = JsonConvert.SerializeObject(tempRoles);
             myPhotonView.RPC("SetRoles", PhotonTargets.All, roles);
             string characters = JsonConvert.SerializeObject(tempCharacters);
