@@ -10,6 +10,7 @@ public class PlayerSelectMethods : MonoBehaviour {
     public GameObject playerReady;
     public Text readyText;
     public bool ready = false;
+    public string role;
 
     #region Initialization
 
@@ -28,10 +29,9 @@ public class PlayerSelectMethods : MonoBehaviour {
         playerReady.transform.localPosition = new Vector3(-410, yPos, 0);
         Text readyText = playerReady.transform.Find("Ready").GetComponent<Text>();
         Text nicknameText = playerReady.transform.Find("Nickname").GetComponent<Text>();
-        Text roleText = playerReady.transform.Find("Role").GetComponent<Text>();
         nicknameText.text = player.NickName;
 
-        roleText.text = RolesManager.roles[player.ID];
+        role = RolesManager.roles[player.ID];
         if (player.IsMasterClient) readyText.text = "MASTER";
         else readyText.text = "";
     }

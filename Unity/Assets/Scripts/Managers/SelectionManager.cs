@@ -41,7 +41,7 @@ public class SelectionManager : MonoBehaviour
 
         playerReady = PhotonNetwork.Instantiate("Player(Selection)", Vector3.zero, Quaternion.identity, 0);
         myPhotonView = playerReady.GetComponent<PhotonView>();
-        yPos = (320 - (80 * (PhotonNetwork.player.ID - 1)));
+        yPos = (325 - (85 * (PhotonNetwork.player.ID - 1)));
 
         if (PhotonNetwork.player.IsMasterClient)
         {
@@ -51,16 +51,16 @@ public class SelectionManager : MonoBehaviour
         }
 
         SetButton();
-
-        Sprite role = (Sprite)Resources.Load("Role Cards/" + myPhotonView.GetComponent<PlayerSelectMethods>().playerReady.transform.Find("Role").GetComponent<Text>().text);
-        print(role.name);
-        RoleCard.sprite = role;
-        RoleCard.preserveAspect = true;
     }
 
     public void Uh()
     {
         myPhotonView.RPC("InstantiateText", PhotonTargets.All, myPhotonView.owner, yPos);
+
+        Sprite role = Resources.Load<Sprite>("Role Cards/" + myPhotonView.GetComponent<PlayerSelectMethods>().role);
+        RoleCard.sprite = role;
+        RoleCard.preserveAspect = true;
+        RoleCard.transform.localScale = new Vector3(3, 3, 3);
     }
 
     void SetButton()
