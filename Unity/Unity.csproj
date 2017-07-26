@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.6.2f1</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -248,11 +250,13 @@
     <Compile Include="Assets\Scripts\Managers\GeneralGameManager.cs" />
     <Compile Include="Assets\Scripts\Managers\MainUIManager.cs" />
     <Compile Include="Assets\Scripts\Managers\MusicManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\PlayerManager.cs" />
     <Compile Include="Assets\Scripts\Managers\RolesManager.cs" />
     <Compile Include="Assets\Scripts\Managers\SelectionManager.cs" />
     <Compile Include="Assets\Scripts\Managers\ServerManager.cs" />
     <Compile Include="Assets\Scripts\Models\Auth\UserModel.cs" />
     <Compile Include="Assets\Scripts\Models\CommonHelper.cs" />
+    <Compile Include="Assets\Scripts\Models\PlayerModel.cs" />
     <Compile Include="Assets\Scripts\Models\ServiceResponseModel.cs" />
     <Compile Include="Assets\Scripts\Room List Scripts\PlayerItem.cs" />
     <Compile Include="Assets\Scripts\Room List Scripts\PlayerListUIManager.cs" />

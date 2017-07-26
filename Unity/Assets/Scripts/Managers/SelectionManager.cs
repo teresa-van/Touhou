@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Newtonsoft.Json;
+using Scripts.Models;
 
 public class SelectionManager : MonoBehaviour
 {
@@ -37,6 +35,8 @@ public class SelectionManager : MonoBehaviour
     public Text SelectedName;
     public Image Selected;
 
+    public PlayerModel player;
+
     #endregion
 
     #region Initialization
@@ -51,6 +51,7 @@ public class SelectionManager : MonoBehaviour
     {
         //Reference this instance as singleton instance
         Instance = this;
+        player = new PlayerModel(PhotonNetwork.player.ID, PhotonNetwork.player.NickName, "Character", "Role", 1, 1);
 
         playerReady = PhotonNetwork.Instantiate("Player(Selection)", Vector3.zero, Quaternion.identity, 0);
         myPhotonView = playerReady.GetComponent<PhotonView>();
@@ -73,6 +74,7 @@ public class SelectionManager : MonoBehaviour
     public void Uh()
     {
         myPhotonView.RPC("InstantiateText", PhotonTargets.All, myPhotonView.owner, yPos);
+        player.Role = myPhotonView.GetComponent<PlayerSelectMethods>().role;
 
         Sprite role = Resources.Load<Sprite>("Role Cards/" + myPhotonView.GetComponent<PlayerSelectMethods>().role);
         RoleCard.sprite = role;
@@ -144,19 +146,20 @@ public class SelectionManager : MonoBehaviour
 
     public void SelectCharacter(Button buttonPressed)
     {
-        print(buttonPressed.name + "<- BUTTON NAMEEEEEEE");
         Selected.preserveAspect = true;
         if (buttonPressed.name.Equals("Choose1"))
         {
             Sprite choice1 = Resources.Load<Sprite>("Characters(UI)/" + myPhotonView.GetComponent<PlayerSelectMethods>().choices[0]);
             Selected.sprite = choice1;
             SelectedName.text = myPhotonView.GetComponent<PlayerSelectMethods>().choices[0];
+            player.Character = myPhotonView.GetComponent<PlayerSelectMethods>().choices[0];
         }
         else if (buttonPressed.name.Equals("Choose2"))
         {
             Sprite choice2 = Resources.Load<Sprite>("Characters(UI)/" + myPhotonView.GetComponent<PlayerSelectMethods>().choices[1]);
             Selected.sprite = choice2;
             SelectedName.text = myPhotonView.GetComponent<PlayerSelectMethods>().choices[1];
+            player.Character = myPhotonView.GetComponent<PlayerSelectMethods>().choices[1];
         }
     }
 
@@ -168,10 +171,14 @@ public class SelectionManager : MonoBehaviour
         }
         else
         {
-            print("START GAME BUTTON CLICKED. INSERT FUNCTIONALITY HERE..");
+            myPhotonView.RPC("StartGame", PhotonTargets.All, player);
         }
     }
 
+    public void StartGame()
+    {
+        GeneralGameManager.Instance.LoadScene("Scenes/Game", true);
+    }
     #endregion
 
     #region Photon Callbacks

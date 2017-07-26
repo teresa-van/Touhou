@@ -1,8 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Newtonsoft.Json;
+using Scripts.Models;
 
 public class PlayerSelectMethods : MonoBehaviour {
 
@@ -92,5 +92,16 @@ public class PlayerSelectMethods : MonoBehaviour {
         }
         SelectionManager.Instance.Uh();
     }
+    #endregion
+
+    #region Start Game Methods
+
+    [PunRPC]
+    public void StartGame(PlayerModel player)
+    {
+        PlayerManager.Instance.players.Add(player);
+        SelectionManager.Instance.StartGame();
+    }
+
     #endregion
 }
