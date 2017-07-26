@@ -244,6 +244,7 @@
     <Compile Include="Assets\Scripts\FullScreenBackground.cs" />
     <Compile Include="Assets\Scripts\Helpers\UserHelper.cs" />
     <Compile Include="Assets\Scripts\Managers\AuthenticationManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\CharacterManager.cs" />
     <Compile Include="Assets\Scripts\Managers\GeneralGameManager.cs" />
     <Compile Include="Assets\Scripts\Managers\MainUIManager.cs" />
     <Compile Include="Assets\Scripts\Managers\MusicManager.cs" />
