@@ -14,6 +14,7 @@ public class MusicManager : MonoBehaviour {
     public AudioClip login;
     public AudioClip main;
     public AudioClip selection;
+    public AudioClip game;
 
     public bool music = true;
 
@@ -57,7 +58,12 @@ public class MusicManager : MonoBehaviour {
             audio.clip = selection;
             audio.Play();
         }
-
+        else if (scene.name.Equals("Game"))
+        {
+            AudioSource audio = GetComponent<AudioSource>();
+            audio.clip = game;
+            audio.Play();
+        }
         else
         {
             print("nulling audio clip");

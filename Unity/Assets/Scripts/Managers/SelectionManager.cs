@@ -51,7 +51,7 @@ public class SelectionManager : MonoBehaviour
     {
         //Reference this instance as singleton instance
         Instance = this;
-        player = new PlayerModel(PhotonNetwork.player.ID, PhotonNetwork.player.NickName, "Character", "Role", 1, 1);
+        player = new PlayerModel(PhotonNetwork.player.ID, PhotonNetwork.player.NickName, "Character", "Role", 4, 1, 1, 4);
 
         playerReady = PhotonNetwork.Instantiate("Player(Selection)", Vector3.zero, Quaternion.identity, 0);
         myPhotonView = playerReady.GetComponent<PhotonView>();
@@ -75,6 +75,11 @@ public class SelectionManager : MonoBehaviour
     {
         myPhotonView.RPC("InstantiateText", PhotonTargets.All, myPhotonView.owner, yPos);
         player.Role = myPhotonView.GetComponent<PlayerSelectMethods>().role;
+        if (player.Role.Equals("Heroine"))
+        {
+            player.Health = 5;
+            player.MaxHandSize = 5;
+        }
 
         Sprite role = Resources.Load<Sprite>("Role Cards/" + myPhotonView.GetComponent<PlayerSelectMethods>().role);
         RoleCard.sprite = role;
@@ -171,13 +176,14 @@ public class SelectionManager : MonoBehaviour
         }
         else
         {
-            myPhotonView.RPC("StartGame", PhotonTargets.All, player);
+            myPhotonView.RPC("StartGame", PhotonTargets.All);
         }
     }
 
     public void StartGame()
     {
-        GeneralGameManager.Instance.LoadScene("Scenes/Game", true);
+        string playerString = JsonConvert.SerializeObject(player);
+        myPhotonView.RPC("InstantiatePlayer", PhotonTargets.All, playerString);
     }
     #endregion
 

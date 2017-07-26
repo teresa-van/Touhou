@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Scripts.Models;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -29,6 +30,13 @@ public class GeneralGameManager : MonoBehaviour {
         {
             nickname = GameObject.Find("Menu/UserUI/Text").GetComponent<Text>();
             nickname.text = AuthenticationManager.Instance.User.NickName;
+        }
+        else if (SceneManager.GetActiveScene().name.Equals("Game"))
+        {
+            foreach (PlayerModel player in PlayerManager.Instance.players)
+            {
+                print(player.ID + ", " + player.Nickname + ", " + player.Role + ", " + player.Character + ", " + player.Health + ", " + player.Range + ", " + player.Distance + ", " + player.MaxHandSize);
+            }
         }
         SyncMusicVolume();
     }

@@ -97,11 +97,17 @@ public class PlayerSelectMethods : MonoBehaviour {
     #region Start Game Methods
 
     [PunRPC]
-    public void StartGame(PlayerModel player)
+    public void StartGame()
     {
-        PlayerManager.Instance.players.Add(player);
         SelectionManager.Instance.StartGame();
     }
 
+    [PunRPC]
+    public void InstantiatePlayer(string playerString)
+    {
+        PlayerModel player = JsonConvert.DeserializeObject<PlayerModel>(playerString);
+        PlayerManager.Instance.players.Add(player);
+        GeneralGameManager.Instance.LoadScene("Scenes/Game", true);
+    }
     #endregion
 }

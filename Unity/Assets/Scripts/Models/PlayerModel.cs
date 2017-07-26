@@ -8,21 +8,22 @@ namespace Scripts.Models
         #region Constructors
 
         public PlayerModel()
-            : this(0, "Nickname", "Character", "Role", 1, 1)
+            : this(0, "Nickname", "Character", "Role", 4, 1, 1, 4)
         {
 
         }
 
-        public PlayerModel(int id, string nickname, string character, string role, int range, int distance)
+        public PlayerModel(int id, string nickname, string character, string role, int health, int range, int distance, int maxHandSize)
         {
             this.ID = id;
 
             this.Nickname = nickname;
             this.Character = character;
             this.Role = role;
+            this.Health = health;
             this.Range = range;
             this.Distance = distance;
-
+            this.MaxHandSize = maxHandSize;
         }
 
         #endregion
@@ -42,10 +43,16 @@ namespace Scripts.Models
         public string Role { set; get; }
 
         [DataMember]
+        public int Health { set; get; }
+
+        [DataMember]
         public int Range { set; get; }
 
         [DataMember]
         public int Distance { set; get; }
+
+        [DataMember]
+        public int MaxHandSize { set; get; }
 
         #endregion
 
