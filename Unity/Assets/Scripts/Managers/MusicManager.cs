@@ -37,7 +37,7 @@ public class MusicManager : MonoBehaviour {
 	
     public void SceneLoadComplete(Scene scene, LoadSceneMode mode)
     {
-        AudioListener.volume = GeneralGameManager.Instance.defaultVolume;
+        AudioListener.volume = GeneralManager.Instance.defaultVolume;
         if (scene.name.Equals("Main"))
         {
             AudioSource audio = GetComponent<AudioSource>();
@@ -50,7 +50,7 @@ public class MusicManager : MonoBehaviour {
             audio.clip = login;
             audio.Play();
             if (AudioListener.volume == 0) music = false;
-            GeneralGameManager.Instance.SyncMusicVolume();
+            GeneralManager.Instance.SyncMusicVolume();
         }
         else if (scene.name.Equals("Selection"))
         {

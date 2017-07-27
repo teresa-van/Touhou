@@ -107,7 +107,7 @@ public class PlayerSelectMethods : MonoBehaviour {
     {
         PlayerModel player = JsonConvert.DeserializeObject<PlayerModel>(playerString);
         PlayerManager.Instance.players.Add(player);
-        GeneralGameManager.Instance.LoadScene("Scenes/Game", true);
+        GeneralManager.Instance.LoadScene("Scenes/Game", true);
     }
     #endregion
 }

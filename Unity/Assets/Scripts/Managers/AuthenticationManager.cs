@@ -135,7 +135,7 @@ public class AuthenticationManager : MonoBehaviour {
             //Information retrieved successfully
             if (userInformationResponse.Success)
             {
-                GeneralGameManager.Instance.LoadScene("Scenes/Main", false);
+                GeneralManager.Instance.LoadScene("Scenes/Main", false);
                 Debug.Log("User information retrieved successfully");
                 this.User = userInformationResponse.Data;
             }

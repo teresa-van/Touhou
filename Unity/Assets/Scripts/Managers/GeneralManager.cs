@@ -4,11 +4,11 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GeneralGameManager : MonoBehaviour {
+public class GeneralManager : MonoBehaviour {
 
     #region Singleton instance
 
-    public static GeneralGameManager Instance { private set; get; }
+    public static GeneralManager Instance { private set; get; }
 
     #endregion
 
@@ -26,12 +26,12 @@ public class GeneralGameManager : MonoBehaviour {
         //Reference this instance as singleton instance
         Instance = this;
 
-        if (SceneManager.GetActiveScene().name.Equals("Main") || SceneManager.GetActiveScene().name.Equals("Selection"))
+        if (SceneManager.GetActiveScene().name.Equals("Main") || SceneManager.GetActiveScene().name.Equals("Selection") || SceneManager.GetActiveScene().name.Equals("Game"))
         {
             nickname = GameObject.Find("Menu/UserUI/Text").GetComponent<Text>();
             nickname.text = AuthenticationManager.Instance.User.NickName;
         }
-        else if (SceneManager.GetActiveScene().name.Equals("Game"))
+        if (SceneManager.GetActiveScene().name.Equals("Game"))
         {
             foreach (PlayerModel player in PlayerManager.Instance.players)
             {
