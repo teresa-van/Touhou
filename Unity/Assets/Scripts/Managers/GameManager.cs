@@ -18,8 +18,13 @@ public class GameManager : MonoBehaviour
     public List<int> turnOrder;
 
     private PhotonView myPhotonView;
+
     public GameObject playerUI;
+    public GameObject playerSprite;
+
     public int yPos;
+    public double spriteX;
+    public double spriteY;
 
     public Text RoleText;
     public Text CharacterText;
@@ -75,10 +80,14 @@ public class GameManager : MonoBehaviour
         Health.preserveAspect = true;
 
         playerUI = PhotonNetwork.Instantiate("PlayerUI", Vector3.zero, Quaternion.identity, 0);
+
         //playerUI.SetActive(false);
         myPhotonView = playerUI.GetComponent<PhotonView>();
 
         yPos = (200 - (85 * (turnOrder.IndexOf(PhotonNetwork.player.ID))));
+
+        spriteX = (250 * Math.Cos( (turnOrder.IndexOf(PhotonNetwork.player.ID) * (360/PhotonNetwork.playerList.Length)) * (Math.PI / 180) )) + 80;
+        spriteY = (110 * Math.Sin( (turnOrder.IndexOf(PhotonNetwork.player.ID) * (360 / PhotonNetwork.playerList.Length)) * (Math.PI / 180) )) + 125;
 
         if (PhotonNetwork.player.IsMasterClient)
         {
@@ -88,7 +97,7 @@ public class GameManager : MonoBehaviour
 
     public void Uh()
     {
-        myPhotonView.RPC("InstantiateUI", PhotonTargets.All, myPhotonView.owner, yPos);
+        myPhotonView.RPC("InstantiateUI", PhotonTargets.All, myPhotonView.owner, yPos, spriteX, spriteY);
     }
 
     #endregion

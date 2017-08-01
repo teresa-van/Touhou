@@ -30,7 +30,7 @@ public class PlayerMethods : MonoBehaviour
     }
 
     [PunRPC]
-    public void InstantiateUI(PhotonPlayer player, int yPos)
+    public void InstantiateUI(PhotonPlayer player, int yPos, double spriteX, double spriteY)
     {
         foreach (PlayerModel model in PlayerManager.Instance.players)
             if (model.ID == player.ID) playerModel = model;
@@ -58,6 +58,12 @@ public class PlayerMethods : MonoBehaviour
         Health.sprite = health;
         Icon.preserveAspect = true;
         Health.preserveAspect = true;
+
+        Image playerSprite = playerUI.transform.Find("PlayerSprite").GetComponent<Image>();
+        playerSprite.transform.SetParent(Menu.transform);
+        playerSprite.transform.localPosition = new Vector2((float)spriteX, (float)spriteY);
+        Sprite chibi = Resources.Load<Sprite>("Characters(Chibi)/" + playerModel.Character);
+        playerSprite.sprite = chibi;
     }
 
     #endregion
