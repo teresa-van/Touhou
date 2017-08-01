@@ -1,5 +1,6 @@
 ﻿using Scripts.Models;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -33,6 +34,7 @@ public class GeneralManager : MonoBehaviour {
         }
         if (SceneManager.GetActiveScene().name.Equals("Game"))
         {
+            while (PlayerManager.Instance.players.Count != PhotonNetwork.playerList.Length) ;
             foreach (PlayerModel player in PlayerManager.Instance.players)
             {
                 print(player.ID + ", " + player.Nickname + ", " + player.Role + ", " + player.Character + ", " + player.Health + ", " + player.Range + ", " + player.Distance + ", " + player.MaxHandSize);
@@ -156,5 +158,19 @@ public class GeneralManager : MonoBehaviour {
         Application.OpenURL("http://localhost:50478/Home.aspx");
     }
 
+    #endregion
+
+    #region Common
+    public List<T> Shuffle<T>(List<T> list)
+    {
+        for (int i = 0; i < list.Count; i++)
+        {
+            T temp = list[i];
+            int randomIndex = UnityEngine.Random.Range(i, list.Count);
+            list[i] = list[randomIndex];
+            list[randomIndex] = temp;
+        }
+        return list;
+    }
     #endregion
 }

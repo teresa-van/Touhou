@@ -63,7 +63,7 @@ public class CharacterManager : MonoBehaviour
     public List<List<string>> ShuffleCharacters()
     {
         List<List<string>> tempCharacters = new List<List<string>>();
-        List<string> temp = Shuffle(AllCharacters);
+        List<string> temp = GeneralManager.Instance.Shuffle(AllCharacters);
         int j = 0;
         for (int i = 0; i < PhotonNetwork.playerList.Length; i++)
         {
@@ -72,17 +72,5 @@ public class CharacterManager : MonoBehaviour
         }
 
         return tempCharacters;
-    }
-
-    public List<string> Shuffle(List<string> list)
-    {
-        for (int i = 0; i < list.Count; i++)
-        {
-            string temp = list[i];
-            int randomIndex = UnityEngine.Random.Range(i, list.Count);
-            list[i] = list[randomIndex];
-            list[randomIndex] = temp;
-        }
-        return list;
     }
 }

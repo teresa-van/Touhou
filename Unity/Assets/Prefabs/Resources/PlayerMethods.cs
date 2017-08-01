@@ -75,8 +75,10 @@ public class PlayerMethods : MonoBehaviour
     #region Card Methods
 
     [PunRPC]
-    public void DealCards()
+    public void DealCards(string deck)
     {
+        List<Card> Deck = JsonConvert.DeserializeObject<List<Card>>(deck);
+        GameManager.Instance.Deck = Deck;
         GameManager.Instance.Uh();
     }
     #endregion
