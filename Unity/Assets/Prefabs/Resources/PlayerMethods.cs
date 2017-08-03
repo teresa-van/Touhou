@@ -20,7 +20,8 @@ public class PlayerMethods : MonoBehaviour
     public Text Distance;
     public Image Health;
 
-    public Text Hand;
+    public Text HandText;
+    public List<Card> Hand;
 
     #region Initialization
 
@@ -28,6 +29,7 @@ public class PlayerMethods : MonoBehaviour
     {
         Menu = GameObject.Find("Menu").gameObject;
         playerUI = this.gameObject;
+        Hand = new List<Card>();
     }
 
     [PunRPC]
@@ -47,7 +49,7 @@ public class PlayerMethods : MonoBehaviour
         }
         else Role.text = "";
 
-        Hand.text = GameManager.Instance.Hand.Count.ToString();
+        HandText.text = Hand.Count.ToString();
         Nickname.text = playerModel.Nickname;
         Character.text = playerModel.Character;
         Range.text = "RANGE: " + playerModel.Range;
@@ -98,12 +100,13 @@ public class PlayerMethods : MonoBehaviour
         PlayerModel pm = JsonConvert.DeserializeObject<PlayerModel>(player);
         print(pm.Nickname + " = PLAYER PASSED IN");
         print(this.Nickname.text + " = THE ACTUAL PLAYER");
-        if (pm == this.playerModel)
+        print(pm.Nickname.Equals(this.playerModel.Nickname));
+        if (pm.Nickname.Equals(this.playerModel.Nickname))
         {
-            var toDraw = GameManager.Instance.Deck.Where(card => GameManager.Instance.Deck.IndexOf(card) < this.playerModel.MaxHandSize);
-            GameManager.Instance.Hand.AddRange(toDraw);
-            Hand.text = GameManager.Instance.Hand.Count.ToString();
-            print("STARTING HAND: " + GameManager.Instance.Hand[0].Name + " " + GameManager.Instance.Hand[1].Name + " " + GameManager.Instance.Hand[2].Name + " " + GameManager.Instance.Hand[3].Name);
+            var toDraw = GameManager.Instance.Deck.Take(playerModel.MaxHandSize);
+            Hand.AddRange(toDraw);
+            HandText.text = Hand.Count.ToString();
+            print("STARTING HAND: " + Hand[0].Name + " " + Hand[1].Name + " " + Hand[2].Name + " " + Hand[3].Name);
         }
     }
 
