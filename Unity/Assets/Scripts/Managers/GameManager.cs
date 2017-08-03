@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
 
     #region Variables
     public List<int> turnOrder;
+    public int currentTurn;
     public List<Card> Deck;
     public List<Card> Hand;
 
@@ -45,6 +46,7 @@ public class GameManager : MonoBehaviour
     {
         turnOrder = new List<int>();
         int count = 1;
+
         foreach (PlayerModel player in PlayerManager.Instance.players)
         {
             if (player.ID == PhotonNetwork.player.ID) playerModel = player;
@@ -66,6 +68,8 @@ public class GameManager : MonoBehaviour
 
         foreach (int turn in turnOrder) print(turn);
         Deck = new List<Card>();
+        Hand = new List<Card>();
+        currentTurn = 0;
 
         print(playerModel);
 
@@ -98,12 +102,23 @@ public class GameManager : MonoBehaviour
             Deck = GeneralManager.Instance.Shuffle(Deck);
             string deck = JsonConvert.SerializeObject(Deck);
             myPhotonView.RPC("DealCards", PhotonTargets.All, deck);
+
+            foreach(PlayerModel player in PlayerManager.Instance.players)
+            {
+                string pm = JsonConvert.SerializeObject(player);
+                myPhotonView.RPC("DrawToMaxHand", PhotonTargets.All, player.MaxHandSize, pm);
+            }
         }
     }
 
     public void Uh()
     {
         myPhotonView.RPC("InstantiateUI", PhotonTargets.All, myPhotonView.owner, yPos, spriteX, spriteY);
+    }
+
+    public void Fuck(string player)
+    {
+        myPhotonView.RPC("Fuck", PhotonTargets.All, player);
     }
 
     public void CreateDeck()
@@ -159,10 +174,10 @@ public class GameManager : MonoBehaviour
         Deck.Add(new Card("Seal Away", "Fall", new List<string> { "Danmaku", "Action" }));
 
         //Bombs
-        Deck.Add(new Card("Bombs", "Spring", new List<string> { "Invocation", "Reaction" }));
-        Deck.Add(new Card("Bombs", "Summer", new List<string> { "Invocation", "Reaction" }));
-        Deck.Add(new Card("Bombs", "Winter", new List<string> { "Invocation", "Reaction" }));
-        Deck.Add(new Card("Bombs", "Fall", new List<string> { "Invocation", "Reaction" }));
+        Deck.Add(new Card("Bomb", "Spring", new List<string> { "Invocation", "Reaction" }));
+        Deck.Add(new Card("Bomb", "Summer", new List<string> { "Invocation", "Reaction" }));
+        Deck.Add(new Card("Bomb", "Winter", new List<string> { "Invocation", "Reaction" }));
+        Deck.Add(new Card("Bomb", "Fall", new List<string> { "Invocation", "Reaction" }));
 
         //Focus'
         Deck.Add(new Card("Focus", "Fall", new List<string> { "Shield", "Item" }));
@@ -207,8 +222,20 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+
     }
 
+    public void UpdateDeck(int drawn)
+    {
+        Deck.RemoveRange(0, drawn);
+        Debug.Log("AFTER UPDATE: " + GameManager.Instance.Deck[0].Name + " " + GameManager.Instance.Deck[1].Name + " " + GameManager.Instance.Deck[2].Name + " " + GameManager.Instance.Deck[3].Name + " " + GameManager.Instance.Deck[4].Name);
+    }
+
+    public void NextPlayer()
+    {
+        if (currentTurn == turnOrder.Count-1) currentTurn = 0;
+        else currentTurn++;
+    }
 
     #region Photon Callbacks
 

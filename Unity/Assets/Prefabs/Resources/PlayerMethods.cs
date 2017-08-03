@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Newtonsoft.Json;
 using Scripts.Models;
+using System.Linq;
 
 public class PlayerMethods : MonoBehaviour
 {
@@ -43,9 +44,10 @@ public class PlayerMethods : MonoBehaviour
         if (playerModel.Role.Equals("Heroine"))
         {
             Role.text = playerModel.Role;
-            Hand.text = playerModel.MaxHandSize.ToString();
         }
         else Role.text = "";
+
+        Hand.text = GameManager.Instance.Hand.Count.ToString();
         Nickname.text = playerModel.Nickname;
         Character.text = playerModel.Character;
         Range.text = "RANGE: " + playerModel.Range;
@@ -79,7 +81,31 @@ public class PlayerMethods : MonoBehaviour
     {
         List<Card> Deck = JsonConvert.DeserializeObject<List<Card>>(deck);
         GameManager.Instance.Deck = Deck;
+        Debug.Log("FROM CREATION: " + GameManager.Instance.Deck[0].Name + " " + GameManager.Instance.Deck[1].Name + " " + GameManager.Instance.Deck[2].Name + " " + GameManager.Instance.Deck[3].Name + " " + GameManager.Instance.Deck[4].Name);
         GameManager.Instance.Uh();
     }
+
+    [PunRPC]
+    public void DrawToMaxHand(int max, string player)
+    {
+        GameManager.Instance.Fuck(player);
+        GameManager.Instance.UpdateDeck(max);
+    }
+
+    [PunRPC]
+    public void Fuck(string player)
+    {
+        PlayerModel pm = JsonConvert.DeserializeObject<PlayerModel>(player);
+        print(pm.Nickname + " = PLAYER PASSED IN");
+        print(this.Nickname.text + " = THE ACTUAL PLAYER");
+        if (pm == this.playerModel)
+        {
+            var toDraw = GameManager.Instance.Deck.Where(card => GameManager.Instance.Deck.IndexOf(card) < this.playerModel.MaxHandSize);
+            GameManager.Instance.Hand.AddRange(toDraw);
+            Hand.text = GameManager.Instance.Hand.Count.ToString();
+            print("STARTING HAND: " + GameManager.Instance.Hand[0].Name + " " + GameManager.Instance.Hand[1].Name + " " + GameManager.Instance.Hand[2].Name + " " + GameManager.Instance.Hand[3].Name);
+        }
+    }
+
     #endregion
 }
