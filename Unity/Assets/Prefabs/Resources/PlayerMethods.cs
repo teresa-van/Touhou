@@ -21,6 +21,7 @@ public class PlayerMethods : MonoBehaviour
     public Image Health;
 
     public Text HandText;
+    public List<string> test;
     public List<Card> Hand;
 
     #region Initialization
@@ -30,6 +31,7 @@ public class PlayerMethods : MonoBehaviour
         Menu = GameObject.Find("Menu").gameObject;
         playerUI = this.gameObject;
         Hand = new List<Card>();
+        test = new List<string>();
     }
 
     [PunRPC]
@@ -90,25 +92,33 @@ public class PlayerMethods : MonoBehaviour
     [PunRPC]
     public void DrawToMaxHand(int max, string player)
     {
-        GameManager.Instance.Fuck(player);
-        GameManager.Instance.UpdateDeck(max);
+        GameManager.Instance.Fuck(player, max);
     }
 
     [PunRPC]
-    public void Fuck(string player)
+    public void Fuck(string player, int max)
     {
         PlayerModel pm = JsonConvert.DeserializeObject<PlayerModel>(player);
+
         print(pm.Nickname + " = PLAYER PASSED IN");
         print(this.Nickname.text + " = THE ACTUAL PLAYER");
         print(pm.Nickname.Equals(this.playerModel.Nickname));
+
         if (pm.Nickname.Equals(this.playerModel.Nickname))
         {
-            var toDraw = GameManager.Instance.Deck.Take(playerModel.MaxHandSize);
+            var toDraw = GameManager.Instance.Deck.Take(playerModel.MaxHandSize);                                               
             Hand.AddRange(toDraw);
+            foreach (Card c in toDraw) test.Add(c.Name);
             HandText.text = Hand.Count.ToString();
             print("STARTING HAND: " + Hand[0].Name + " " + Hand[1].Name + " " + Hand[2].Name + " " + Hand[3].Name);
+            GameManager.Instance.UpdateDeck(max);
         }
     }
 
+    [PunRPC]
+    public void UpdateHandVisuals()
+    {
+        GameManager.Instance.UpdateHandVisuals();
+    }
     #endregion
 }

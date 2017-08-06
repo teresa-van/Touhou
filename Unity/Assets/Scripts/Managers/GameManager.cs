@@ -18,7 +18,9 @@ public class GameManager : MonoBehaviour
     public List<int> turnOrder;
     public int currentTurn;
     public List<Card> Deck;
-    public List<Card> Hand;
+    public List<GameObject> HandVisuals;
+    public GameObject CardPrefab;
+    public GameObject HandParent;
 
     private PhotonView myPhotonView;
 
@@ -68,7 +70,7 @@ public class GameManager : MonoBehaviour
 
         foreach (int turn in turnOrder) print(turn);
         Deck = new List<Card>();
-        Hand = new List<Card>();
+        HandVisuals = new List<GameObject>();
         currentTurn = 0;
 
         print(playerModel);
@@ -103,11 +105,13 @@ public class GameManager : MonoBehaviour
             string deck = JsonConvert.SerializeObject(Deck);
             myPhotonView.RPC("DealCards", PhotonTargets.All, deck);
 
-            foreach(PlayerModel player in PlayerManager.Instance.players)
+            foreach (PlayerModel player in PlayerManager.Instance.players)
             {
                 string pm = JsonConvert.SerializeObject(player);
                 myPhotonView.RPC("DrawToMaxHand", PhotonTargets.All, player.MaxHandSize, pm);
             }
+
+            myPhotonView.RPC("UpdateHandVisuals", PhotonTargets.All);
         }
     }
 
@@ -116,9 +120,39 @@ public class GameManager : MonoBehaviour
         myPhotonView.RPC("InstantiateUI", PhotonTargets.All, myPhotonView.owner, yPos, spriteX, spriteY);
     }
 
-    public void Fuck(string player)
+    public void Fuck(string player, int max)
     {
-        myPhotonView.RPC("Fuck", PhotonTargets.All, player);
+        myPhotonView.RPC("Fuck", PhotonTargets.All, player, max);
+    }
+
+    public void UpdateHandVisuals()
+    {
+        print("HERE!!");
+        int x = -310;
+        int y = 0;
+        int count = 0;
+        print(myPhotonView.gameObject.GetComponent<PlayerMethods>().Nickname.text + " " + 
+            myPhotonView.gameObject.GetComponent<PlayerMethods>().Hand[0].Name + " " + 
+            myPhotonView.gameObject.GetComponent<PlayerMethods>().Hand[1].Name + " " +
+            myPhotonView.gameObject.GetComponent<PlayerMethods>().Hand[2].Name + " " +
+            myPhotonView.gameObject.GetComponent<PlayerMethods>().Hand[3].Name);
+        foreach (Card card in myPhotonView.gameObject.GetComponent<PlayerMethods>().Hand)
+        {
+            print(card.Name);
+            GameObject cardPrefab = Instantiate(CardPrefab);
+            cardPrefab.name = card.Name + "(" + card.Season + ")";
+            Sprite cardType = Resources.Load<Sprite>("Cards/" + cardPrefab.name);
+            cardPrefab.GetComponent<Image>().sprite = cardType;
+            HandVisuals.Add(cardPrefab);
+
+            if (count > 8)
+            {
+                count = 0; y = -110; x = -310;
+            }
+            cardPrefab.transform.SetParent(HandParent.transform);
+            cardPrefab.transform.localPosition = new Vector3(x + (80 * count), y, 0);
+            count++; 
+        }
     }
 
     public void CreateDeck()
