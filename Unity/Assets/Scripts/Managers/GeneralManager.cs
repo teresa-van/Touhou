@@ -49,7 +49,7 @@ public class GeneralManager : MonoBehaviour {
             }
             PlayerManager.Instance.players = order.Select(i => PlayerManager.Instance.players[i]).ToList();
 
-            PlayerManager.Instance.players.Reverse();
+            //PlayerManager.Instance.players.Reverse();
             foreach (PlayerModel player in PlayerManager.Instance.players)
             {
                 print(player.ID + ", " + player.Nickname + ", " + player.Role + ", " + player.Character + ", " + player.Health + ", " + player.Range + ", " + player.Distance + ", " + player.MaxHandSize);

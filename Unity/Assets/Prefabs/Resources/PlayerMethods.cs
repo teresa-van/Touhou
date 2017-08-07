@@ -110,7 +110,7 @@ public class PlayerMethods : MonoBehaviour
     [PunRPC]
     public void Fuck(int max)
     {
-        print(playerModel.Nickname + " INSIDE FUCK");
+        print(playerModel.Nickname + " INSIDE RPC CALL");
         var toDraw = GameManager.Instance.Deck.Take(playerModel.MaxHandSize);                                               
         Hand.AddRange(toDraw);
         foreach (Card c in toDraw) test.Add(c.Name);
