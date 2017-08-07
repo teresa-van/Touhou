@@ -101,8 +101,7 @@ public class PlayerMethods : MonoBehaviour
 
         if (pm.Nickname.Equals(PhotonNetwork.player.NickName))
         {
-            //GameManager.Instance.Fuck(max);
-            this.gameObject.GetComponent<PhotonView>().RPC("Fuck", PhotonTargets.All, max);
+            GameManager.Instance.Fuck(max);
         }
     }
 

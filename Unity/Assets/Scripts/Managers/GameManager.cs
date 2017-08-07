@@ -109,6 +109,7 @@ public class GameManager : MonoBehaviour
             {
                 string pm = JsonConvert.SerializeObject(player);
                 myPhotonView.RPC("DrawToMaxHand", PhotonTargets.All, player.MaxHandSize, pm);
+                PhotonNetwork.isMessageQueueRunning = false;
             }
 
             myPhotonView.RPC("UpdateHandVisuals", PhotonTargets.All);
@@ -122,6 +123,7 @@ public class GameManager : MonoBehaviour
 
     public void Fuck(int max)
     {
+        PhotonNetwork.isMessageQueueRunning = true;
         myPhotonView.RPC("Fuck", PhotonTargets.All, max);
     }
 
