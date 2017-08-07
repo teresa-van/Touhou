@@ -101,6 +101,7 @@ public class PlayerMethods : MonoBehaviour
 
         if (pm.Nickname.Equals(PhotonNetwork.player.NickName))
         {
+            print(PhotonNetwork.player.NickName + " draws starting hand.");
             GameManager.Instance.Fuck(max);
         }
     }
@@ -108,6 +109,7 @@ public class PlayerMethods : MonoBehaviour
     [PunRPC]
     public void Fuck(int max)
     {
+        print(playerModel.Nickname + " INSIDE FUCK");
         var toDraw = GameManager.Instance.Deck.Take(playerModel.MaxHandSize);                                               
         Hand.AddRange(toDraw);
         foreach (Card c in toDraw) test.Add(c.Name);
