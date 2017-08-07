@@ -1,6 +1,7 @@
 ﻿using Scripts.Models;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -35,6 +36,19 @@ public class GeneralManager : MonoBehaviour {
         if (SceneManager.GetActiveScene().name.Equals("Game"))
         {
             while (PlayerManager.Instance.players.Count != PhotonNetwork.playerList.Length) ;
+            List<int> IDs = new List<int>();
+            List<int> order = new List<int>();
+            foreach (PlayerModel player in PlayerManager.Instance.players) IDs.Add(player.ID);
+            IDs.Sort();
+            foreach (int id in IDs)
+            {
+                foreach (PlayerModel player in PlayerManager.Instance.players)
+                {
+                    if (player.ID == id) order.Add(PlayerManager.Instance.players.IndexOf(player));
+                }
+            }
+            PlayerManager.Instance.players = order.Select(i => PlayerManager.Instance.players[i]).ToList();
+
             foreach (PlayerModel player in PlayerManager.Instance.players)
             {
                 print(player.ID + ", " + player.Nickname + ", " + player.Role + ", " + player.Character + ", " + player.Health + ", " + player.Range + ", " + player.Distance + ", " + player.MaxHandSize);
