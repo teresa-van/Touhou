@@ -120,9 +120,9 @@ public class GameManager : MonoBehaviour
         myPhotonView.RPC("InstantiateUI", PhotonTargets.All, myPhotonView.owner, yPos, spriteX, spriteY);
     }
 
-    public void Fuck(string player, int max)
+    public void Fuck(int max)
     {
-        myPhotonView.RPC("Fuck", PhotonTargets.All, player, max);
+        myPhotonView.RPC("Fuck", PhotonTargets.All, max);
     }
 
     public void UpdateHandVisuals()

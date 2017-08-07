@@ -92,12 +92,7 @@ public class PlayerMethods : MonoBehaviour
     [PunRPC]
     public void DrawToMaxHand(int max, string player)
     {
-        GameManager.Instance.Fuck(player, max);
-    }
-
-    [PunRPC]
-    public void Fuck(string player, int max)
-    {
+        //GameManager.Instance.Fuck(player, max);
         PlayerModel pm = JsonConvert.DeserializeObject<PlayerModel>(player);
 
         print(pm.Nickname + " = PLAYER PASSED IN");
@@ -106,13 +101,19 @@ public class PlayerMethods : MonoBehaviour
 
         if (pm.Nickname.Equals(PhotonNetwork.player.NickName))
         {
-            var toDraw = GameManager.Instance.Deck.Take(playerModel.MaxHandSize);                                               
-            Hand.AddRange(toDraw);
-            foreach (Card c in toDraw) test.Add(c.Name);
-            HandText.text = Hand.Count.ToString();
-            print("STARTING HAND: " + Hand[0].Name + " " + Hand[1].Name + " " + Hand[2].Name + " " + Hand[3].Name);
-            GameManager.Instance.UpdateDeck(max);
+            GameManager.Instance.Fuck(max);
         }
+    }
+
+    [PunRPC]
+    public void Fuck(int max)
+    {
+        var toDraw = GameManager.Instance.Deck.Take(playerModel.MaxHandSize);                                               
+        Hand.AddRange(toDraw);
+        foreach (Card c in toDraw) test.Add(c.Name);
+        HandText.text = Hand.Count.ToString();
+        print("STARTING HAND: " + Hand[0].Name + " " + Hand[1].Name + " " + Hand[2].Name + " " + Hand[3].Name);
+        GameManager.Instance.UpdateDeck(max);
     }
 
     [PunRPC]
