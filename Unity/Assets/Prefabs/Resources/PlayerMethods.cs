@@ -101,10 +101,10 @@ public class PlayerMethods : MonoBehaviour
         PlayerModel pm = JsonConvert.DeserializeObject<PlayerModel>(player);
 
         print(pm.Nickname + " = PLAYER PASSED IN");
-        print(this.Nickname.text + " = THE ACTUAL PLAYER");
-        print(pm.Nickname.Equals(this.playerModel.Nickname));
+        print(PhotonNetwork.player.NickName + " = THE ACTUAL PLAYER");
+        print(pm.Nickname.Equals(PhotonNetwork.player.NickName));
 
-        if (pm.Nickname.Equals(this.playerModel.Nickname))
+        if (pm.Nickname.Equals(PhotonNetwork.player.NickName))
         {
             var toDraw = GameManager.Instance.Deck.Take(playerModel.MaxHandSize);                                               
             Hand.AddRange(toDraw);
