@@ -109,6 +109,7 @@ public class GameManager : MonoBehaviour
             {
                 string pm = JsonConvert.SerializeObject(player);
                 myPhotonView.RPC("DrawToMaxHand", PhotonTargets.All, player.MaxHandSize, pm);
+                myPhotonView.RPC("UpdateDeck", PhotonTargets.All, player.MaxHandSize);
             }
 
             myPhotonView.RPC("UpdateHandVisuals", PhotonTargets.All);
@@ -128,7 +129,7 @@ public class GameManager : MonoBehaviour
     public void UpdateHandVisuals()
     {
         print("HERE!!");
-        int x = -310;
+        int x = -280;
         int y = 0;
         int count = 0;
         print(myPhotonView.gameObject.GetComponent<PlayerMethods>().Nickname.text + " " + 
@@ -147,7 +148,7 @@ public class GameManager : MonoBehaviour
 
             if (count > 8)
             {
-                count = 0; y = -110; x = -310;
+                count = 0; y = -110; x = -280;
             }
             cardPrefab.transform.SetParent(HandParent.transform);
             cardPrefab.transform.localPosition = new Vector3(x + (80 * count), y, 0);

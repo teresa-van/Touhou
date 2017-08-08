@@ -91,6 +91,12 @@ public class PlayerMethods : MonoBehaviour
     }
 
     [PunRPC]
+    public void UpdateDeck(int drawn)
+    {
+        GameManager.Instance.UpdateDeck(drawn);
+    }
+
+    [PunRPC]
     public void DrawToMaxHand(int max, string player)
     {
         //GameManager.Instance.Fuck(player, max);
@@ -116,7 +122,6 @@ public class PlayerMethods : MonoBehaviour
         foreach (Card c in toDraw) test.Add(c.Name);
         HandText.text = Hand.Count.ToString();
         print("STARTING HAND: " + Hand[0].Name + " " + Hand[1].Name + " " + Hand[2].Name + " " + Hand[3].Name);
-        GameManager.Instance.UpdateDeck(max);
     }
 
     [PunRPC]
