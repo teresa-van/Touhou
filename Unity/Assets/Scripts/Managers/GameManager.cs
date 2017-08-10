@@ -129,14 +129,28 @@ public class GameManager : MonoBehaviour
     public void UpdateHandVisuals()
     {
         print("HERE!!");
-        int x = -280;
-        int y = 0;
-        int count = 0;
         print(myPhotonView.gameObject.GetComponent<PlayerMethods>().Nickname.text + " " + 
             myPhotonView.gameObject.GetComponent<PlayerMethods>().Hand[0].Name + " " + 
             myPhotonView.gameObject.GetComponent<PlayerMethods>().Hand[1].Name + " " +
             myPhotonView.gameObject.GetComponent<PlayerMethods>().Hand[2].Name + " " +
             myPhotonView.gameObject.GetComponent<PlayerMethods>().Hand[3].Name);
+
+        int count = 0;
+        int y = 0;
+        int x = 0;
+        int x2 = 0;
+        if (myPhotonView.gameObject.GetComponent<PlayerMethods>().Hand.Count < 8)
+        {
+            if (myPhotonView.gameObject.GetComponent<PlayerMethods>().Hand.Count % 2 == 0) x = -40 * (myPhotonView.gameObject.GetComponent<PlayerMethods>().Hand.Count - 1);
+            else x = -80 * ((myPhotonView.gameObject.GetComponent<PlayerMethods>().Hand.Count - 1) / 2);
+        }
+        else
+        {
+            int overflow = myPhotonView.gameObject.GetComponent<PlayerMethods>().Hand.Count - 8;
+            if (overflow % 2 == 0) x2 = -40 * (overflow - 1);
+            else x2 = -80 * ((overflow - 1) / 2);
+        }
+
         foreach (Card card in myPhotonView.gameObject.GetComponent<PlayerMethods>().Hand)
         {
             print(card.Name);
@@ -148,12 +162,13 @@ public class GameManager : MonoBehaviour
 
             if (count > 8)
             {
-                count = 0; y = -110; x = -280;
+                count = 0; y = -110; x = x2;
             }
             cardPrefab.transform.SetParent(HandParent.transform);
             cardPrefab.transform.localPosition = new Vector3(x + (80 * count), y, 0);
             count++; 
         }
+        HandParent.transform.SetAsLastSibling();
     }
 
     public void CreateDeck()

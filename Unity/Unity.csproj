@@ -88,6 +88,18 @@
     <Reference Include="websocket-sharp">
       <HintPath>Assets\Plugins\WebSocket\websocket-sharp.dll</HintPath>
     </Reference>
+    <Reference Include="DOTween">
+      <HintPath>Assets\DOTween\Demigiant\DOTween\DOTween.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTween46">
+      <HintPath>Assets\DOTween\Demigiant\DOTween\DOTween46.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTween43">
+      <HintPath>Assets\DOTween\Demigiant\DOTween\DOTween43.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTween50">
+      <HintPath>Assets\DOTween\Demigiant\DOTween\DOTween50.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Unity.Plugins.csproj">
@@ -240,6 +252,7 @@
     <Compile Include="Assets\PhotonChatApi\ChatState.cs" />
     <Compile Include="Assets\PhotonChatApi\ChatUserStatus.cs" />
     <Compile Include="Assets\PhotonChatApi\IChatClientListener.cs" />
+    <Compile Include="Assets\Prefabs\CardVisuals.cs" />
     <Compile Include="Assets\Prefabs\Resources\PlayerMethods.cs" />
     <Compile Include="Assets\Prefabs\Resources\PlayerSelectMethods.cs" />
     <Compile Include="Assets\Scripts\FullScreenBackground.cs" />
@@ -266,6 +279,11 @@
     <Compile Include="Assets\Sound Effects\ButtonHoverScript.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\DOTween\Demigiant\DOTween\DOTween.XML" />
+    <None Include="Assets\DOTween\Demigiant\DOTween\DOTween43.xml" />
+    <None Include="Assets\DOTween\Demigiant\DOTween\DOTween46.xml" />
+    <None Include="Assets\DOTween\Demigiant\DOTween\DOTween50.xml" />
+    <None Include="Assets\DOTween\Demigiant\DOTween\Editor\DOTweenEditor.XML" />
     <None Include="Assets\Fonts\Inconsolata\OFL.txt" />
     <None Include="Assets\Fonts\Maven_Pro\OFL.txt" />
     <None Include="Assets\Fonts\Play\OFL.txt" />

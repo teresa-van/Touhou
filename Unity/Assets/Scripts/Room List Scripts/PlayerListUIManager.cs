@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using ExitGames.Client.Photon;
+using UnityEngine.UI;
 
 /// <summary>
 /// Player list UI manager.
@@ -62,6 +63,7 @@ public class PlayerListUIManager: Photon.PunBehaviour {
 		}
 
         MainUIManager.Instance.StartGameButton.interactable = PhotonNetwork.player.IsMasterClient;
+        if (MainUIManager.Instance.StartGameButton.interactable == false) MainUIManager.Instance.StartGameButton.transform.Find("Text").GetComponent<Text>().text = "WAITING...";
     }
 
 	/// <summary>
