@@ -17,14 +17,17 @@ public class CardVisuals : MonoBehaviour {
 
     public void BlowUp(GameObject card)
     {
+        card.transform.parent.SetAsLastSibling();
         card.transform.SetAsLastSibling();
         Sequence s = DOTween.Sequence();
-        s.Append(card.transform.DOScale(new Vector3(3.5f, 3.5f, 3.5f), 0.25f));
+        s.Append(card.transform.DOLocalMoveY(card.transform.localPosition.y + 75f, 0.25f));
+        s.Append(card.transform.DOScale(new Vector3(2.2f, 2.2f, 2.2f), 0.25f));
     }
 
     public void Shrink(GameObject card)
     {
         Sequence s = DOTween.Sequence();
+        s.Append(card.transform.DOLocalMoveY(card.transform.localPosition.y - 75f, 0.25f));
         s.Append(card.transform.DOScale(Vector3.one, 0.25f));
     }
 }

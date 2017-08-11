@@ -141,14 +141,15 @@ public class GameManager : MonoBehaviour
         int x2 = 0;
         if (myPhotonView.gameObject.GetComponent<PlayerMethods>().Hand.Count < 8)
         {
-            if (myPhotonView.gameObject.GetComponent<PlayerMethods>().Hand.Count % 2 == 0) x = -40 * (myPhotonView.gameObject.GetComponent<PlayerMethods>().Hand.Count - 1);
-            else x = -80 * ((myPhotonView.gameObject.GetComponent<PlayerMethods>().Hand.Count - 1) / 2);
+            if (myPhotonView.gameObject.GetComponent<PlayerMethods>().Hand.Count % 2 == 0) x = -47 * (myPhotonView.gameObject.GetComponent<PlayerMethods>().Hand.Count - 1);
+            else x = -95 * ((myPhotonView.gameObject.GetComponent<PlayerMethods>().Hand.Count - 1) / 2);
         }
         else
         {
             int overflow = myPhotonView.gameObject.GetComponent<PlayerMethods>().Hand.Count - 8;
-            if (overflow % 2 == 0) x2 = -40 * (overflow - 1);
-            else x2 = -80 * ((overflow - 1) / 2);
+            if (overflow % 2 == 0) x2 = -47 * (overflow - 1);
+            else x2 = -95 * ((overflow - 1) / 2);
+            x = -329;
         }
 
         foreach (Card card in myPhotonView.gameObject.GetComponent<PlayerMethods>().Hand)
@@ -160,15 +161,14 @@ public class GameManager : MonoBehaviour
             cardPrefab.GetComponent<Image>().sprite = cardType;
             HandVisuals.Add(cardPrefab);
 
-            if (count > 8)
+            if (count >= 8)
             {
-                count = 0; y = -110; x = x2;
+                count = 0; y = -130; x = x2;
             }
             cardPrefab.transform.SetParent(HandParent.transform);
-            cardPrefab.transform.localPosition = new Vector3(x + (80 * count), y, 0);
+            cardPrefab.transform.localPosition = new Vector3(x + (95 * count), y, 0);
             count++; 
         }
-        HandParent.transform.SetAsLastSibling();
     }
 
     public void CreateDeck()

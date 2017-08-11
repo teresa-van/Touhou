@@ -78,7 +78,7 @@ public class SelectionManager : MonoBehaviour
         if (player.Role.Equals("Heroine"))
         {
             player.Health = 5;
-            player.MaxHandSize = 5;
+            player.MaxHandSize = 16;
         }
 
         Sprite role = Resources.Load<Sprite>("Role Cards/" + myPhotonView.GetComponent<PlayerSelectMethods>().role);
