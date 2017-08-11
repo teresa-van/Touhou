@@ -1,0 +1,17 @@
+Turns:
+- Cards should not be draggable when it is not your turn.
+   (Unless an event was fired and a graze or spell card can be played)
+- Create some kind of turn indicator (next to player UI)
+- 
+
+
+UI:
+- Add deck and discard pile: Card back image with deck size is sufficient.
+   (Card front for discard pile)
+- Message system at the top (Notifies when an event was fired and notifies whose turn it is).
+
+Incidents:
+- Icon shown in top right corner (hovering icon will show the blown up card with details).
+- Show (cards collected/cards required) if incidient requires collecting cards to be resolved.
+- Effects can be added later on...
+
