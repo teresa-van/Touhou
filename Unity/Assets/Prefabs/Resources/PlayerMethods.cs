@@ -25,6 +25,7 @@ public class PlayerMethods : MonoBehaviour
     public List<string> test;
     public List<Card> Hand;
 
+    private GameObject info;
     #region Initialization
 
     void Awake()
@@ -128,6 +129,29 @@ public class PlayerMethods : MonoBehaviour
     public void UpdateHandVisuals()
     {
         GameManager.Instance.UpdateHandVisuals();
+    }
+    #endregion
+
+    #region Non-RPC Methods
+    public void ShowCharacterInfo(GameObject icon)
+    {
+        info = new GameObject();
+        info.transform.SetParent(Menu.transform);
+        info.AddComponent<Image>();
+        info.GetComponent<Image>().preserveAspect = true;
+        Sprite infoCard = Resources.Load<Sprite>("Character Cards/" + icon.GetComponent<Image>().sprite.name);
+        info.GetComponent<Image>().sprite = infoCard;
+        info.AddComponent<Outline>();
+        info.GetComponent<Outline>().effectDistance = new Vector2(0.5f, 0.5f);
+
+        info.transform.position = icon.transform.position;
+        info.transform.position += new Vector3(5.5f, 0, 0);
+        info.transform.localScale = new Vector3(4, 4, 4);
+    }
+
+    public void HideCharacterInfo()
+    {
+        Destroy(info);
     }
     #endregion
 }

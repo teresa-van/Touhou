@@ -4,14 +4,24 @@ Turns:
 - Create some kind of turn indicator (next to player UI)
 - 
 
-
 UI:
 - Add deck and discard pile: Card back image with deck size is sufficient.
    (Card front for discard pile)
-- Message system at the top (Notifies when an event was fired and notifies whose turn it is).
+- Message system at the top (Notifies when an event was fired and notifies whose turn it is at the start of a turn).
 
 Incidents:
 - Icon shown in top right corner (hovering icon will show the blown up card with details).
 - Show (cards collected/cards required) if incidient requires collecting cards to be resolved.
 - Effects can be added later on...
 
+---------------------------------------------------------------------------------------------------------
+
+Events:
+- Fired and appended to a stack (events are resolved in a last-in first-out fashion)
+- Bombs are checked first as a reaction to any event
+- Events that occur from attempting to resolve another event is appended to the stack and must be resolved first
+
+Scenario:
+shoot
+graze ---> triggers another event (through passive effect of someone avoiding an attack)
+passive used because a shoot was played ---> triggers another event

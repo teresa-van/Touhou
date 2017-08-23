@@ -15,10 +15,11 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Variables
-    public List<int> turnOrder;
-    public int currentTurn;
+    private List<int> turnOrder;
+    private int currentTurn;
+
+    private List<GameObject> HandVisuals;
     public List<Card> Deck;
-    public List<GameObject> HandVisuals;
     public GameObject CardPrefab;
     public GameObject HandParent;
 
@@ -27,9 +28,9 @@ public class GameManager : MonoBehaviour
     public GameObject playerUI;
     public GameObject playerSprite;
 
-    public int yPos;
-    public double spriteX;
-    public double spriteY;
+    private int yPos;
+    private double spriteX;
+    private double spriteY;
 
     public Text RoleText;
     public Text CharacterText;
@@ -38,8 +39,9 @@ public class GameManager : MonoBehaviour
     public Image Icon;
     public Image Health;
 
-    public PlayerModel playerModel;
-    public PlayerModel heroine;
+    private PlayerModel playerModel;
+    private PlayerModel heroine;
+    public bool dragging = false;
     #endregion
 
     #region Initialization

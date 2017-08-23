@@ -10,7 +10,6 @@ public class CardVisuals : MonoBehaviour {
     Vector3 screenPoint;
     Vector3 offset;
     float lockedYPosition;
-    bool dragging = false;
 
 	// Use this for initialization
 	void Start () {
@@ -24,7 +23,7 @@ public class CardVisuals : MonoBehaviour {
 
     public void OnMouseDown()
     {
-        dragging = true;
+        GameManager.Instance.dragging = true;
         lockedYPosition = screenPoint.y;
         offset = gameObject.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z));
         Cursor.visible = false;
@@ -46,12 +45,12 @@ public class CardVisuals : MonoBehaviour {
         Sequence s = DOTween.Sequence();
         s.Append(gameObject.transform.DOLocalMove(initYPos, 0.25f));
         Cursor.visible = true;
-        dragging = false;
+        GameManager.Instance.dragging = false;
     }
 
     public void BlowUp()
     {
-        if (!dragging)
+        if (!GameManager.Instance.dragging)
         {
             gameObject.transform.parent.SetAsLastSibling();
             gameObject.transform.SetAsLastSibling();
@@ -63,7 +62,7 @@ public class CardVisuals : MonoBehaviour {
 
     public void Shrink()
     {
-        if (!dragging)
+        if (!GameManager.Instance.dragging)
         {
             Sequence s = DOTween.Sequence();
             s.Append(gameObject.transform.DOLocalMoveY(initYPos.y, 0.25f));
