@@ -45,7 +45,10 @@ public class CardVisuals : MonoBehaviour {
         Sequence s = DOTween.Sequence();
         s.Append(gameObject.transform.DOLocalMove(initYPos, 0.25f));
         Cursor.visible = true;
-        GameManager.Instance.dragging = false;
+        s.OnComplete(() =>
+        {
+            GameManager.Instance.dragging = false;
+        });
     }
 
     public void BlowUp()

@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
 
     private List<GameObject> HandVisuals;
     public List<Card> Deck;
+    public Text DeckSize;
     public GameObject CardPrefab;
     public GameObject HandParent;
 
@@ -268,6 +269,9 @@ public class GameManager : MonoBehaviour
         Deck.Add(new Card("Mini-Hakkero", "Summer", new List<string> { "Item", "Artifact" }));
         Deck.Add(new Card("Sorcerer's Sutra Scroll", "Fall", new List<string> { "Item", "Artifact" }));
         Deck.Add(new Card("Stopwatch", "Winter", new List<string> { "Item", "Artifact" }));
+
+        DeckSize.text = Deck.Count.ToString();
+        print(Deck.Count + " <- Initial");
     }
 
     #endregion
@@ -280,6 +284,8 @@ public class GameManager : MonoBehaviour
     public void UpdateDeck(int drawn)
     {
         Deck.RemoveRange(0, drawn);
+        print(Deck.Count);
+        DeckSize.text = Deck.Count.ToString();
         Debug.Log("AFTER UPDATE: " + GameManager.Instance.Deck[0].Name + " " + GameManager.Instance.Deck[1].Name + " " + GameManager.Instance.Deck[2].Name + " " + GameManager.Instance.Deck[3].Name + " " + GameManager.Instance.Deck[4].Name);
     }
 
