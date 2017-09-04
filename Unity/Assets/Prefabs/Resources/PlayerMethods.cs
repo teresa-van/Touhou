@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using Scripts.Models;
 using System.Linq;
 using System.Collections;
+using DG.Tweening;
 
 public class PlayerMethods : MonoBehaviour
 {
@@ -129,6 +130,21 @@ public class PlayerMethods : MonoBehaviour
     public void UpdateHandVisuals()
     {
         GameManager.Instance.UpdateHandVisuals();
+    }
+    #endregion
+
+    #region Turn Methods
+    [PunRPC]
+    public void MoveTurnIndicator()
+    {
+        Sequence s = DOTween.Sequence();
+        s.Append(GameManager.Instance.TurnIndicator.transform.DOLocalMoveY(playerUI.transform.localPosition.y, 0.75f));
+    }
+
+    [PunRPC]
+    public void NextPlayer()
+    {
+        GameManager.Instance.NextPlayer();
     }
     #endregion
 

@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using Scripts.Models;
 using System.Linq;
 using System;
+using DG.Tweening;
 
 public class GameManager : MonoBehaviour
 {
@@ -19,6 +20,9 @@ public class GameManager : MonoBehaviour
     private int currentTurn;
 
     private List<GameObject> HandVisuals;
+    public GameObject TurnIndicator;
+    public Button EndTurnButton;
+
     public List<Card> Deck;
     public Text DeckSize;
     public GameObject CardPrefab;
@@ -51,6 +55,13 @@ public class GameManager : MonoBehaviour
     {
         turnOrder = new List<int>();
         int count = 1;
+
+        Sequence s = DOTween.Sequence();
+        s.Append(TurnIndicator.transform.DOLocalMoveX(-265, 0.5f));
+        s.Insert(0, TurnIndicator.transform.DOScaleX(0.85f, 0.5f));
+        s.Append(TurnIndicator.transform.DOLocalMoveX(-270, 0.5f));
+        s.Insert(0.5f, TurnIndicator.transform.DOScaleX(1, 0.5f));
+        s.SetLoops(-1);
 
         foreach (PlayerModel player in PlayerManager.Instance.players)
         {
@@ -278,7 +289,12 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-
+        if (turnOrder[currentTurn] == PhotonNetwork.player.ID)
+        {
+            myPhotonView.RPC("MoveTurnIndicator", PhotonTargets.All);
+            EndTurnButton.interactable = true;
+        }
+        else EndTurnButton.interactable = false;
     }
 
     public void UpdateDeck(int drawn)
@@ -287,6 +303,11 @@ public class GameManager : MonoBehaviour
         print(Deck.Count);
         DeckSize.text = Deck.Count.ToString();
         Debug.Log("AFTER UPDATE: " + GameManager.Instance.Deck[0].Name + " " + GameManager.Instance.Deck[1].Name + " " + GameManager.Instance.Deck[2].Name + " " + GameManager.Instance.Deck[3].Name + " " + GameManager.Instance.Deck[4].Name);
+    }
+
+    public void EndTurnPressed()
+    {
+        myPhotonView.RPC("NextPlayer", PhotonTargets.All);
     }
 
     public void NextPlayer()
