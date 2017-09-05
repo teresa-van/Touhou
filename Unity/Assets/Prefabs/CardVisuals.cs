@@ -23,32 +23,41 @@ public class CardVisuals : MonoBehaviour {
 
     public void OnMouseDown()
     {
-        GameManager.Instance.dragging = true;
-        lockedYPosition = screenPoint.y;
-        offset = gameObject.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z));
-        Cursor.visible = false;
+        if (GameManager.Instance.draggable)
+        {
+            GameManager.Instance.dragging = true;
+            lockedYPosition = screenPoint.y;
+            offset = gameObject.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z));
+            Cursor.visible = false;
+        }
     }
 
     public void OnMouseDrag()
     {
-        Sequence s = DOTween.Sequence();
-        s.Insert(0, gameObject.transform.DOScale(new Vector3(0.5f, 0.5f, 0.5f), 0.15f));
+        if (GameManager.Instance.draggable)
+        {
+            Sequence s = DOTween.Sequence();
+            s.Insert(0, gameObject.transform.DOScale(new Vector3(0.5f, 0.5f, 0.5f), 0.15f));
 
-        Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z);
-        Vector3 curPosition = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
-        //curPosition.x = lockedYPosition;
-        transform.position = curPosition;
+            Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z);
+            Vector3 curPosition = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
+            //curPosition.x = lockedYPosition;
+            transform.position = curPosition;
+        }
     }
 
     public void OnMouseUp()
     {
-        Sequence s = DOTween.Sequence();
-        s.Append(gameObject.transform.DOLocalMove(initYPos, 0.25f));
-        Cursor.visible = true;
-        s.OnComplete(() =>
+        if (GameManager.Instance.draggable)
         {
-            GameManager.Instance.dragging = false;
-        });
+            Sequence s = DOTween.Sequence();
+            s.Append(gameObject.transform.DOLocalMove(initYPos, 0.25f));
+            Cursor.visible = true;
+            s.OnComplete(() =>
+            {
+                GameManager.Instance.dragging = false;
+            });
+        }
     }
 
     public void BlowUp()

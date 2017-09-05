@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour
     private PlayerModel playerModel;
     private PlayerModel heroine;
     public bool dragging = false;
+    public bool draggable = false;
     #endregion
 
     #region Initialization
@@ -128,6 +129,8 @@ public class GameManager : MonoBehaviour
 
             myPhotonView.RPC("UpdateHandVisuals", PhotonTargets.All);
         }
+
+        TurnIndicator.SetActive(true);
     }
 
     public void Uh()
@@ -292,9 +295,14 @@ public class GameManager : MonoBehaviour
         if (turnOrder[currentTurn] == PhotonNetwork.player.ID)
         {
             myPhotonView.RPC("MoveTurnIndicator", PhotonTargets.All);
+            draggable = true;
             EndTurnButton.interactable = true;
         }
-        else EndTurnButton.interactable = false;
+        else
+        {
+            draggable = false;
+            EndTurnButton.interactable = false;
+        }
     }
 
     public void UpdateDeck(int drawn)
