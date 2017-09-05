@@ -1,4 +1,6 @@
-﻿Shader "Sprites/Cheap Outer Glow"
+﻿//Shader from: https://forum.unity3d.com/threads/looking-for-glow-effect-for-sprites-mobile-friendly.427824/
+
+Shader "Sprites/Cheap Outer Glow"
  {
      Properties
      {
