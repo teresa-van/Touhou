@@ -73,6 +73,7 @@ public class PlayerMethods : MonoBehaviour
         playerSprite.transform.localPosition = new Vector2((float)spriteX, (float)spriteY);
         Sprite chibi = Resources.Load<Sprite>("Characters(Chibi)/" + playerModel.Character);
         playerSprite.sprite = chibi;
+        playerSprite.material.SetFloat("_GlowScale", 0);
     }
 
     #endregion

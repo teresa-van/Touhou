@@ -19,35 +19,27 @@ public class GameManager : MonoBehaviour
     private List<int> turnOrder;
     private int currentTurn;
 
-    private List<GameObject> HandVisuals;
+    public List<GameObject> HandVisuals;
     public GameObject TurnIndicator;
     public Button EndTurnButton;
 
     public List<Card> Deck;
     public Text DeckSize;
-    public GameObject CardPrefab;
-    public GameObject HandParent;
+    public GameObject CardPrefab, HandParent;
 
     private PhotonView myPhotonView;
 
-    public GameObject playerUI;
-    public GameObject playerSprite;
+    public GameObject playerUI, playerSprite;
 
     private int yPos;
     private double spriteX;
     private double spriteY;
 
-    public Text RoleText;
-    public Text CharacterText;
-    public Text Range;
-    public Text Distance;
-    public Image Icon;
-    public Image Health;
+    public Text RoleText, CharacterText, Range, Distance;
+    public Image Icon, Health;
 
-    private PlayerModel playerModel;
-    private PlayerModel heroine;
-    public bool dragging = false;
-    public bool draggable = false;
+    private PlayerModel playerModel, heroine;
+    public bool dragging = false, playable = false;
     #endregion
 
     #region Initialization
@@ -76,6 +68,7 @@ public class GameManager : MonoBehaviour
             count++;
         }
         turnOrder.Sort(); turnOrder.Insert(0, heroine.ID);
+        turnOrder.Add(0);
     }
 
     void Start()
@@ -141,51 +134,6 @@ public class GameManager : MonoBehaviour
     public void Fuck(int max)
     {
         myPhotonView.RPC("Fuck", PhotonTargets.All, max);
-    }
-
-    public void UpdateHandVisuals()
-    {
-        print("HERE!!");
-        print(myPhotonView.gameObject.GetComponent<PlayerMethods>().Nickname.text + " " + 
-            myPhotonView.gameObject.GetComponent<PlayerMethods>().Hand[0].Name + " " + 
-            myPhotonView.gameObject.GetComponent<PlayerMethods>().Hand[1].Name + " " +
-            myPhotonView.gameObject.GetComponent<PlayerMethods>().Hand[2].Name + " " +
-            myPhotonView.gameObject.GetComponent<PlayerMethods>().Hand[3].Name);
-
-        int count = 0;
-        int y = 0;
-        int x = 0;
-        int x2 = 0;
-        if (myPhotonView.gameObject.GetComponent<PlayerMethods>().Hand.Count < 8)
-        {
-            if (myPhotonView.gameObject.GetComponent<PlayerMethods>().Hand.Count % 2 == 0) x = -45 * (myPhotonView.gameObject.GetComponent<PlayerMethods>().Hand.Count - 1);
-            else x = -90 * ((myPhotonView.gameObject.GetComponent<PlayerMethods>().Hand.Count - 1) / 2);
-        }
-        else
-        {
-            int overflow = myPhotonView.gameObject.GetComponent<PlayerMethods>().Hand.Count - 8;
-            if (overflow % 2 == 0) x2 = -45 * (overflow - 1);
-            else x2 = -90 * ((overflow - 1) / 2);
-            x = -315;
-        }
-
-        foreach (Card card in myPhotonView.gameObject.GetComponent<PlayerMethods>().Hand)
-        {
-            print(card.Name);
-            GameObject cardPrefab = Instantiate(CardPrefab);
-            cardPrefab.name = card.Name + "(" + card.Season + ")";
-            Sprite cardType = Resources.Load<Sprite>("Cards/" + cardPrefab.name);
-            cardPrefab.GetComponent<Image>().sprite = cardType;
-            HandVisuals.Add(cardPrefab);
-
-            if (count >= 8)
-            {
-                count = 0; y = -115; x = x2;
-            }
-            cardPrefab.transform.SetParent(HandParent.transform);
-            cardPrefab.transform.localPosition = new Vector3(x + (90 * count), y, 0);
-            count++; 
-        }
     }
 
     public void CreateDeck()
@@ -295,12 +243,12 @@ public class GameManager : MonoBehaviour
         if (turnOrder[currentTurn] == PhotonNetwork.player.ID)
         {
             myPhotonView.RPC("MoveTurnIndicator", PhotonTargets.All);
-            draggable = true;
+            playable = true;
             EndTurnButton.interactable = true;
         }
         else
         {
-            draggable = false;
+            playable = false;
             EndTurnButton.interactable = false;
         }
     }
@@ -310,7 +258,52 @@ public class GameManager : MonoBehaviour
         Deck.RemoveRange(0, drawn);
         print(Deck.Count);
         DeckSize.text = Deck.Count.ToString();
-        Debug.Log("AFTER UPDATE: " + GameManager.Instance.Deck[0].Name + " " + GameManager.Instance.Deck[1].Name + " " + GameManager.Instance.Deck[2].Name + " " + GameManager.Instance.Deck[3].Name + " " + GameManager.Instance.Deck[4].Name);
+        Debug.Log("AFTER UPDATE: " + Deck[0].Name + " " + Deck[1].Name + " " + Deck[2].Name + " " + Deck[3].Name + " " + Deck[4].Name);
+    }
+
+    public void UpdateHandVisuals()
+    {
+        print("Updating hand visuals...");
+        print(myPhotonView.gameObject.GetComponent<PlayerMethods>().Nickname.text + " " +
+            myPhotonView.gameObject.GetComponent<PlayerMethods>().Hand[0].Name + " " +
+            myPhotonView.gameObject.GetComponent<PlayerMethods>().Hand[1].Name + " " +
+            myPhotonView.gameObject.GetComponent<PlayerMethods>().Hand[2].Name + " " +
+            myPhotonView.gameObject.GetComponent<PlayerMethods>().Hand[3].Name);
+
+        int count = 0;
+        int y = 0;
+        int x = 0;
+        int x2 = 0;
+        if (myPhotonView.gameObject.GetComponent<PlayerMethods>().Hand.Count < 8)
+        {
+            if (myPhotonView.gameObject.GetComponent<PlayerMethods>().Hand.Count % 2 == 0) x = -45 * (myPhotonView.gameObject.GetComponent<PlayerMethods>().Hand.Count - 1);
+            else x = -90 * ((myPhotonView.gameObject.GetComponent<PlayerMethods>().Hand.Count - 1) / 2);
+        }
+        else
+        {
+            int overflow = myPhotonView.gameObject.GetComponent<PlayerMethods>().Hand.Count - 8;
+            if (overflow % 2 == 0) x2 = -45 * (overflow - 1);
+            else x2 = -90 * ((overflow - 1) / 2);
+            x = -315;
+        }
+
+        foreach (Card card in myPhotonView.gameObject.GetComponent<PlayerMethods>().Hand)
+        {
+            print(card.Name);
+            GameObject cardPrefab = Instantiate(CardPrefab);
+            cardPrefab.name = card.Name + "(" + card.Season + ")";
+            Sprite cardType = Resources.Load<Sprite>("Cards/" + cardPrefab.name);
+            cardPrefab.GetComponent<Image>().sprite = cardType;
+            HandVisuals.Add(cardPrefab);
+
+            if (count >= 8)
+            {
+                count = 0; y = -115; x = x2;
+            }
+            cardPrefab.transform.SetParent(HandParent.transform);
+            cardPrefab.transform.localPosition = new Vector3(x + (90 * count), y, 0);
+            count++;
+        }
     }
 
     public void EndTurnPressed()
@@ -323,6 +316,25 @@ public class GameManager : MonoBehaviour
         if (currentTurn == turnOrder.Count-1) currentTurn = 0;
         else currentTurn++;
     }
+
+    #region Helpers
+
+    public void ShiftCards(float amount, List<GameObject> cards)
+    {
+        foreach (GameObject card in cards)
+        {
+            Sequence s = DOTween.Sequence();
+            s.Insert(0, card.transform.DOLocalMoveX(card.transform.localPosition.x + amount, 0.5f));
+
+            s.OnComplete(() =>
+            {
+                card.GetComponent<CardVisuals>().initPos = new Vector3(card.transform.localPosition.x, 
+                    card.GetComponent<CardVisuals>().initPos.y, card.GetComponent<CardVisuals>().initPos.z);
+            });
+        }
+    }
+
+    #endregion
 
     #region Photon Callbacks
 
