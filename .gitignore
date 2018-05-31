@@ -51,4 +51,5 @@ Unity/*.booproj
 Unity/*.svd
 Unity/*.pidb.meta
 Unity/sysinfo.txt
+Unity/UnityPackageManager/
 !*.*.meta
